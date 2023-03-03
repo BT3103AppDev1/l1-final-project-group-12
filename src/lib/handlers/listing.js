@@ -33,7 +33,8 @@ async function createListing(collectionName, listingFields) {
       throw Error("not a tutor, cannot make tutor listing");
     }
 
-    await addDoc(collection(db, collectionName), listingFields);
+    const listingDoc = await addDoc(collection(db, collectionName), listingFields);
+    await updateDoc(listingDoc, { id: listingDoc.id });
   } catch (error) {
     console.error("ERROR: failed to create listing", collectionName, error);
   }
