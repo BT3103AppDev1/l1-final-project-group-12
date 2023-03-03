@@ -44,7 +44,7 @@
  * @property {string} body
  * @property {number} rating
  * @property {string} tutorId
- * @property {string} userId
+ * @property {string} reviewerId
  */
 
 export {};
