@@ -4,10 +4,10 @@ import {
   signOut,
 } from "@firebase/auth";
 import { doc, setDoc } from "@firebase/firestore";
-import { auth, db } from "./firebase-config";
+import { auth, db } from "../firebase-config";
 
 /**
- * Tries to sign up a new user using the provided details (async)
+ * Try to sign up a new user
  * @param {string} phoneNumber new user's phoneNumber
  * @param {string} telegramHandle new user's telegramHandle
  * @param {string} email new user's email
@@ -18,8 +18,17 @@ async function signUp(phoneNumber, telegramHandle, email, password) {
     const userCred = await createUserWithEmailAndPassword(auth, email, password);
 
     await setDoc(doc(db, "users", userCred.user.uid), {
-      phoneNumber, telegramHandle, email,
-    })
+      phoneNumber,
+      telegramHandle,
+      email,
+      isTutor: false,
+      experience: 0,
+      education: "",
+      levels: [],
+      subjects: [],
+      region: "",
+      reviews: [],
+    });
 
     return userCred;
   } catch (error) {
@@ -27,7 +36,7 @@ async function signUp(phoneNumber, telegramHandle, email, password) {
   }
 }
 /**
- * Tries to sign in an existing user using the provided details (async)
+ * Try to sign in an existing user
  * @param {string} email new user's email
  * @param {string} password new user's password
  */
@@ -40,7 +49,7 @@ async function signIn(email, password) {
 }
 
 /**
- * Tries to sign out the current user (async)
+ * Try to sign out the current user
  */
 async function logOut() {
   try {
