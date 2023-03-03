@@ -7,8 +7,7 @@ import { doc, setDoc } from "@firebase/firestore";
 import { auth, db } from "./firebase-config";
 
 /**
- * Tries to sign up a new user using the provided details
- * @param {string} name new user's name
+ * Tries to sign up a new user using the provided details (async)
  * @param {string} phoneNumber new user's phoneNumber
  * @param {string} telegramHandle new user's telegramHandle
  * @param {string} email new user's email
@@ -28,7 +27,7 @@ async function signUp(name, phoneNumber, telegramHandle, email, password) {
   }
 }
 /**
- * Tries to sign in an existing user using the provided details
+ * Tries to sign in an existing user using the provided details (async)
  * @param {string} email new user's email
  * @param {string} password new user's password
  */
@@ -41,7 +40,7 @@ async function signIn(email, password) {
 }
 
 /**
- * Tries to sign out the current user
+ * Tries to sign out the current user (async)
  */
 async function logOut() {
   try {
