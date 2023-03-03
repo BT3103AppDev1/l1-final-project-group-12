@@ -8,12 +8,12 @@ import { auth, db } from "../firebase-config";
 
 /**
  * Try to sign up a new user
- * @param {string} phoneNumber new user's phoneNumber
- * @param {string} telegramHandle new user's telegramHandle
  * @param {string} email new user's email
  * @param {string} password new user's password
+ * @param {string} phoneNumber new user's phoneNumber
+ * @param {string} telegramHandle new user's telegramHandle
  */
-async function signUp(phoneNumber, telegramHandle, email, password) {
+async function signUp(email, password, phoneNumber, telegramHandle) {
   try {
     const userCred = await createUserWithEmailAndPassword(auth, email, password);
 
@@ -28,7 +28,6 @@ async function signUp(phoneNumber, telegramHandle, email, password) {
       levels: [],
       subjects: [],
       region: "",
-      reviews: [],
     });
 
     return userCred;
