@@ -18,6 +18,7 @@ async function signUp(phoneNumber, telegramHandle, email, password) {
     const userCred = await createUserWithEmailAndPassword(auth, email, password);
 
     await setDoc(doc(db, "users", userCred.user.uid), {
+      id: userCred.user.uid,
       phoneNumber,
       telegramHandle,
       email,
