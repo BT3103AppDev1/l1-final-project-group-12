@@ -13,12 +13,12 @@ import { auth, db } from "./firebase-config";
  * @param {string} email new user's email
  * @param {string} password new user's password
  */
-async function signUp(name, phoneNumber, telegramHandle, email, password) {
+async function signUp(phoneNumber, telegramHandle, email, password) {
   try {
     const userCred = await createUserWithEmailAndPassword(auth, email, password);
 
     await setDoc(doc(db, "users", userCred.user.uid), {
-      name, phoneNumber, telegramHandle, email,
+      phoneNumber, telegramHandle, email,
     })
 
     return userCred;
