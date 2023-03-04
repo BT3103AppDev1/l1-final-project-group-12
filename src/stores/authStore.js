@@ -9,7 +9,6 @@ const useAuthStore = defineStore("auth-store", () => {
 
   onAuthStateChanged(auth, async (currUser) => {
     if (currUser) {
-      console.log(currUser);
       const userFromFS = await getUserById(currUser.uid);
       user.value = userFromFS;
     }
