@@ -132,7 +132,6 @@ async function getListingsByQuery(collectionName, queryFields) {
  * @param {("student-listing"|"tutor-listing")} collectionName
  * @param {string} id id of the user to update
  * @param {object} updateFields object with fields to be updated
- * @param {Date} [updateFields.dateCreated]
  * @param {Models.Subject} [updateFields.subject]
  * @param {Models.Level} [updateFields.level]
  * @param {Models.Region} [updateFields.region]
