@@ -23,12 +23,12 @@ async function createReview(reviewFields) {
 }
 
 /**
- * Try to get all reviews by a user
- * @param {string} userId
+ * Try to get all reviews by tutor
+ * @param {string} tutorId
  */
-async function getReviewsByUserId(userId) {
+async function getReviewsByUserId(tutorId) {
   try {
-    const userDoc = doc(db, "users", userId);
+    const userDoc = doc(db, "users", tutorId);
     const reviewColl = collection(userDoc, "reviews");
     const querySnap = await getDocs(reviewColl);
 
@@ -47,7 +47,7 @@ async function getReviewsByUserId(userId) {
 
 /**
  * Try update Review by id
- * @param {string} id id of the user to update
+ * @param {string} tutorId id of the tutor to update
  * @param {object} updateFields object with fields to be updated
  * @param {Models.Subject} [updateFields.subject]
  * @param {Models.Level} [updateFields.level]
@@ -55,9 +55,11 @@ async function getReviewsByUserId(userId) {
  * @param {string} [updateFields.description]
  * @param {number} [updateFields.rates]
  */
-async function updateReviewById(id, updateFields) {
+async function updateReviewById(tutorId, updateFields) {
   try {
-    await updateDoc(doc(db, id), updateFields);
+    const userDoc = doc(db, "users", tutorId);
+    const reviewCol = collection(userDoc, "reviews");
+    await updateDoc(reviewCol, updateFields);
   } catch (error) {
     console.error("ERROR: failed to update Review by id", error);
   }
