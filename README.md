@@ -1,38 +1,62 @@
 # tent-app
 
-This template should help get you started developing with Vue 3 in Vite.
+## Architecture
 
-## Recommended IDE Setup
+### Frontend
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+#### Views
 
-## Customize configuration
+- / = home view
+  - auth/ = authentication view (sign in, sign up)
+  - student-listings/ = student listings view
+  - tutor-listings/ = tutor listings view
+  - tutor/\[id\]/ = public profile for that tutor
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+### Backend
 
-## Project Setup
+#### Schema
 
-```sh
-npm install
-```
+- **"users"**
+  - _general user attributes_
+    - id
+    - phoneNumber
+    - telegramHandle
+    - email
+  - _tutor profile attributes_
+    - isTutor
+    - gender
+    - education
+    - experience
+    - levels
+    - subjects
+    - region
+  - **"reviews"**
+    - id
+    - dateCreated
+    - body
+    - rating
+    - tutorId
+    - reviewerId
+- **"student-listings"**
+  - id
+  - dateCreated
+  - subject
+  - level
+  - region
+  - description
+  - rates
+  - userId
+- **"tutor-listings"**
+  - id
+  - dateCreated
+  - subject
+  - level
+  - region
+  - description
+  - rates
+  - tutorId
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
+## Project actions
 
 ### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
