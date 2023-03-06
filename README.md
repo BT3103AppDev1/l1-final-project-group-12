@@ -6,11 +6,11 @@
 
 #### Views
 
-- / = home view
-  - auth/ = authentication view (sign in, sign up)
-  - student-listings/ = student listings view
-  - tutor-listings/ = tutor listings view
-  - tutor/\[id\]/ = public profile for that tutor
+- `/` = home view
+  - `auth/` = authentication view (sign in, sign up)
+  - `student-listings/` = student listings view
+  - `tutor-listings/` = tutor listings view
+  - `tutor/[id]/` = public profile for that tutor
 
 ### Backend
 
