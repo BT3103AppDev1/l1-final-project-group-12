@@ -1,13 +1,17 @@
 /**
- * @typedef {("PSLE"|"O level"|"A level")} Level
+ * @typedef {"PSLE"|"O level"|"A level"} Level
  */
 
 /**
- * @typedef {("Science"|"Math"|"English"|"Arts")} Subject
+ * @typedef {"Science"|"Math"|"English"|"Arts"} Subject
  */
 
 /**
  * @typedef {"North"|"South"|"East"|"West"|"Central"} Region
+ */
+
+/**
+ * @typedef {"Male"|"Female"} Gender
  */
 
 /**
@@ -17,12 +21,12 @@
  * @property {string} telegramHandle
  * @property {string} email
  * @property {boolean} isTutor
+ * @property {Gender} gender
  * @property {string} education
  * @property {number} experience
  * @property {Level[]} levels
  * @property {Subject[]} subjects
  * @property {Region} region
- * @property {Review[]} reviews
  */
 
 /**
