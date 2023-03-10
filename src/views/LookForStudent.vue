@@ -1,18 +1,34 @@
 <template>
-    <button class="add-listing-btn" @click="showSelectListingModal = true">Add Listing</button>
-  <SelectListingType v-show="showSelectListingModal" @close-modal="showSelectListingModal = false" />
+  <button class="add-listing-btn" @click="showSelectListingModal = true">Add Listing</button>
+  <SelectListingType
+    v-show="showSelectListingModal"
+    @close-modal="showSelectListingModal = false"
+    @switch-student-modal="swapStudentModal"
+  />
+  <NewStudentListing
+    v-show="showStudentListingModal"
+    @close-modal="showStudentListingModal = false"
+  />
 </template>
 
 <script>
 import SelectListingType from "../components/SelectListingType.vue";
+import NewStudentListing from "../components/NewStudentListing.vue";
 
 export default {
-  components: { SelectListingType },
+  components: { SelectListingType, NewStudentListing },
   data() {
     return {
       showSelectListingModal: false,
+      showStudentListingModal: false,
     };
   },
+  methods:{
+    swapStudentModal() {
+      this.showSelectListingModal = false;
+      this.showStudentListingModal = true;
+    }
+  }
 };
 </script>
 
