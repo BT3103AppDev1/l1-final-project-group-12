@@ -1,15 +1,21 @@
-<script setup>
-import { RouterView } from "vue-router";
-</script>
-
 <template>
-  <header>
-    <div>
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <RouterView />
+<StudentListing/>
 </template>
 
-<style scoped></style>
+<script>
+import { RouterView } from "vue-router";
+import  StudentListing  from "./components/StudentListing.vue";
+
+export default {
+  name: 'App',
+  components: {
+    StudentListing
+  },
+  data(){
+  }
+
+}
+</script>
+
+<style scoped>
+</style>
