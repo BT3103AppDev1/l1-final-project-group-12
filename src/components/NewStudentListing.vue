@@ -1,23 +1,12 @@
 <template>
-    <div class="modal-overlay" @click="$emit('close-modal')">
-      <div class="modal">
-        <h6 class="title">I am a ....</h6>
-
-        <button @click="$emit('switch-student-modal')">
-            <h6 class="btn-title">Student</h6>
-            <p>looking for a tutor</p>
-        </button>
-
-        <button>
-            <h6 class="btn-title">Tutor</h6>
-            <p>looking for a student</p>
-        </button>
-
-      </div>
-      <div class="close" @click="$emit('close-modal')">
-        <img class="close-img" src="src\assets\close-icon.png" alt="" />
-      </div>
+  <div class="modal-overlay">
+    <div class="modal">
+      <h6 class="title">I am a student, looking for a tutor.</h6>
     </div>
+    <div class="close" @click="$emit('close-modal')">
+      <img class="close-img" src="src\assets\close-icon.png" alt="" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -66,6 +55,7 @@ export default {};
   color: #ff9040;
   text-align: left;
   margin-left: 60px;
+  margin-right: 60px;
 }
 
 .btn-title {
@@ -92,5 +82,22 @@ button {
   cursor: pointer;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+form {
+  text-align: left;
+  margin-left: 60px;
+  margin-top: 20px;
+}
+
+input {
+  background-color: #f6f5f6;
+  width: 200px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border-radius: 16px;
+  margin: 10px;
+  border-style: none;
 }
 </style>
