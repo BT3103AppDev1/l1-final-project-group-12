@@ -3,6 +3,7 @@ import AuthView from "../views/AuthView.vue";
 import HomeView from "../views/HomeView.vue";
 import TestView from "../views/TestView.vue";
 import BaseLayout from "../layouts/BaseLayout.vue";
+import LookForStudent from "@/views/LookForStudent.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,7 @@ const router = createRouter({
       children: [
         { name: "student-listings", path: "/student-listings", component: TestView },
         { name: "tutor-listings", path: "/tutor-listings", component: TestView },
+        { name: "search", path: "/search", component: LookForStudent },
         { name: "me", path: "/me", component: TestView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
       ],
