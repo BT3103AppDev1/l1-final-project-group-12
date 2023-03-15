@@ -1,5 +1,7 @@
 <template> 
 <div id = "page">
+    <button @click="showIndividualListingModel = true"> test add </button> 
+    <IndividualListing :data = data v-show = "showIndividualListingModel" @close-model = "showIndividualListingModel = false"/>
 
     <div id = "LeftContainer">
             <button id = "addbutton"> + Add Listing </button>
@@ -73,8 +75,20 @@ const db = getFirestore(firebaseApp);
 export default {
   name: 'StudentListing',
 
+  components : {
+    IndividualListing
+  },
+
+    data() {
+        return {
+            showIndividualListingModel : false,
+            data : ["a","b","c","d",1]
+        }
+    },
+
   async mounted(){
 
+    let $vm = this;
     async function display() {
         let allDocuments = await getDocs(collection(db, "StudentListing"))
         let index = 1
@@ -102,19 +116,19 @@ export default {
            row1 .id = "roll" + index
            let cell1 = row1.insertCell(0)
            let str = "cell" + index
-           let bnID = "bn" + index
+           //let bnID = "bn" + index
            let imgID = "img" + index
            let innerID = "inner" + index
            let ratesID = "rates" + index
            let outerDivID = "outer" + index
            cell1.id = str
 
-            
-        cell1.innerHTML = ` <div id = ${outerDivID} >
+
+        cell1.innerHTML = ` <div id = ${outerDivID}>
         
         <div id = ${index}>  
         
-        <br> <img src = "./src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:   ${level} <br><br> &nbsp; Subject: ${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:   ${level} <br><br> &nbsp; Subject: ${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
         &nbsp; Location: ${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description: ${desc} <br> <br> &nbsp; Rates:$${rates} <br> &nbsp; 
         </div>
         <br>
@@ -152,10 +166,20 @@ export default {
         cell1.bgColor = "white"
         cell1.width = '1000em';
 
+        document.getElementById(str).addEventListener('click', function() {
+            $vm.data[0] = level
+            $vm.data[1] = location
+            $vm.data[2] = subject
+            $vm.data[3] = desc
+            $vm.data[4] = rates
+            $vm.showIndividualListingModel = true;  
+        })
+
+
         })
     }
     display()
-
+    
   }
 
 }
