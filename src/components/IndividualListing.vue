@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-overlay" @click="$emit('close-modal')">
+    <div class="modal-overlay">
       <div class="modal">
         <h2 class="title">Student Details</h2>
         <br><br>

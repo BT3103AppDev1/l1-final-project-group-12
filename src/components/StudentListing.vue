@@ -1,7 +1,7 @@
 <template> 
 <div id = "page">
     <button @click="showIndividualListingModel = true"> test add </button> 
-    <IndividualListing :data = data v-show = "showIndividualListingModel" @close-model = "showIndividualListingModel = false"/>
+    <IndividualListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
 
     <div id = "LeftContainer">
             <button id = "addbutton"> + Add Listing </button>
@@ -14,7 +14,7 @@
             <input type="text" id = "search" required="" placeholder="Search...."> <br><br>
 
             <h2> LEVEL </h2>
-            <select id = "level select">
+            <select id = "level select" v-model = "datalevel"> 
                 <option> select 1 option </option>
                 <option> Primary </option>
                 <option> Secondary </option>
@@ -25,7 +25,7 @@
             <br>
             <br>
             <h2> SUBJECT </h2>
-            <select id = "subject select">
+            <select id = "subject select" v-model = "datasubject">
                 <option> select 1 option </option>
                 <option> Biology </option>
                 <option> Chinese Language </option>
@@ -35,17 +35,20 @@
                 <option> Malay Language </option>
                 <option> Physics </option>
                 <option> Tamil Language </option>
+                <option> Others </option>
                 
             </select>
             <br>
             <br>
             <h2> LOCATION </h2>
-            <select id = "location select">
+            <select id = "location select" v-model = "datalocation">
+                <option> select 1 option </option>
                 <option> North </option>
                 <option> South</option>
                 <option> East </option>
                 <option> West </option>
-                <option> Central     </option>
+                <option> Central </option>
+                <option> Others </option>
             </select>
         </div>
     </div>
@@ -82,7 +85,82 @@ export default {
     data() {
         return {
             showIndividualListingModel : false,
-            data : ["a","b","c","d",1]
+            data : ["a","b","c","d",1], //default values
+            datalevel : "default",
+            datasubject : "default",
+            datalocation : "default",
+            totallistings : []
+        }
+    },
+    methods: {
+        updateFilter(newValue){
+            let s = "roll"
+            for (var i = 0; i <this.totallistings.length; i++) {
+                let num =this.totallistings[i]
+                //Do something
+                let v = s + num
+                //console.log(v)  
+                let level ="Level:"                
+                if (newValue == 'Primary') {
+                    level = level +"P"
+                } else if (newValue == 'Seconday') {
+                    level = level + "S"
+                } else if (newValue == "Junior College") {
+                    level = level +"J"
+                } else {
+                    level = level + "O"
+                }
+                let subject = "Subjct:" + this.datasubject
+                let location = "Location:" + this.datalocation
+
+                if (document.getElementById(v).innerHTML.indexOf(level) <0 && document.getElementById(v).innerHTML.indexOf(level) <0){
+                    document.getElementById(v).style.display = 'none'
+                } else {
+                    document.getElementById(v).style.display = 'table'   
+                }
+            }    
+        },
+        updateSubject(newValue){
+            let s = "roll"
+            for (var i = 0; i <this.totallistings.length; i++) {
+                let num =this.totallistings[i]
+                //Do something
+                let v = s + num
+                //console.log(v)  
+                let level ="Subject:" + newValue
+
+                if (document.getElementById(v).innerHTML.indexOf(level) <0){
+                    document.getElementById(v).style.display = 'none'
+                } else {
+                    document.getElementById(v).style.display = 'table'   
+                }
+            }    
+        },
+        updateLocation(newValue){
+            let s = "roll"
+            for (var i = 0; i <this.totallistings.length; i++) {
+                let num =this.totallistings[i]
+                //Do something
+                let v = s + num
+                //console.log(v)  
+                let level ="Location:"  + newValue             
+                if (document.getElementById(v).innerHTML.indexOf(level) <0){
+                    document.getElementById(v).style.display = 'none'
+                } else {
+                    document.getElementById(v).style.display = 'table'   
+                }
+            }    
+        }
+    },
+    watch:{
+        datalevel(newValue){
+            this.updateFilter(newValue)
+        },
+        datasubject(newValue){
+            this.updateSubject(newValue)
+        },
+        datalocation(newValue){
+            this.updateLocation(newValue)
         }
     },
 
@@ -92,8 +170,6 @@ export default {
     async function display() {
         let allDocuments = await getDocs(collection(db, "StudentListing"))
         let index = 1
-
-
         allDocuments.forEach((docs) => {
             let documentData = docs.data()
 
@@ -113,7 +189,7 @@ export default {
            let table = document.getElementById("table")
            let row1 = table.insertRow(index)
            index +=1
-           row1 .id = "roll" + index
+           row1.id = "roll" + index
            let cell1 = row1.insertCell(0)
            let str = "cell" + index
            //let bnID = "bn" + index
@@ -123,13 +199,16 @@ export default {
            let outerDivID = "outer" + index
            cell1.id = str
 
+            ///let aaa = $vm.datalevel == "defaulta" || $vm.datalevel == level
+
+        //if(aaa) {
 
         cell1.innerHTML = ` <div id = ${outerDivID}>
-        
+
         <div id = ${index}>  
-        
-        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:   ${level} <br><br> &nbsp; Subject: ${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
-        &nbsp; Location: ${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description: ${desc} <br> <br> &nbsp; Rates:$${rates} <br> &nbsp; 
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:${level} <br><br> &nbsp; Subject:${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
+        &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; Rates:$${rates} <br> &nbsp; 
+
         </div>
         <br>
         <br>     
@@ -161,7 +240,11 @@ export default {
         document.getElementById(ratesID).style.marginRight = "2.8em";
         document.getElementById(ratesID).style.fontSize = "2.5em";
         document.getElementById(ratesID).style.color = "Orange  ";
-
+        /*
+        if (aaa) {
+            document.getElementById(outerDivID).style.display = "none"
+        }
+        */
     
         cell1.bgColor = "white"
         cell1.width = '1000em';
@@ -174,8 +257,9 @@ export default {
             $vm.data[4] = rates
             $vm.showIndividualListingModel = true;  
         })
-
-
+       // }
+    $vm.totallistings.push(index)
+    console.log($vm.totallistings)
         })
     }
     display()
