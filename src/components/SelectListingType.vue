@@ -40,9 +40,9 @@ export default {};
 .modal {
   text-align: center;
   background-color: white;
-  height: 500px;
-  width: 40%;
-  margin-top: 10%;
+  height: 60%;
+  width: 50%;
+  margin-top: 5%;
   padding: 60px 0;
   border-radius: 20px;
   min-width: 500px;
