@@ -1,6 +1,5 @@
 <template> 
 <div id = "page">
-    <button @click="showIndividualListingModel = true"> test add </button> 
     <IndividualListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
 
     <div id = "LeftContainer">
@@ -9,13 +8,13 @@
         <div id = "FilterContainer">
             <br>
             <h1> FILTER </h1>
+            <button @click="resetFilter"> Reset filter</button>
             <br>
             
-            <input type="text" id = "search" required="" placeholder="Search...."> <br><br>
+            <!-- <input type="text" id = "search" required="" placeholder="Search...."> <br><br> -->
 
             <h2> LEVEL </h2>
             <select id = "level select" v-model = "datalevel"> 
-                <option> select 1 option </option>
                 <option> Primary </option>
                 <option> Secondary </option>
                 <option> Junior College </option>
@@ -26,7 +25,6 @@
             <br>
             <h2> SUBJECT </h2>
             <select id = "subject select" v-model = "datasubject">
-                <option> select 1 option </option>
                 <option> Biology </option>
                 <option> Chinese Language </option>
                 <option> Chemistry </option>
@@ -42,7 +40,6 @@
             <br>
             <h2> LOCATION </h2>
             <select id = "location select" v-model = "datalocation">
-                <option> select 1 option </option>
                 <option> North </option>
                 <option> South</option>
                 <option> East </option>
@@ -93,74 +90,62 @@ export default {
         }
     },
     methods: {
-        updateFilter(newValue){
-            let s = "roll"
-            for (var i = 0; i <this.totallistings.length; i++) {
-                let num =this.totallistings[i]
-                //Do something
-                let v = s + num
-                //console.log(v)  
-                let level ="Level:"                
-                if (newValue == 'Primary') {
-                    level = level +"P"
-                } else if (newValue == 'Seconday') {
-                    level = level + "S"
-                } else if (newValue == "Junior College") {
-                    level = level +"J"
-                } else {
-                    level = level + "O"
-                }
-                let subject = "Subjct:" + this.datasubject
-                let location = "Location:" + this.datalocation
+        resetFilter(){
+            this.datalevel = "default"
+            this.datasubject = "default"
+            this.datalocation = "default"
+            this.updateFilter()
 
-                if (document.getElementById(v).innerHTML.indexOf(level) <0 && document.getElementById(v).innerHTML.indexOf(level) <0){
-                    document.getElementById(v).style.display = 'none'
-                } else {
-                    document.getElementById(v).style.display = 'table'   
-                }
-            }    
         },
-        updateSubject(newValue){
+        updateFilter(){
             let s = "roll"
             for (var i = 0; i <this.totallistings.length; i++) {
                 let num =this.totallistings[i]
                 //Do something
                 let v = s + num
                 //console.log(v)  
-                let level ="Subject:" + newValue
+                let level ="Level:"
+                if (this.datalevel != "default") {
+                    level = level + this.datalevel[0] //use first letter to filter  eg Level:P can mean Level:P1-P6
+                }
+                console.log(level)
+                let subject = "Subject:" 
+                if (this.datasubject != "default") {
+                    subject = subject + this.datasubject //use first letter to filter  eg Level:P can mean Level:P1-P6
+                }
+                console.log(subject)
+                let location = "Location:"
+                if (this.datalocation != "default") {
+                    location = location + this.datalocation //use first letter to filter  eg Level:P can mean Level:P1-P6
+                }
+                console.log(location)
 
-                if (document.getElementById(v).innerHTML.indexOf(level) <0){
-                    document.getElementById(v).style.display = 'none'
-                } else {
-                    document.getElementById(v).style.display = 'table'   
-                }
-            }    
-        },
-        updateLocation(newValue){
-            let s = "roll"
-            for (var i = 0; i <this.totallistings.length; i++) {
-                let num =this.totallistings[i]
-                //Do something
-                let v = s + num
-                //console.log(v)  
-                let level ="Location:"  + newValue             
-                if (document.getElementById(v).innerHTML.indexOf(level) <0){
+                let cell = document.getElementById(v)
+                let check = cell.innerHTML.indexOf(level) < 0 || cell.innerHTML.indexOf(subject) <0 || cell.innerHTML.indexOf(location) <0 
+                
+                console.log(cell.innerHTML.indexOf(level))
+                console.log(cell.innerHTML.indexOf(subject))
+                console.log(cell.innerHTML.indexOf(location))
+
+
+                if (check){
                     document.getElementById(v).style.display = 'none'
                 } else {
                     document.getElementById(v).style.display = 'table'   
                 }
             }    
         }
+
     },
     watch:{
-        datalevel(newValue){
-            this.updateFilter(newValue)
+        datalevel(){
+            this.updateFilter()
         },
-        datasubject(newValue){
-            this.updateSubject(newValue)
+        datasubject(){
+            this.updateFilter()
         },
-        datalocation(newValue){
-            this.updateLocation(newValue)
+        datalocation(){
+            this.updateFilter()
         }
     },
 
