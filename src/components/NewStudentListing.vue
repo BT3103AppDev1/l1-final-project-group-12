@@ -6,39 +6,45 @@
         <div class="modal-child">
           <div id="label1">
             <label for="level">Level</label> <br><br>
-            <select v-model="selected">
-              <option value="">Level</option>
-              <option>Primary</option>
-              <option>Secondary</option>
-              <option>Junior college</option>
+            <select v-model="selected" id="level">
+              <option> Primary </option>
+              <option> Secondary </option>
+              <option> Junior College </option>
+              <option> Others </option>
             </select> <br><br>
           </div>
 
           <div id="label2">
             <label for="subject">Subject</label> <br><br>
-            <select v-model="selected">
-              <option value="">Subject</option>
-              <option>English</option>
-              <option>Math</option>
-              <option>Science</option>
+            <select v-model="selected" id='subject'>
+              <option> Biology </option>
+              <option> Chinese Language </option>
+              <option> Chemistry </option>
+              <option> English </option>
+              <option> Math</option>
+              <option> Malay Language </option>
+              <option> Physics </option>
+              <option> Tamil Language </option>
+              <option> Others </option>
             </select><br><br>
           </div><br><br>
         </div>
         <div class="modal-child">
           <div id="label3">
             <label for="Location">Location</label> <br><br>
-            <select v-model="selected">
-              <option value="">Location</option>
-              <option>North</option>
-              <option>South</option>
-              <option>East</option>
-              <option>West</option>
+            <select v-model="selected" id="location">
+              <option> North </option>
+              <option> South</option>
+              <option> East </option>
+              <option> West </option>
+              <option> Central </option>
+              <option> Others </option>
             </select>
           </div><br>
 
           <div id="label4">
             <label for="Rates">Rates</label> <br><br>
-            <input v-model="rates" placeholder="Enter your rates">
+            <input type="number" id="rates" min="0" v-model="rates" placeholder="Enter your rates">
           </div>
         </div>
       </div>
@@ -46,12 +52,13 @@
       <div class="modal-description">
         <div id="description">
           <label for="Description">Description and contact method</label><br><br>
-          <textarea class="modal-description-input" v-model="description" placeholder="Description and contact method" rows = "4"> </textarea>
+          <textarea type="text" id="desc" class="modal-description-input" v-model="description"
+            placeholder="Description and contact method" rows="4"> </textarea>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="close">
+        <button type="button" class="button" @click=savestudentlisting>
           Add Listing
         </button>
       </div>
@@ -64,7 +71,38 @@
 </template>
 
 <script>
-export default {};
+import { db } from '../lib/firebase-config';
+import { collection, addDoc } from 'firebase/firestore';
+
+export default {
+  methods: {
+    // save listing to firebase
+    async savestudentlisting() {
+      let level = document.getElementById('level').value;
+      let subject = document.getElementById('subject').value;
+      let location = document.getElementById('location').value;
+      let rates = document.getElementById('rates').value;
+      let desc = document.getElementById('desc').value;
+
+      const data = {
+        level: level,
+        subject: subject,
+        location: location,
+        rates: rates,
+        description: desc,
+        createdAt: new Date(),
+        // userID: 
+      }
+
+      try {
+        const docRef = await addDoc(collection(db, 'student-listing'), data);
+        console.log('Document written with ID: ', docRef.id);
+      } catch (e) {
+        console.error('Error adding document: ', e);
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
