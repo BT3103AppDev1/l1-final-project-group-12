@@ -8,7 +8,7 @@
             <p>looking for a tutor</p>
         </button>
 
-        <button>
+        <button @click="$emit('switch-tutor-modal')">
             <h6 class="btn-title">Tutor</h6>
             <p>looking for a student</p>
         </button>
@@ -34,7 +34,6 @@ export default {};
   display: flex;
   justify-content: center;
   background-color: #000000da;
-  opacity: 90%;
 }
 
 .modal {
