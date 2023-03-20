@@ -164,7 +164,7 @@ export default {
             let level = documentData.level
             let subject = documentData.subject
             let location = documentData.location
-            let desc = documentData.desc
+            let desc = documentData.description
             let rates = documentData.rates
 /*
             let ul = document.getElementById("listings")
