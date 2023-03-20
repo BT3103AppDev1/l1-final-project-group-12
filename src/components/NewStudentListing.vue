@@ -1,22 +1,37 @@
 <template>
   <div class="modal-overlay">
-    <div class="modal">
+
+    <form class="modal">
       <h6 class="title">I am a student, looking for a tutor.</h6>
       <div class="modal-body">
         <div class="modal-child">
           <div id="label1">
             <label for="level">Level</label> <br><br>
-            <select v-model="selected" id="level">
+            <select v-model="selected" id="level" required>
               <option> Primary </option>
               <option> Secondary </option>
               <option> Junior College </option>
               <option> Others </option>
-            </select> <br><br>
-          </div>
+            </select> 
+          </div><br>
 
+          <div id="label3">
+            <label for="Location">Location</label> <br><br>
+            <select v-model="selected" id="location" required>
+              <option> North </option>
+              <option> South</option>
+              <option> East </option>
+              <option> West </option>
+              <option> Central </option>
+              <option> Others </option>
+            </select>
+          </div><br>
+        </div>
+
+        <div class="modal-child">
           <div id="label2">
             <label for="subject">Subject</label> <br><br>
-            <select v-model="selected" id='subject'>
+            <select v-model="selected" id='subject' required>
               <option> Biology </option>
               <option> Chinese Language </option>
               <option> Chemistry </option>
@@ -26,25 +41,12 @@
               <option> Physics </option>
               <option> Tamil Language </option>
               <option> Others </option>
-            </select><br><br>
-          </div><br><br>
-        </div>
-        <div class="modal-child">
-          <div id="label3">
-            <label for="Location">Location</label> <br><br>
-            <select v-model="selected" id="location">
-              <option> North </option>
-              <option> South</option>
-              <option> East </option>
-              <option> West </option>
-              <option> Central </option>
-              <option> Others </option>
             </select>
           </div><br>
 
           <div id="label4">
             <label for="Rates">Rates</label> <br><br>
-            <input type="number" id="rates" min="0" v-model="rates" placeholder="Enter your rates">
+            <input type="number" id="rates" min="0" v-model="rates" placeholder="Enter your rates" required>
           </div>
         </div>
       </div>
@@ -53,7 +55,7 @@
         <div id="description">
           <label for="Description">Description and contact method</label><br><br>
           <textarea type="text" id="desc" class="modal-description-input" v-model="description"
-            placeholder="Description and contact method" rows="4"> </textarea>
+            placeholder="Description and contact method" rows="4" required> </textarea>
         </div>
       </div>
 
@@ -62,8 +64,8 @@
           Add Listing
         </button>
       </div>
+    </form>
 
-    </div>
     <div class="close" @click="$emit('close-modal')">
       <img class="close-img" src="src\assets\close-icon.png" alt="" />
     </div>
@@ -90,8 +92,8 @@ export default {
         location: location,
         rates: rates,
         description: desc,
-        createdAt: new Date(),
-        // userID: 
+        dateCreated: new Date(),
+        // tutorId: 
       }
 
       try {
@@ -115,7 +117,6 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #000000da;
-  opacity: 90%;
 }
 
 .modal {
@@ -147,10 +148,6 @@ export default {
   width: 25px;
 }
 
-.check {
-  width: 150px;
-}
-
 .title {
   font-weight: bold;
   font-size: 28px;
@@ -158,13 +155,6 @@ export default {
   text-align: left;
   margin-left: 60px;
   margin-right: 60px;
-}
-
-.btn-title {
-  font-weight: bold;
-  font-size: 28px;
-  margin: 20px 0;
-  color: white;
 }
 
 p {
@@ -184,11 +174,6 @@ button {
   cursor: pointer;
   margin-left: 20px;
   margin-right: 20px;
-}
-
-form {
-  text-align: left;
-  margin-left: 60px;
 }
 
 input {
@@ -224,5 +209,6 @@ select {
   border-radius: 16px;
   /* margin: 10px; */
   border-style: none;
+  text-indent: 10px;
 }
 </style>
