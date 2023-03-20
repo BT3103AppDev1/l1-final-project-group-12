@@ -63,14 +63,16 @@
 </template>
 
 <script>
-import  IndividualListing  from "./IndividualListing.vue";
+import IndividualListing  from "./IndividualListing.vue";
+import {getAllListings} from "../lib/handlers/listing.js"; 
+/*    
 
 import firebaseApp from '../firebase.js'
 import { documentId, getFirestore } from "firebase/firestore"
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
 
 const db = getFirestore(firebaseApp);
-
+*/
 
 export default {
   name: 'StudentListing',
@@ -150,13 +152,14 @@ export default {
     },
 
   async mounted(){
-
     let $vm = this;
     async function display() {
-        let allDocuments = await getDocs(collection(db, "StudentListing"))
+        //let allDocuments = await getDocs(collection(db, "StudentListing"))
+        let allDocuments = await getAllListings("student-listing")
+        console.log(allDocuments)
         let index = 1
         allDocuments.forEach((docs) => {
-            let documentData = docs.data()
+            let documentData = docs
 
             let level = documentData.level
             let subject = documentData.subject
@@ -170,7 +173,7 @@ export default {
             
             li.appendChild(document.createTextNode("subject : " + subject))
             ul.appendChild(li)
-            */
+              */
            let table = document.getElementById("table")
            let row1 = table.insertRow(index)
            index +=1
@@ -192,8 +195,7 @@ export default {
 
         <div id = ${index}>  
         <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:${level} <br><br> &nbsp; Subject:${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
-        &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; Rates:$${rates} <br> &nbsp; 
-
+        &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; 
         </div>
         <br>
         <br>     
@@ -256,6 +258,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 
 #page{

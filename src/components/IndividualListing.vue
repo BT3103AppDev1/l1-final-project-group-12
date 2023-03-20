@@ -1,6 +1,9 @@
 <template>
     <div class="modal-overlay">
       <div class="modal">
+              <div class="close" @click="$emit('close-modal')"> 
+         <img class="close-img" src="src\assets\close-icon.png" alt="" />
+       </div> 
         <h2 class="title">Student Details</h2>
         <br><br>
         <img src = "/src/assets/empty_photo_user.png" id = "picture">
@@ -11,12 +14,14 @@
           <h3> Subject: {{ data[1] }} </h3>
           <h3> Location: {{ data[2] }} </h3>
           <h3> Description: {{ data[3] }}</h3>
+          <br>  
           <button id = "applyBN"> Apply to be Tutor </button>
         </div>
+        
       </div>
       <div class="close" @click="$emit('close-modal')"> 
-        <h1>  CLOSE </h1>
-       </div>
+         <img class="close-img" src="src\assets\close-icon.png" alt="" />
+       </div> 
     </div>
 </template>
 
@@ -45,7 +50,7 @@ export default {
   display: flex;
   justify-content: center;
   background-color: #000000da;
-  opacity: 90%;
+  opacity: 100%;
 }
 
 .modal {
@@ -59,12 +64,14 @@ export default {
   min-width: 500px;
 }
 .close {
-  margin: 10% 0 0 16px;
+  margin: -6% 1% 0 16px;
   cursor: pointer;
+  float:right
 }
 
 .close-img {
-  width: 25px;
+  width: 30px;
+   
 }
 
 .check {
@@ -125,4 +132,5 @@ button {
   border-radius: 1em;
 
 }
+
 </style>
