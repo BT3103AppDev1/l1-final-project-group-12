@@ -5,12 +5,13 @@ import HomeView from "../views/HomeView.vue";
 import TestView from "../views/TestView.vue";
 import BaseLayout from "../layouts/BaseLayout.vue";
 import TutorListingsView from "../views/TutorListingsView.vue";
+import DisplayTutorListings from '@/views/DisplayTutorListings.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", redirect: "/home" },
-    { name: "home", path: "/home", component: HomeView },
+    { name: "home", path: "/home", component: DisplayTutorListings },
     { name: "auth", path: "/auth", component: AuthView },
     {
       path: "/",

@@ -1,6 +1,6 @@
 <template> 
 <div id = "page">
-    <IndividualStudentListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
+    <IndividualTutorListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
 
     <div id = "LeftContainer">
             <button id = "addbutton"> + Add Listing </button>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import IndividualStudentListing  from "./IndividualStudentListing.vue";
+import IndividualTutorListing  from "./IndividualTutorListing.vue";
 import {getAllListings} from "../lib/handlers/listing.js"; 
 /*    
 
@@ -75,10 +75,10 @@ const db = getFirestore(firebaseApp);
 */
 
 export default {
-  name: 'StudentListing',
+  name: 'TutorListing',
 
   components : {
-    IndividualStudentListing
+    IndividualTutorListing
   },
 
     data() {
@@ -155,11 +155,12 @@ export default {
     let $vm = this;
     async function display() {
         //let allDocuments = await getDocs(collection(db, "StudentListing"))
-        let allDocuments = await getAllListings("student-listing")
-        console.log(allDocuments)
+        let allDocuments = await getAllListings("tutor-listing")
+        //console.log(allDocuments)
         let index = 1
         allDocuments.forEach((docs) => {
             let documentData = docs
+            console.log(docs)
 
             let level = documentData.level
             let subject = documentData.subject
