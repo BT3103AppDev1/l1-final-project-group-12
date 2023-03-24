@@ -1,68 +1,83 @@
 <template>
   <div class="modal-overlay">
-
     <form class="modal">
       <h6 class="title">I am a student, looking for a tutor.</h6>
       <div class="modal-body">
         <div class="modal-child">
           <div id="label1">
-            <label for="level">Level</label> <br><br>
+            <label for="level">Level</label> <br /><br />
             <select v-model="selected" id="level" required>
-              <option> Primary </option>
-              <option> Secondary </option>
-              <option> Junior College </option>
-              <option> Others </option>
-            </select> 
-          </div><br>
+              <option>Primary</option>
+              <option>Secondary</option>
+              <option>Junior College</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <br />
 
           <div id="label3">
-            <label for="Location">Location</label> <br><br>
+            <label for="Location">Location</label> <br /><br />
             <select v-model="selected" id="location" required>
-              <option> North </option>
-              <option> South</option>
-              <option> East </option>
-              <option> West </option>
-              <option> Central </option>
-              <option> Others </option>
+              <option>North</option>
+              <option>South</option>
+              <option>East</option>
+              <option>West</option>
+              <option>Central</option>
+              <option>Others</option>
             </select>
-          </div><br>
+          </div>
+          <br />
         </div>
 
         <div class="modal-child">
           <div id="label2">
-            <label for="subject">Subject</label> <br><br>
-            <select v-model="selected" id='subject' required>
-              <option> Biology </option>
-              <option> Chinese Language </option>
-              <option> Chemistry </option>
-              <option> English </option>
-              <option> Math</option>
-              <option> Malay Language </option>
-              <option> Physics </option>
-              <option> Tamil Language </option>
-              <option> Others </option>
+            <label for="subject">Subject</label> <br /><br />
+            <select v-model="selected" id="subject" required>
+              <option>Biology</option>
+              <option>Chinese Language</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>Math</option>
+              <option>Malay Language</option>
+              <option>Physics</option>
+              <option>Tamil Language</option>
+              <option>Others</option>
             </select>
-          </div><br>
+          </div>
+          <br />
 
           <div id="label4">
-            <label for="Rates">Rates</label> <br><br>
-            <input type="number" id="rates" min="0" v-model="rates" placeholder="Enter your rates" required>
+            <label for="Rates">Rates</label> <br /><br />
+            <input
+              type="number"
+              id="rates"
+              min="0"
+              v-model="rates"
+              placeholder="Enter your rates"
+              required
+            />
           </div>
         </div>
       </div>
 
       <div class="modal-description">
         <div id="description">
-          <label for="Description">Description and contact method</label><br><br>
-          <textarea type="text" id="desc" class="modal-description-input" v-model="description"
-            placeholder="Description and contact method" rows="4" required> </textarea>
+          <label for="Description">Description and contact method</label><br /><br />
+          <textarea
+            type="text"
+            id="desc"
+            class="modal-description-input"
+            v-model="description"
+            placeholder="Description and contact method"
+            rows="4"
+            required
+          >
+          </textarea>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click=savestudentlisting>
-          Add Listing
-        </button>
+        <button type="button" class="button" @click="savestudentlisting">Add Listing</button>
       </div>
     </form>
 
@@ -73,18 +88,18 @@
 </template>
 
 <script>
-import { db } from '../lib/firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { db } from "../lib/firebase-config";
+import { collection, addDoc } from "firebase/firestore";
 
 export default {
   methods: {
     // save listing to firebase
     async savestudentlisting() {
-      let level = document.getElementById('level').value;
-      let subject = document.getElementById('subject').value;
-      let location = document.getElementById('location').value;
-      let rates = document.getElementById('rates').value;
-      let desc = document.getElementById('desc').value;
+      let level = document.getElementById("level").value;
+      let subject = document.getElementById("subject").value;
+      let location = document.getElementById("location").value;
+      let rates = document.getElementById("rates").value;
+      let desc = document.getElementById("desc").value;
 
       const data = {
         level: level,
@@ -93,17 +108,17 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        // tutorId: 
-      }
+        // tutorId:
+      };
 
       try {
-        const docRef = await addDoc(collection(db, 'student-listing'), data);
-        console.log('Document written with ID: ', docRef.id);
+        const docRef = await addDoc(collection(db, "student-listing"), data);
+        console.log("Document written with ID: ", docRef.id);
       } catch (e) {
-        console.error('Error adding document: ', e);
+        console.error("Error adding document: ", e);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
