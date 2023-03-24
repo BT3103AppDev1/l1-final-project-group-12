@@ -1,3 +1,19 @@
+<!---
+How to use:
+1. Import and register ModalComponent
+2. Use it in the template
+
+<template>
+  ...
+
+  <ModalComponent>
+    ...content here...
+  </ModalComponent>
+
+  ...
+</template>
+--->
+
 <template>
   <transition name="modal-fade">
     <div class="modal-overlay">
