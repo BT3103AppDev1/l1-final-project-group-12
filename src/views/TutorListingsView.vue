@@ -11,10 +11,7 @@
     @close-modal="showStudentListingModal = false"
   />
 
-  <NewTutorListing
-    v-show="showTutorListingModal"
-    @close-modal="showTutorListingModal = false"
-  />
+  <NewTutorListing v-show="showTutorListingModal" @close-modal="showTutorListingModal = false" />
 
   <button class="add-listing-btn" @click="showSelectListingModal = true">Add Listing</button>
 </template>
@@ -30,10 +27,10 @@ export default {
     return {
       showSelectListingModal: false,
       showStudentListingModal: false,
-      showTutorListingModal: false
+      showTutorListingModal: false,
     };
   },
-  methods:{
+  methods: {
     swapStudentModal() {
       this.showSelectListingModal = false;
       this.showStudentListingModal = true;
@@ -41,8 +38,8 @@ export default {
     swapTutorModal() {
       this.showSelectListingModal = false;
       this.showTutorListingModal = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
