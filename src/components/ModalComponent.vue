@@ -1,4 +1,4 @@
-<!---
+<!--
 How to use:
 1. Import and register ModalComponent
 2. Use it in the template
@@ -12,7 +12,7 @@ How to use:
 
   ...
 </template>
---->
+-->
 
 <template>
   <transition name="modal-fade">
