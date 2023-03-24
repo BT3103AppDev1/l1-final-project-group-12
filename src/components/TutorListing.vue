@@ -156,6 +156,7 @@ export default {
     async function display() {
         //let allDocuments = await getDocs(collection(db, "StudentListing"))
         let allDocuments = await getAllListings("tutor-listing")
+
         //console.log(allDocuments)
         let index = 1
         allDocuments.forEach((docs) => {
@@ -184,7 +185,7 @@ export default {
            //let bnID = "bn" + index
            let imgID = "img" + index
            let innerID = "inner" + index
-           let ratesID = "rates" + index
+           let ratingID = "rating" + index
            let outerDivID = "outer" + index
            cell1.id = str
 
@@ -195,8 +196,8 @@ export default {
         cell1.innerHTML = ` <div id = ${outerDivID}>
 
         <div id = ${index}>  
-        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:${level} <br><br> &nbsp; Subject:${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
-        &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; 
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Levels:${level} <br> <br> 
+        &nbsp; Subjects :${subject} <br> <br> &nbsp; Contact:${desc} <br> <br> &nbsp; 
         </div>
         <br>
         <br>     
@@ -209,7 +210,7 @@ export default {
         document.getElementById(index).style.backgroundColor = "white"
         document.getElementById(imgID).style.float = "left"
         document.getElementById(imgID).style.height = "5em"
-        document.getElementById(imgID).style.height = "8.5em"
+        document.getElementById(imgID).style.height = "13em"
         document.getElementById(imgID).style.marginTop = "0.5em"
         //document.getElementById(index).style.border = "solid 1px"
         //document.getElementById(index).style.borderRadius = "2em"
@@ -224,10 +225,10 @@ export default {
         document.getElementById(innerID).style.marginRight = "7em";
         document.getElementById(innerID).style.fontSize = "1.2em";
 
-        document.getElementById(ratesID).style.float = "right"
-        document.getElementById(ratesID).style.marginRight = "2.8em";
-        document.getElementById(ratesID).style.fontSize = "2.5em";
-        document.getElementById(ratesID).style.color = "Orange  ";
+        document.getElementById(ratingID).style.float = "right"
+        document.getElementById(ratingID).style.marginRight = "2.8em";
+        document.getElementById(ratingID).style.fontSize = "3em";
+        document.getElementById(ratingID).style.color = "Orange  ";
         /*
         if (aaa) {
             document.getElementById(outerDivID).style.display = "none"
