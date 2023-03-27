@@ -197,7 +197,7 @@ export default {
 
         <div id = ${index}>  
         <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Levels:${level} <br> <br> 
-        &nbsp; Subjects :${subject} <br> <br> &nbsp; Contact:${desc} <br> <br> &nbsp; 
+        &nbsp; Subjects :${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact: <br> <br> &nbsp;
         </div>
         <br>
         <br>     
@@ -210,7 +210,7 @@ export default {
         document.getElementById(index).style.backgroundColor = "white"
         document.getElementById(imgID).style.float = "left"
         document.getElementById(imgID).style.height = "5em"
-        document.getElementById(imgID).style.height = "13em"
+        document.getElementById(imgID).style.height = "16em"
         document.getElementById(imgID).style.marginTop = "0.5em"
         //document.getElementById(index).style.border = "solid 1px"
         //document.getElementById(index).style.borderRadius = "2em"

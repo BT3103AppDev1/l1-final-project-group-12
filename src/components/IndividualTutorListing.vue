@@ -9,13 +9,18 @@
         <img src = "/src/assets/empty_photo_user.png" id = "picture">
         <div id = content>
           <br>
-          <h3 id ="rating"> RATING<br> {{data[4]}}</h3>
-          <h3> Education: {{ data[0] }} </h3>
+          <div id = "rating"> 
+            <h3 id> RATING<br> </h3>
+            <h3 id = "rateNum" >  5.0</h3>
+          </div>
+          <h3> Education:  </h3>
           <h3> Experience: </h3>
-          <h3> Location: {{ data[2] }} </h3>
-          <h3> Levels: </h3>
-          <h3> Subject: {{ data[1] }} </h3>
-          <h3> Contact: {{ data[3] }}</h3>
+          <h3> Location: {{ data[1] }} </h3>
+          <h3> Levels: {{data[0]}}</h3>
+          <h3> Subject: {{ data[2] }} </h3>
+          <h3> Contact: </h3>
+          <h3> Rates: {{ data[4] }}/hr</h3>
+          <h3> Description: {{data[3]}} </h3>
           <br>  
           <button id = "applyBN"> Apply to be Student </button>
           <br>
@@ -39,7 +44,7 @@ export default {
     }
   },
   props: {
-      data : [String, String, String, String, Number]
+      data : Array
   }
 }
 </script>
@@ -60,7 +65,7 @@ export default {
 .modal {
   text-align: center;
   background-color: white;
-  height: 40%;
+  height: 42%;
   width: 40%;
   margin-top: 10%;
   padding: 60px 0;
@@ -125,7 +130,7 @@ button {
 }
 #rating{
   float:right;
-  margin-right: 5em;
+  margin-right: 3em;
   color:black;
   font-size: 200%;
 }
@@ -142,5 +147,9 @@ button {
   font-size : 150%;
   border-radius: 1em;
 }
-
+#rateNum{
+  margin-left : 0.5em;
+  color:#ff9040;
+  font-size: 200%;
+}
 </style>
