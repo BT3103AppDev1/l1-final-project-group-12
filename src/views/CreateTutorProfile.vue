@@ -1,27 +1,48 @@
 <script setup>
 import ModalComponent from "@/components/ModalComponent.vue";
 import { ref } from "vue";
+import updateTutorProfileById from "@/lib/handlers/user.js"
 
 const showModal = ref(false);
 
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
-  // *currently does not have any backend, just displays an alert showing name and gender, then closes modal*
+  // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
   let name = document.getElementById("name1").value
 
   let gender = document.getElementById("gender1").value
 
   let qualification = document.getElementById("qualification1").value
 
-  // checkbox options for subjects taught
+  // checkbox options for subjects taught, returns a boolean for if the option was checked
+  const subjects = []
   let english = document.getElementById("english").checked
+  if (english) {
+    levels.push("English")
+  }
   let math = document.getElementById("math").checked
+  if (math) {
+    levels.push("Math")
+  }
   let science = document.getElementById("science").checked
+  if (science) {
+    levels.push("Science")
+  }
 
-  // checkbox options for levels taught
+  // checkbox options for levels taught, returns a boolean for if the option was checked
+  const levels = []
   let primary = document.getElementById("primary").checked
+  if (primary) {
+    levels.push("Primary")
+  }
   let secondary = document.getElementById("secondary").checked
+  if (secondary) {
+    levels.push("Secondary")
+  }
   let jc = document.getElementById("jc").checked
+  if (jc) {
+    levels.push("Junior College")
+  }
 
   let location = document.getElementById("location1").value
 
@@ -29,7 +50,15 @@ function saveTutorProfile() {
 
   let tele = document.getElementById("tele1").value
 
-  alert("Your name is: " + name + "\nYour gender is: " + gender)
+  // alert("Your name is: " + name + "\nYour gender is: " + gender)
+
+  updateTutorProfileById(id, {
+    isTutor : true,
+    education : qualification,
+    levels : levels,
+    subjects : subjects,
+    region : location
+  })
   showModal.value = false
 }
 </script>
