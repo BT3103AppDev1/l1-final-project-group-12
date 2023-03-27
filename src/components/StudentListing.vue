@@ -237,11 +237,11 @@ export default {
         cell1.width = '1000em';
 
         document.getElementById(str).addEventListener('click', function() {
-            $vm.data[0] = level
-            $vm.data[1] = location
-            $vm.data[2] = subject
-            $vm.data[3] = desc
-            $vm.data[4] = rates
+            $vm.data[0] = String(level)
+            $vm.data[1] = String(location)
+            $vm.data[2] = String(subject)
+            $vm.data[3] = String(desc)
+            $vm.data[4] = parseInt(rates)
             $vm.showIndividualListingModel = true;  
         })
        // }
