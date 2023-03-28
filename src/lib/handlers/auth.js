@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "@firebase/auth";
@@ -60,4 +61,20 @@ async function logOut() {
   }
 }
 
-export { signUp, signIn, logOut };
+/**
+ * Try to get current user
+ */
+function getCurrentUser() {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        unsubscribe();
+        resolve(user);
+      },
+      reject
+    );
+  });
+}
+
+export { signUp, signIn, logOut, getCurrentUser };
