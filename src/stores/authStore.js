@@ -16,15 +16,17 @@ How to use auth system:
 
 const useAuthStore = defineStore("auth-store", () => {
   const user = ref();
+  const loading = ref(true);
 
   onAuthStateChanged(auth, async (currUser) => {
     if (currUser) {
       const userFromFS = await getUserById(currUser.uid);
       user.value = userFromFS;
     }
+    loading.value = false;
   });
 
-  return { user };
+  return { user, loading };
 });
 
 export { useAuthStore };
