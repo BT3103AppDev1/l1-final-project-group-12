@@ -31,10 +31,9 @@ async function signUp(email, password, phoneNumber, telegramHandle) {
       subjects: [],
       region: "",
     });
-
-    return userCred;
   } catch (error) {
     console.error("ERROR: failed to sign up new user", error);
+    return error;
   }
 }
 /**
@@ -44,9 +43,10 @@ async function signUp(email, password, phoneNumber, telegramHandle) {
  */
 async function signIn(email, password) {
   try {
-    return await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("ERROR: failed to sign in existing user", error);
+    return error;
   }
 }
 
@@ -58,6 +58,7 @@ async function logOut() {
     return await signOut(auth);
   } catch (error) {
     console.error("ERROR: failed to sign out user", error);
+    return error;
   }
 }
 
