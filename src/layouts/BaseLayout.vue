@@ -21,7 +21,6 @@ const logOutOnClick = async () => {
     </div>
   </nav>
 
-  <!-- <slot /> -->
   <router-view />
 </template>
 
