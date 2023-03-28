@@ -10,8 +10,12 @@ How to use auth system:
   - `import {storeToRefs} from "pinia";`
   - `import { useAuthStore } from "@/stores/authStore.js";`
 2. Use store in your components
-  - `{ user } = storeToRefs(useAuthStore());`
+  - `{ user, loading } = storeToRefs(useAuthStore());`
   - The `user` variable is a ref object, with properties as defined in the User object in "src/lib/models.js"
+3. Accessing wrapped values in ref objects
+  - `user.value` will return the User object
+  - `loading.value` will return a boolean
+  - Refer to vue documentation on refs to find out more (https://vuejs.org/api/reactivity-core.html#ref)
 */
 
 const useAuthStore = defineStore("auth-store", () => {
