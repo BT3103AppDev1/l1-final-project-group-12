@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { signIn, signUp } from "../lib/handlers/auth";
+import { signIn, signUp } from "@/lib/handlers/auth";
 
 const mode = ref("sign-in");
 const router = useRouter();
@@ -23,7 +23,7 @@ const changeModeOnClick = (newMode) => {
 
 const signInOnSubmit = async () => {
   await signIn(inputs.value.email, inputs.value.password);
-  router.push("/me");
+  router.push("/home");
 };
 
 const signUpOnSubmit = async () => {
@@ -33,7 +33,7 @@ const signUpOnSubmit = async () => {
     inputs.value.phoneNumber,
     inputs.value.telegramHandle
   );
-  router.push("/me");
+  router.push("/home");
 };
 </script>
 
