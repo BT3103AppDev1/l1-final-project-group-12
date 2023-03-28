@@ -14,6 +14,11 @@ body,
   height: 100%;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
 :root {
   --tent-orange: rgb(255, 144, 66);
 }

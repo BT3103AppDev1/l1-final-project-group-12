@@ -13,6 +13,8 @@ const inputs = ref({
   telegramHandle: "",
 });
 
+const buttonDisabled = ref(false);
+
 /**
  * Changes mode of the current form
  * @param {("sign-in"|"sign-up")} newMode
@@ -22,18 +24,34 @@ const changeModeOnClick = (newMode) => {
 };
 
 const signInOnSubmit = async () => {
-  await signIn(inputs.value.email, inputs.value.password);
-  router.push("/home");
+  buttonDisabled.value = true;
+  const error = await signIn(inputs.value.email, inputs.value.password);
+  buttonDisabled.value = false;
+  inputs.value = {
+    email: "",
+    password: "",
+    phoneNumber: "",
+    telegramHandle: "",
+  };
+  if (error === undefined) router.push("/home");
 };
 
 const signUpOnSubmit = async () => {
-  await signUp(
+  buttonDisabled.value = true;
+  const error = await signUp(
     inputs.value.email,
     inputs.value.password,
     inputs.value.phoneNumber,
     inputs.value.telegramHandle
   );
-  router.push("/home");
+  buttonDisabled.value = false;
+  inputs.value = {
+    email: "",
+    password: "",
+    phoneNumber: "",
+    telegramHandle: "",
+  };
+  if (error === undefined) router.push("/home");
 };
 </script>
 
@@ -54,7 +72,9 @@ const signUpOnSubmit = async () => {
         <label>Password</label>
         <input type="text" v-model="inputs.password" />
 
-        <button type="submit">Sign In</button>
+        <button type="submit" :disabled="buttonDisabled">
+          {{ buttonDisabled ? "loading..." : "Sign In" }}
+        </button>
       </form>
 
       <form @submit.prevent="signUpOnSubmit" v-show="mode === 'sign-up'">
@@ -70,7 +90,9 @@ const signUpOnSubmit = async () => {
         <label>Telegram Handle</label>
         <input type="text" v-model="inputs.telegramHandle" />
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" :disabled="buttonDisabled">
+          {{ buttonDisabled ? "loading..." : "Sign Up" }}
+        </button>
       </form>
     </div>
   </div>
@@ -163,7 +185,7 @@ form input {
 }
 
 form button {
-  background: rgb(255, 144, 66);
+  background: var(--tent-orange);
   color: white;
   border: none;
   font-size: 1.5rem;
