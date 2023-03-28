@@ -196,8 +196,8 @@ export default {
         cell1.innerHTML = ` <div id = ${outerDivID}>
 
         <div id = ${index}>  
-        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Levels:${level} <br> <br> 
-        &nbsp; Subjects :${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact: <br> <br> &nbsp;
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Level:${level} <br> <br> 
+        &nbsp; Subject:${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact: <br> <br> &nbsp;
         </div>
         <br>
         <br>     

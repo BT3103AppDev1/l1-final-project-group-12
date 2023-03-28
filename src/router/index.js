@@ -11,7 +11,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", redirect: "/home" },
-    { name: "home", path: "/home", component: DisplayTutorListings },
+    { name: "home", path: "/home", component: HomeView },
     { name: "auth", path: "/auth", component: AuthView },
     {
       path: "/",
