@@ -22,7 +22,6 @@
           <h3> Rates: {{ data[4] }}/hr</h3>
           <h3> Description: {{data[3]}} </h3>
           <br>  
-          <button id = "applyBN"> Apply to be Student </button>
           <br>
           <button id = "viewReviewBN"> View Tutor Reviews  </button>
         </div>
@@ -133,13 +132,6 @@ button {
   margin-right: 3em;
   color:black;
   font-size: 200%;
-}
-#applyBN{
-  padding-top:1em;
-  padding-bottom:1em;
-  font-size : 150%;
-  border-radius: 1em;
-
 }
 #viewReviewBN{
   padding-top:1em;
