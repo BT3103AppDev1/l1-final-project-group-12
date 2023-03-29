@@ -1,111 +1,113 @@
 <template>
-    <div class="modal-overlay">
+  <div class="modal-overlay">
+    <form class="modal">
+      <h6 class="title">I am a tutor, looking for a student.</h6>
+      <div class="modal-body">
+        <div class="modal-child">
+          <div id="label1">
+            <label for="level">Level</label> <br /><br />
+            <select v-model="selected" id="level2" required>
+              <option>Primary</option>
+              <option>Secondary</option>
+              <option>Junior College</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <br />
 
-        <form class="modal">
-            <h6 class="title">I am a tutor, looking for a student.</h6>
-            <div class="modal-body">
-                <div class="modal-child">
-                    <div id="label1">
-                        <label for="level">Level</label> <br><br>
-                        <select v-model="selected" id="level" required>
-                            <option> Primary </option>
-                            <option> Secondary </option>
-                            <option> Junior College </option>
-                            <option> Others </option>
-                        </select> <br><br>
-                    </div>
-
-                    <div id="label2">
-                        <label for="subject">Subject</label> <br><br>
-                        <select v-model="selected" id='subject' required>
-                            <option> Biology </option>
-                            <option> Chinese Language </option>
-                            <option> Chemistry </option>
-                            <option> English </option>
-                            <option> Math</option>
-                            <option> Malay Language </option>
-                            <option> Physics </option>
-                            <option> Tamil Language </option>
-                            <option> Others </option>
-                        </select><br><br>
-                    </div><br><br>
-                </div>
-                <div class="modal-child">
-                    <div id="label3">
-                        <label for="Location">Location</label> <br><br>
-                        <select v-model="selected" id="location" required>
-                            <option> North </option>
-                            <option> South</option>
-                            <option> East </option>
-                            <option> West </option>
-                            <option> Central </option>
-                            <option> Others </option>
-                        </select>
-                    </div><br>
-
-                    <div id="label4">
-                        <label for="Rates">Rates</label> <br><br>
-                        <input type="number" id="rates" min="0" v-model="rates" placeholder="Enter your rates" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-description">
-                <div id="description">
-                    <label for="Description">Description and contact method</label><br><br>
-                    <textarea type="text" id="desc" class="modal-description-input" v-model="description"
-                        placeholder="Description and contact method" rows="4" required> </textarea>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="button" @click=savetutorlisting>
-                    Add Listing
-                </button>
-            </div>
-        </form>
-
-        <div class="close" @click="$emit('close-modal')">
-            <img class="close-img" src="src\assets\close-icon.png" alt="" />
+          <div id="label3">
+            <label for="Location">Location</label> <br /><br />
+            <select v-model="selected" id="location2" required>
+              <option>North</option>
+              <option>South</option>
+              <option>East</option>
+              <option>West</option>
+              <option>Central</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <br />
         </div>
+
+        <div class="modal-child">
+          <div id="label2">
+            <label for="subject">Subject</label> <br /><br />
+            <select v-model="selected" id="subject2" required>
+              <option>Biology</option>
+              <option>Chinese Language</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>Math</option>
+              <option>Malay Language</option>
+              <option>Physics</option>
+              <option>Tamil Language</option>
+              <option>Others</option>
+            </select>
+          </div>
+          <br />
+
+          <div id="label4">
+            <label for="Rates">Rates</label> <br /><br />
+            <input type="number" id="rates2" min="0" v-model="rates" placeholder="Enter your rates" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-description">
+        <div id="description">
+          <label for="Description">Description and contact method</label><br /><br />
+          <textarea type="text" id="desc2" class="modal-description-input" v-model="description"
+            placeholder="Description and contact method" rows="4" required>
+            </textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="button" @click="savetutorlisting">Add Listing</button>
+      </div>
+    </form>
+
+    <div class="close" @click="$emit('close-modal')">
+      <img class="close-img" src="src\assets\close-icon.png" alt="" />
     </div>
+  </div>
 </template>
-  
+
 <script>
-import { db } from '../lib/firebase-config';
-import { collection, addDoc } from 'firebase/firestore';
+import { db } from "../lib/firebase-config";
+import { collection, addDoc } from "firebase/firestore";
 
 export default {
-    methods: {
-        // save listing to firebase
-        async savetutorlisting() {
-            let level = document.getElementById('level').value;
-            let subject = document.getElementById('subject').value;
-            let location = document.getElementById('location').value;
-            let rates = document.getElementById('rates').value;
-            let desc = document.getElementById('desc').value;
+  methods: {
+    // save listing to firebase
+    async savetutorlisting() {
+      let level = document.getElementById("level2").value;
+      let subject = document.getElementById("subject2").value;
+      let location = document.getElementById("location2").value;
+      let rates = document.getElementById("rates2").value;
+      let desc = document.getElementById("desc2").value;
 
-            const data = {
-                level: level,
-                subject: subject,
-                location: location,
-                rates: rates,
-                description: desc,
-                dateCreated: new Date(),
-                // userId: 
-            }
+      const data = {
+        level: level,
+        subject: subject,
+        location: location,
+        rates: rates,
+        description: desc,
+        dateCreated: new Date(),
+        // userId:
+      };
 
-            try {
-                const docRef = await addDoc(collection(db, 'tutor-listing'), data);
-                console.log('Document written with ID: ', docRef.id);
-            } catch (e) {
-                console.error('Error adding document: ', e);
-            }
-        }
-    }
+      try {
+        const docRef = await addDoc(collection(db, "tutor-listing"), data);
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    },
+  },
 };
 </script>
-  
+
 <style scoped>
 .modal-overlay {
   position: fixed;
