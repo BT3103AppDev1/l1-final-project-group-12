@@ -1,6 +1,6 @@
 <script setup>
 import { getAllListings } from "@/lib/handlers/listing";
-import ListingComponent from "@/components/home-view/ListingComponent.vue";
+import ListingComponent from "@/components/global-components/ListingComponent.vue";
 import { ref } from "vue";
 
 const studentListings = ref([]);
