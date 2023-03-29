@@ -35,7 +35,7 @@ export default {
     }
   },
   props: {
-      data : [String, String, String, String, Number]
+      data : Array
   }
 }
 </script>
