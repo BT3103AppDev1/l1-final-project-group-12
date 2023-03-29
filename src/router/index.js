@@ -18,8 +18,8 @@ const router = createRouter({
       component: BaseLayout,
       children: [
         { name: "home", path: "/home", component: HomeView },
-        { name: "student-listings", path: "/student-listings", component: TestView },
-        { name: "tutor-listings", path: "/tutor-listings", component: TutorListingsView },
+        { name: "student-listings", path: "/student-listings", component: DisplayStudentListings },
+        { name: "tutor-listings", path: "/tutor-listings", component: DisplayTutorListings },
         { name: "me", path: "/me", component: TestView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
       ],
