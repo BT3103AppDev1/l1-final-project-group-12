@@ -1,6 +1,6 @@
 <template> 
 <div id = "page">
-    <IndividualStudentListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
+    <IndividualTutorListing :data = data v-show = "showIndividualListingModel" @close-modal = "showIndividualListingModel = false"/>
 
     <div id = "LeftContainer">
             <button id = "addbutton"> + Add Listing </button>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import IndividualStudentListing  from "./IndividualStudentListing.vue";
+import IndividualTutorListing  from "./IndividualTutorListing.vue";
 import {getAllListings} from "../lib/handlers/listing.js"; 
 /*    
 
@@ -75,10 +75,10 @@ const db = getFirestore(firebaseApp);
 */
 
 export default {
-  name: 'StudentListing',
+  name: 'TutorListing',
 
   components : {
-    IndividualStudentListing
+    IndividualTutorListing
   },
 
     data() {
@@ -155,11 +155,13 @@ export default {
     let $vm = this;
     async function display() {
         //let allDocuments = await getDocs(collection(db, "StudentListing"))
-        let allDocuments = await getAllListings("student-listing")
-        console.log(allDocuments)
+        let allDocuments = await getAllListings("tutor-listing")
+
+        //console.log(allDocuments)
         let index = 1
         allDocuments.forEach((docs) => {
             let documentData = docs
+            console.log(docs)
 
             let level = documentData.level
             let subject = documentData.subject
@@ -183,7 +185,7 @@ export default {
            //let bnID = "bn" + index
            let imgID = "img" + index
            let innerID = "inner" + index
-           let ratesID = "rates" + index
+           let ratingID = "rating" + index
            let outerDivID = "outer" + index
            cell1.id = str
 
@@ -194,8 +196,8 @@ export default {
         cell1.innerHTML = ` <div id = ${outerDivID}>
 
         <div id = ${index}>  
-        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:${level} <br><br> &nbsp; Subject:${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
-        &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; 
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Level:${level} <br> <br> 
+        &nbsp; Subject:${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact: <br> <br> &nbsp;
         </div>
         <br>
         <br>     
@@ -208,7 +210,7 @@ export default {
         document.getElementById(index).style.backgroundColor = "white"
         document.getElementById(imgID).style.float = "left"
         document.getElementById(imgID).style.height = "5em"
-        document.getElementById(imgID).style.height = "8.5em"
+        document.getElementById(imgID).style.height = "16em"
         document.getElementById(imgID).style.marginTop = "0.5em"
         //document.getElementById(index).style.border = "solid 1px"
         //document.getElementById(index).style.borderRadius = "2em"
@@ -223,10 +225,10 @@ export default {
         document.getElementById(innerID).style.marginRight = "7em";
         document.getElementById(innerID).style.fontSize = "1.2em";
 
-        document.getElementById(ratesID).style.float = "right"
-        document.getElementById(ratesID).style.marginRight = "2.8em";
-        document.getElementById(ratesID).style.fontSize = "2.5em";
-        document.getElementById(ratesID).style.color = "Orange  ";
+        document.getElementById(ratingID).style.float = "right"
+        document.getElementById(ratingID).style.marginRight = "2.8em";
+        document.getElementById(ratingID).style.fontSize = "3em";
+        document.getElementById(ratingID).style.color = "Orange  ";
         /*
         if (aaa) {
             document.getElementById(outerDivID).style.display = "none"
@@ -237,11 +239,11 @@ export default {
         cell1.width = '1000em';
 
         document.getElementById(str).addEventListener('click', function() {
-            $vm.data[0] = String(level)
-            $vm.data[1] = String(location)
-            $vm.data[2] = String(subject)
-            $vm.data[3] = String(desc)
-            $vm.data[4] = parseInt(rates)
+            $vm.data[0] = level
+            $vm.data[1] = location
+            $vm.data[2] = subject
+            $vm.data[3] = desc
+            $vm.data[4] = rates
             $vm.showIndividualListingModel = true;  
         })
        // }
