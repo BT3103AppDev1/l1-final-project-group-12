@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import DisplayStudentListings from "@/views/DisplayStudentListings.vue";
+import DisplayStudentListings from "../views/DisplayStudentListings.vue";
 import AuthView from "../views/AuthView.vue";
 import HomeView from "../views/HomeView.vue";
 import TestView from "../views/TestView.vue";
