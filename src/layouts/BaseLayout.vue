@@ -12,7 +12,9 @@ const logOutOnClick = async () => {
 
 <template>
   <nav>
-    <h1>Tent</h1>
+    <router-link to="/home" custom v-slot="{ navigate }">
+      <h1 @click="navigate" @keypress.enter="navigate" role="link">Tent</h1>
+    </router-link>
     <div id="navbar-buttons">
       <router-link to="/student-listings">Look for students</router-link>
       <router-link to="/tutor-listings">Look for tutors</router-link>
@@ -21,7 +23,6 @@ const logOutOnClick = async () => {
     </div>
   </nav>
 
-  <!-- <slot /> -->
   <router-view />
 </template>
 
@@ -33,6 +34,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+nav h1 {
+  cursor: pointer;
 }
 
 #navbar-buttons {
