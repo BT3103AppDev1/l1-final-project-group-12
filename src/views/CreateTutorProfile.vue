@@ -1,9 +1,9 @@
 <script setup>
-import ModalComponent from "@/components/ModalComponent.vue";
+import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { ref } from "vue";
-import { storeToRefs } from "pinia";
 import { updateTutorProfileById } from "../lib/handlers/user.js";
 import { useAuthStore } from "../stores/authStore.js";
+import { storeToRefs } from "pinia";
 
 const showModal = ref(false);
 
@@ -56,7 +56,7 @@ function saveTutorProfile() {
 
   // alert("Your name is: " + name + "\nYour gender is: " + gender)
 
-  updateTutorProfileById(user.id, {
+  updateTutorProfileById(user.value.id, {
     isTutor: true,
     education: qualification,
     levels: levels,
