@@ -48,14 +48,7 @@
 
           <div id="label4">
             <label for="Rates">Rates</label> <br /><br />
-            <input
-              type="number"
-              id="rates"
-              min="0"
-              v-model="rates"
-              placeholder="Enter your rates"
-              required
-            />
+            <input type="number" id="rates1" min="0" v-model="rates" placeholder="Enter your rates" required />
           </div>
         </div>
       </div>
@@ -63,16 +56,9 @@
       <div class="modal-description">
         <div id="description">
           <label for="Description">Description and contact method</label><br /><br />
-          <textarea
-            type="text"
-            id="desc"
-            class="modal-description-input"
-            v-model="description"
-            placeholder="Description and contact method"
-            rows="4"
-            required
-          >
-          </textarea>
+          <textarea type="text" id="desc" class="modal-description-input" v-model="description"
+            placeholder="Description and contact method" rows="4" required>
+                </textarea>
         </div>
       </div>
 
@@ -90,6 +76,9 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
+import { useToast, TYPE } from "vue-toastification";
+
+const toast = useToast()
 
 export default {
   methods: {
@@ -98,25 +87,37 @@ export default {
       let level = document.getElementById("level").value;
       let subject = document.getElementById("subject").value;
       let location = document.getElementById("location").value;
-      let rates = document.getElementById("rates").value;
+      let rates1 = document.getElementById("rates1").value;
       let desc = document.getElementById("desc").value;
 
       const data = {
         level: level,
         subject: subject,
         location: location,
-        rates: rates,
+        rates: rates1,
         description: desc,
         dateCreated: new Date(),
         // tutorId:
       };
-
-      try {
-        const docRef = await addDoc(collection(db, "student-listing"), data);
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
+      if (level == "" || subject == "" || location == "" || rates1 == "" || desc == "") {
+        toast("Missing details", {
+          type: TYPE.ERROR
+        })
+      } else {
+        try {
+          const docRef = await addDoc(collection(db, "student-listing"), data);
+          console.log("Document written with ID: ", docRef.id);
+          toast("Listing Posted!", {
+            type: TYPE.SUCCESS
+          })
+        } catch (e) {
+          console.error("Error adding document: ", e);
+          toast("Oops! Something went wrong...", {
+            type: TYPE.ERROR
+          })
+        }
       }
+
     },
   },
 };
