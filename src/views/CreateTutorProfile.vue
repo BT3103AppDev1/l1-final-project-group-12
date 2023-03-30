@@ -4,10 +4,13 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { updateTutorProfileById } from "../lib/handlers/user.js";
 import { useAuthStore } from "../stores/authStore.js";
+import { useToast } from "vue-toastification";
 
 const showModal = ref(false);
 
 const { user } = storeToRefs(useAuthStore());
+
+const toast = useToast();
 
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
@@ -64,6 +67,7 @@ function saveTutorProfile() {
     region: location,
   });
   showModal.value = false;
+  toast.success('Successfully updated tutor profile.', { timeout: 3000 });
 }
 </script>
 
