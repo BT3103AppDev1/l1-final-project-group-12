@@ -31,8 +31,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  if (requiresAuth && !(await getCurrentUser())) {
+  if (to.meta.requiresAuth && !(await getCurrentUser())) {
     return { name: "auth" };
   }
 });
