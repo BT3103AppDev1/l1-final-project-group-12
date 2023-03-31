@@ -17,14 +17,14 @@ getListings();
 
 <template>
   <div id="listings-container">
-    <section id="student-listings-contianer">
+    <section id="student-listings-container">
       <h1>Student Listings</h1>
       <div class="student-listing-cards" v-for="studentListing in studentListings">
         <StudentListingComponent :listing="studentListing" />
       </div>
     </section>
 
-    <section id="tutor-listings-contianer">
+    <section id="tutor-listings-container">
       <h1>Tutor Listings</h1>
       <div class="tutor-listing-cards" v-for="tutorListing in tutorListings">
         <TutorListingComponent :listing="tutorListing" />
