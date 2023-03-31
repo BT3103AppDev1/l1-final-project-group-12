@@ -1,15 +1,6 @@
-<script setup>
-const props = defineProps(["listing"]);
-</script>
-
 <template>
   <div id="listing-container">
-    <div>
-      <p>{{ props.listing.subject }}</p>
-      <p>{{ props.listing.level }}</p>
-      <p>{{ props.listing.region }}</p>
-    </div>
-    <h1>${{ props.listing.rates }}<span>/hr</span></h1>
+    <slot />
   </div>
 </template>
 

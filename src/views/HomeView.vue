@@ -1,6 +1,7 @@
 <script setup>
 import { getAllListings } from "@/lib/handlers/listing";
-import ListingComponent from "@/components/global-components/ListingComponent.vue";
+import TutorListingComponent from "@/components/global-components/TutorListingComponent.vue";
+import StudentListingComponent from "@/components/global-components/StudentListingComponent.vue";
 import { ref } from "vue";
 
 const studentListings = ref([]);
@@ -19,14 +20,14 @@ getListings();
     <section id="student-listings-contianer">
       <h1>Student Listings</h1>
       <div class="student-listing-cards" v-for="studentListing in studentListings">
-        <ListingComponent :listing="studentListing" />
+        <StudentListingComponent :listing="studentListing" />
       </div>
     </section>
 
     <section id="tutor-listings-contianer">
       <h1>Tutor Listings</h1>
       <div class="tutor-listing-cards" v-for="tutorListing in tutorListings">
-        <ListingComponent :listing="tutorListing" />
+        <TutorListingComponent :listing="tutorListing" />
       </div>
     </section>
   </div>
