@@ -1,4 +1,5 @@
 <template>
+
 <br>
     <div class = "outer-details"> 
 
@@ -9,7 +10,19 @@
             <br> <br>
             Password : {{user.password}}
             <br><br>
-            <button id = "updateUserButton"> Update details </button>
+            <button @click="showModal = true">Update Details</button>
+            <ModalComponent v-show="showModal" @close-modal="showModal = false">
+                <div id ="content">
+                    Leave blank if you are not updating that field
+                    <br>
+                    New Email:
+                    <input v-model = "newemail" placeholder="Enter new email">
+                    <br>
+                    New Password:
+                    <input v-model = "newpassword" placeholder="Enter new password">
+                </div>
+            </ModalComponent>
+            
             <br> <br>
         </div>
     </div>
@@ -39,7 +52,7 @@
             <br>
             To become a tutor, you must set up a tutor profile.
             <br><br>
-            <button> Apply to be tutor </button> <!-- to be repalced with bryan's create new tutor functionality -->
+            <button> Apply to be tutor (Replace with Bryan's create new tutor functionality) </button> <!-- to be repalced with bryan's create new tutor functionality -->
             <br> <br>
         </div>
     </div>
@@ -57,11 +70,16 @@
 <script> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
 import {getListingById} from "../lib/handlers/listing.js"
+import ModalComponent from "@/components/ModalComponent.vue";
+
 
 export default {
     data() {
         return {
             user : "",
+            showModal : false,
+            newemail: "",
+            newpassword: ""
         }
     },
     async mounted(){
