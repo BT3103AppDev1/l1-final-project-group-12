@@ -23,6 +23,11 @@ const changeModeOnClick = (newMode) => {
   mode.value = newMode;
 };
 
+const redirect = () => {
+  const redirectPath = router.currentRoute.value.query.redirect;
+  router.push(redirectPath ? redirectPath : { name: "home" });
+};
+
 const signInOnSubmit = async () => {
   buttonDisabled.value = true;
   const error = await signIn(inputs.value.email, inputs.value.password);
@@ -33,7 +38,7 @@ const signInOnSubmit = async () => {
     phoneNumber: "",
     telegramHandle: "",
   };
-  if (error === undefined) router.push("/home");
+  if (error === undefined) redirect();
 };
 
 const signUpOnSubmit = async () => {
@@ -51,7 +56,7 @@ const signUpOnSubmit = async () => {
     phoneNumber: "",
     telegramHandle: "",
   };
-  if (error === undefined) router.push("/home");
+  if (error === undefined) redirect();
 };
 </script>
 
