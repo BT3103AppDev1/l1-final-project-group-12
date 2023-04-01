@@ -1,46 +1,74 @@
 <template>
 <br>
-    <div id = "profile-details"> 
+    <div class = "outer-details"> 
 
-        <div id = "details">
+        <div class = "details">
             <h1>Profile Details </h1>
             <br>
-            Email: {{user_email}}
+            Email: {{user.email}}
             <br> <br>
-            Password : {{user_password}}
+            Password : {{user.password}}
             <br><br>
             <button id = "updateUserButton"> Update details </button>
             <br> <br>
         </div>
     </div>
     <br>
-    <div id = "tutor-details">
-        <h1> Tutor Profile </h1>
-    </div>
+    <div class = "outer-details">
 
-    <div id = "listings">
-        <h1> Your Listings </h1>
+        <div class = "details" v-if="user.isTutor">
+            <h1> Tutor Details </h1>
+            <br>
+            phoneNumber: {{user.phoneNumber}}
+            <br><br>    
+            telegramHandle: {{user.telegramHandle}}
+            <br><br>
+            gender: {{user.gender}}
+            <br><br>
+            education: {{user.education}}
+            <br><br>
+            experience: {{user.experience}}
+            <br> <br>
+            <button id = "updateTutorButton"> Update details </button>
+            <br> <br>
+
+                
+        </div>
+        <div class = "details" v-else>
+            <h1> Tutor Profile </h1>
+            <br>
+            To become a tutor, you must set up a tutor profile.
+            <br><br>
+            <button> Apply to be tutor </button> <!-- to be repalced with bryan's create new tutor functionality -->
+            <br> <br>
+        </div>
+    </div>
+    <br>
+
+    <div class = "outer-details">
+        <div class = "details">
+            <h1> Your Listings </h1>
+            <br>
+
+        </div>
     </div>
 </template>
 
 <script> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
+import {getListingById} from "../lib/handlers/listing.js"
 
 export default {
     data() {
         return {
             user : "",
-            user_email : "",
-            user_password : "",
-            user_phoneNumber: ""
         }
     },
     async mounted(){
         let $vm = this;
         $vm.user = await getCurrentUser();
-        console.log($vm.user.phoneNumber)
-        $vm.user_email = $vm.user.email;
-        $vm.user_phoneNumber = $vm.user.phoneNumber;
+        let studentListing = await getListingById("student-listing", String($vm.user.id))
+        console.log(studentListing); //set up listings to be done.
     }
 }
 
@@ -48,12 +76,14 @@ export default {
 
 
 <style scoped>
-#profile-details{
-    margin-left: .5em;
+.outer-details{
+    display: flex;
+    justify-content: center;
 }
 
-#details{
+
+.details{
 width  : 50em;
 outline: 1px solid black;
- }
+}
 </style>
