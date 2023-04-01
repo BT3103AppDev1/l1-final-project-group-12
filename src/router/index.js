@@ -2,12 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import BaseLayout from "../layouts/BaseLayout.vue";
 import AuthView from "../views/AuthView.vue";
 import HomeView from "../views/HomeView.vue";
-import MyProfileView from "../views/MyProfileView.vue";
-import StudentListingsView from "../views/StudentListingsView.vue";
-import TutorListingsView from "../views/TutorListingsView.vue";
-import CreateTutorProfile from "../views/CreateTutorProfile.vue";
-import TestView from "../views/TestView.vue";
-import { getCurrentUser } from "../lib/handlers/auth";
+
+const StudentListingsView = () => import("../views/StudentListingsView.vue");
+const TutorListingsView = () => import("../views/TutorListingsView.vue");
+const MyProfileView = () => import("../views/MyProfileView.vue");
+const CreateTutorProfile = () => import("../views/CreateTutorProfile.vue");
+const TestView = () => import("../views/TestView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
