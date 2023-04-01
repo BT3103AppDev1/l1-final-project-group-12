@@ -1,18 +1,25 @@
 <script setup>
-import ListingComponent from "@/components/global-components/ListingComponent.vue";
+import ListingComponent from "./ListingComponent.vue";
+import ModalComponent from "./ModalComponent.vue";
+import { ref } from "vue";
 
 const props = defineProps(["listing"]);
+const showModal = ref(false);
 </script>
 
 <template>
-  <ListingComponent>
+  <ListingComponent @click="showModal = true">
     <div>
-      <p>{{ props.listing.subject }} ({{ props.listing.level }})</p>
+      <h3>{{ props.listing.subject }} ({{ props.listing.level }})</h3>
       <p>{{ props.listing.region }}</p>
     </div>
 
     <h1>${{ props.listing.rates }}<span>/hr</span></h1>
   </ListingComponent>
+
+  <ModalComponent v-show="showModal" @close-modal="showModal = false">
+    {{ props.listing }}
+  </ModalComponent>
 </template>
 
 <style scoped>

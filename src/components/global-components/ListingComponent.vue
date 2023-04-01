@@ -19,13 +19,4 @@
 #listing-container:hover {
   scale: 102%;
 }
-
-#listing-container h1 {
-  color: var(--tent-orange);
-  font-size: 2rem;
-}
-
-#listing-container h1 span {
-  font-size: 1.3rem;
-}
 </style>
