@@ -12,52 +12,61 @@ const { user } = storeToRefs(useAuthStore());
 
 const toast = useToast();
 
+const inputs = ref({
+  name: "",
+  gender: "",
+  qualification: "",
+  english: "",
+  math: "",
+  science: "",
+  primary: "",
+  secondary: "",
+  jc: "",
+  location: "",
+  contact: "",
+  tele: ""
+});
+
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
-  let name = document.getElementById("name1").value;
+  let name = inputs.value.name;
 
-  let gender = document.getElementById("gender1").value;
+  let gender = inputs.value.gender;
 
-  let qualification = document.getElementById("qualification1").value;
+  let qualification = inputs.value.qualification;
 
+  alert(inputs.value.english + "\n" + inputs.value.math)
+  console.log(inputs.value.math)
   // checkbox options for subjects taught, returns a boolean for if the option was checked
   const subjects = [];
-  let english = document.getElementById("english").checked;
-  if (english) {
+  if (inputs.value.english) {
     subjects.push("English");
   }
-  let math = document.getElementById("math").checked;
-  if (math) {
+  if (inputs.value.math) {
     subjects.push("Math");
   }
-  let science = document.getElementById("science").checked;
-  if (science) {
+  if (inputs.value.science) {
     subjects.push("Science");
   }
 
   // checkbox options for levels taught, returns a boolean for if the option was checked
   const levels = [];
-  let primary = document.getElementById("primary").checked;
-  if (primary) {
+  if (inputs.value.primary) {
     levels.push("Primary");
   }
-  let secondary = document.getElementById("secondary").checked;
-  if (secondary) {
+  if (inputs.value.secondary) {
     levels.push("Secondary");
   }
-  let jc = document.getElementById("jc").checked;
-  if (jc) {
+  if (inputs.value.jc) {
     levels.push("Junior College");
   }
 
-  let location = document.getElementById("location1").value;
+  let location = inputs.value.location;
 
-  let contact = document.getElementById("contact1").value;
+  let contact = inputs.value.contact;
 
-  let tele = document.getElementById("tele1").value;
-
-  // alert("Your name is: " + name + "\nYour gender is: " + gender)
+  let tele = inputs.value.tele;
 
   updateTutorProfileById(user.id, {
     isTutor: true,
@@ -73,15 +82,6 @@ function saveTutorProfile() {
 
 <template>
   <p>Tutor Profile Modal Preview</p>
-  <p>Note: no backend yet, only fetches input values as variables</p>
-  <!-- <button @click="showModal = true">show modal</button>
-  <ModalComponent v-show="showModal" @close-modal="showModal = false">
-    <div id="content">
-      <h1>Example title</h1>
-      <p>example paragraph here</p>
-      <button>example button</button>
-    </div>
-  </ModalComponent> -->
   <button @click="showModal = true">show create tutor profile modal</button>
 
   <ModalComponent v-show="showModal" @close-modal="showModal = false">
@@ -98,12 +98,12 @@ function saveTutorProfile() {
             <!-- input box for name of tutor -->
             <div id="name">
               <label for="name">Name</label><br />
-              <input type="text" id="name1" name="name" placeholder="Name" /><br />
+              <input type="text" id="name1" name="name" placeholder="Name" v-model="inputs.name" /><br />
             </div>
             <!-- dropdown selection for gender of tutor -->
             <div id="gender">
               <label for="gender">Gender</label><br />
-              <select id="gender1" name="gender">
+              <select id="gender1" name="gender" v-model="inputs.gender">
                 <option value="none">Select a gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -113,7 +113,7 @@ function saveTutorProfile() {
             <!-- dropdown selection for highest qualification -->
             <div id="qualification">
               <label for="qualification">Highest qualification</label><br />
-              <select id="qualification1" name="qualification">
+              <select id="qualification1" name="qualification" v-model="inputs.qualification">
                 <option value="none">Highest qualification</option>
                 <option value="secondary">Secondary</option>
                 <option value="post-secondary">Post-Secondary</option>
@@ -125,11 +125,11 @@ function saveTutorProfile() {
             <div id="subjects">
               <label for="subjects">Subjects teaching</label><br />
               <form action="/action_page.php">
-                <input type="checkbox" id="english" name="english" value="english" />
+                <input type="checkbox" id="english" name="english" value="english" v-model="inputs.english"/>
                 <label for="english"> English</label><br />
-                <input type="checkbox" id="math" name="math" value="math" />
+                <input type="checkbox" id="math" name="math" value="math" v-model="inputs.math"/>
                 <label for="math"> Mathematics</label><br />
-                <input type="checkbox" id="science" name="science" value="science" />
+                <input type="checkbox" id="science" name="science" value="science" v-model="inputs.science"/>
                 <label for="science"> Science</label><br /><br />
               </form>
             </div>
@@ -138,29 +138,29 @@ function saveTutorProfile() {
             <div id="levels">
               <label for="levels">Levels taught</label><br />
               <form action="/action_page.php">
-                <input type="checkbox" id="primary" name="primary" value="primary" />
+                <input type="checkbox" id="primary" name="primary" value="primary" v-model="inputs.primary"/>
                 <label for="primary"> Primary</label><br />
-                <input type="checkbox" id="secondary" name="secondary" value="secondary" />
+                <input type="checkbox" id="secondary" name="secondary" value="secondary" v-model="inputs.secondary"/>
                 <label for="secondary"> Secondary</label><br />
-                <input type="checkbox" id="jc" name="jc" value="jc" />
+                <input type="checkbox" id="jc" name="jc" value="jc" v-model="inputs.jc"/>
                 <label for="jc"> Junior College</label><br /><br />
               </form>
             </div>
             <!-- input box for location of tutor -->
             <div id="location">
               <label for="location">Location</label><br />
-              <input type="text" id="location1" name="location" placeholder="Location" /><br />
+              <input type="text" id="location1" name="location" placeholder="Location" v-model="inputs.location"/><br />
             </div>
             <br />
             <!-- input box for contact number -->
             <div id="contact">
               <label for="contact">Contact Number</label><br />
-              <input type="text" id="contact1" name="contact" placeholder="Contact" /><br />
+              <input type="text" id="contact1" name="contact" placeholder="Contact" v-model="inputs.contact"/><br />
             </div>
             <!-- input box for telegram @ -->
             <div id="tele">
               <label for="tele">Telegram</label><br />
-              <input type="text" id="tele1" name="tele" placeholder="Telegram @" /><br />
+              <input type="text" id="tele1" name="tele" placeholder="Telegram @" v-model="inputs.tele"/><br />
             </div>
           </form>
         </slot>
