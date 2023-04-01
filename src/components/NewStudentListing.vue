@@ -108,7 +108,7 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        // tutorId:
+        // userid
       };
 
       try {
