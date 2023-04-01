@@ -90,8 +90,10 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
+import { auth } from "../firebase-config";
 
 export default {
+
   methods: {
     // save listing to firebase
     async savestudentlisting() {
@@ -108,7 +110,8 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        // userid
+        user: auth.currentUser,
+        
       };
 
       try {
