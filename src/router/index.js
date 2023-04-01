@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { getCurrentUser } from "../lib/handlers/auth";
+import { useAuthStore } from "../stores/authStore";
 import BaseLayout from "../layouts/BaseLayout.vue";
 import AuthView from "../views/AuthView.vue";
 import HomeView from "../views/HomeView.vue";
@@ -12,7 +14,7 @@ const TestView = () => import("../views/TestView.vue");
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: "/", redirect: "/auth" },
+    { path: "/", redirect: "/home" },
     { name: "auth", path: "/auth", component: AuthView },
     {
       path: "/",
@@ -31,9 +33,19 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+  const authStore = useAuthStore();
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  if (requiresAuth && !(await getCurrentUser())) {
-    return { name: "auth" };
+  const currAuth = authStore.user ?? (await getCurrentUser());
+
+  if (requiresAuth && !currAuth) {
+    return {
+      name: "auth",
+      query: { redirect: to.fullPath },
+    };
+  }
+
+  if (!authStore.user && currAuth) {
+    authStore.setUser(currAuth);
   }
 });
 
