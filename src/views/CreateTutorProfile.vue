@@ -56,7 +56,7 @@ function saveTutorProfile() {
 
   // alert("Your name is: " + name + "\nYour gender is: " + gender)
 
-  updateTutorProfileById(user.value.id, {
+  updateTutorProfileById(user.value.uid, {
     isTutor: true,
     education: qualification,
     levels: levels,

@@ -20,7 +20,7 @@ const createListingOnClick = async () => {
     validateInputs(createListingInputs.value);
 
     await createListing("student-listing", {
-      userId: user.value.id,
+      userId: user.value.uid,
       dateCreated: new Date().toLocaleString(),
       ...createListingInputs.value,
     });

@@ -2,16 +2,20 @@
 import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import CreateTutorProfileFormComponent from "@/components/my-profile-view/CreateTutorProfileFormComponent.vue";
 import { getUserById } from "@/lib/handlers/user";
-import { getCurrentUser } from "@/lib/handlers/auth";
-import { onBeforeMount, ref } from "vue";
+import { useAuthStore } from "@/stores/authStore";
+import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
-const showModal = ref(false);
+const { user } = storeToRefs(useAuthStore());
+
 const currUserDetails = ref();
+const showModal = ref(false);
 
-onBeforeMount(async () => {
-  const currUser = await getCurrentUser();
-  currUserDetails.value = await getUserById(currUser.uid);
-});
+const getCurrUserDetails = async () => {
+  currUserDetails.value = await getUserById(user.value.uid);
+};
+
+getCurrUserDetails();
 </script>
 
 <template>

@@ -20,7 +20,7 @@ const createListingOnClick = async () => {
   try {
     validateInputs(createTutorProfileInputs.value);
 
-    await updateTutorProfileById(user.value.id, {
+    await updateTutorProfileById(user.value.uid, {
       isTutor: true,
       ...createTutorProfileInputs.value,
     });
@@ -35,16 +35,7 @@ const createListingOnClick = async () => {
     <h1>Create Tutor Profile</h1>
 
     <form @submit.prevent="createListingOnClick">
-      <div id="input-container">
-        <label>Subject</label>
-        <input type="text" v-model="createTutorProfileInputs.subject" required />
-
-        <label>Level</label>
-        <input type="text" v-model="createTutorProfileInputs.level" required />
-
-        <label>Region</label>
-        <input type="text" v-model="createTutorProfileInputs.region" required />
-      </div>
+      <div id="input-container"></div>
 
       <button type="submit">Create Profile</button>
     </form>
