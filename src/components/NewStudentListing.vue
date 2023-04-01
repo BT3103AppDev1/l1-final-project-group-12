@@ -110,7 +110,7 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        user: auth.currentUser,
+        userID: auth.currentUser,
         
       };
 

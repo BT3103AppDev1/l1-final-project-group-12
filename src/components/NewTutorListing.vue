@@ -76,6 +76,7 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
+import { auth } from "../firebase-config";
 
 export default {
   methods: {
@@ -94,7 +95,8 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        // userId:
+        userId: auth.currentUser,
+        
       };
 
       try {
