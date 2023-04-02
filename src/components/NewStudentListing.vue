@@ -90,7 +90,7 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
-import { auth } from "../firebase-config";
+import { auth } from "../lib/firebase-config";
 
 export default {
 
