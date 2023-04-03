@@ -90,7 +90,19 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
-import { auth } from "../lib/firebase-config";
+import { useAuthStore } from "@/stores/authStore";
+import { ref } from "vue";
+import { storeToRefs } from 'pinia';
+import { getUserById } from '../lib/handlers/user';
+
+const { user } = storeToRefs(useAuthStore());
+const currUserDetails = ref();
+
+const getCurrUserDetails = async () => {
+  currUserDetails.value = await getUserById(user.value.uid)
+}
+
+
 
 export default {
 
@@ -110,8 +122,7 @@ export default {
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        userID: auth.currentUser,
-        /*userID: auth.currentUser.uid*/
+        userID: getCurrUserDetails,
         
       };
 

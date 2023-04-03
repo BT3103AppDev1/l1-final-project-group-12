@@ -76,9 +76,21 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
-import { auth } from "../lib/firebase-config";
+import { useAuthStore } from "@/stores/authStore";
+import { ref } from "vue";
+import { storeToRefs } from 'pinia';
+import { getUserById } from '../lib/handlers/user';
+
+const { user } = storeToRefs(useAuthStore());
+const currUserDetails = ref();
+
+const getCurrUserDetails = async () => {
+  currUserDetails.value = await getUserById(user.value.uid)
+}
+
 
 export default {
+  
   methods: {
     // save listing to firebase
     async savetutorlisting() {
@@ -89,13 +101,14 @@ export default {
       let desc = document.getElementById("desc2").value;
 
       const data = {
+        
         level: level,
         subject: subject,
         location: location,
         rates: rates,
         description: desc,
         dateCreated: new Date(),
-        userId: auth.currentUser,
+        userId: getCurrUserDetails,
         
       };
 
