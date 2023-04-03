@@ -111,6 +111,7 @@ export default {
         description: desc,
         dateCreated: new Date(),
         userID: auth.currentUser,
+        /*userID: auth.currentUser.uid*/
         
       };
 
