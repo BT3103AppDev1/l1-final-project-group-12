@@ -15,11 +15,14 @@
                 <div id ="content">
                     Leave blank if you are not updating that field
                     <br>
+                    <br>
                     New Email:
                     <input v-model = "newemail" placeholder="Enter new email">
-                    <br>
+                    <br> <br>
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
+                    <br> <br>
+                    <button id = "update-profile" @click="updateEmail"> Save </button>
                 </div>
             </ModalComponent>
             
@@ -70,6 +73,7 @@
 <script> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
 import {getListingById} from "../lib/handlers/listing.js"
+import {updateUserById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 
 
@@ -82,11 +86,19 @@ export default {
             newpassword: ""
         }
     },
+    components : {
+        ModalComponent
+    },
     async mounted(){
         let $vm = this;
         $vm.user = await getCurrentUser();
         let studentListing = await getListingById("student-listing", String($vm.user.id))
         console.log(studentListing); //set up listings to be done.
+    },
+    methods: {
+        updateEmail(){
+            updateUserById(String(this.user.id), {email: this.newemail})
+        }
     }
 }
 
