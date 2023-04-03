@@ -7,8 +7,10 @@
             <h1>Profile Details </h1>
             <br>
             Email: {{user.email}}
-            <br> <br>
-            Password : {{user.password}}
+            <br><br>
+            phoneNumber: {{user.phoneNumber}}
+            <br><br>    
+            telegramHandle: {{user.telegramHandle}}
             <br><br>
             <button @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
@@ -19,10 +21,18 @@
                     New Email:
                     <input v-model = "newemail" placeholder="Enter new email">
                     <br> <br>
+                    New Phone Number:
+                    <input v-model = "newphoneno" placeholder="Enter new email">
+                    <br> <br>
+                    New Telegram Handle:
+                    <input v-model = "newtelehandle" placeholder="Enter new email">
+                    <br> <br>                  
+                    <!--
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
-                    <button id = "update-profile" @click="updateEmail"> Save </button>
+                    -->
+                    <button id = "update-profile" @click="updateProfileDetails"> Save </button>
                 </div>
             </ModalComponent>
             
@@ -35,10 +45,6 @@
         <div class = "details" v-if="user.isTutor">
             <h1> Tutor Details </h1>
             <br>
-            phoneNumber: {{user.phoneNumber}}
-            <br><br>    
-            telegramHandle: {{user.telegramHandle}}
-            <br><br>
             gender: {{user.gender}}
             <br><br>
             education: {{user.education}}
@@ -70,38 +76,75 @@
     </div>
 </template>
 
-<script> 
+<script setup> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
 import {getListingById} from "../lib/handlers/listing.js"
-import {updateUserById} from "../lib/handlers/user.js"
+import {getUserById, updateUserById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
+import {useAuthStore} from "@/stores/authStore";
+import {storeToRefs} from "pinia";
+import {onMounted, ref} from "vue"
 
+const showModal = ref(false)
+const {user} = storeToRefs(useAuthStore());
+const currUserDetails = ref();
+const newemail = ref()
+const id = ref()
+const listings = ref()
+const newphoneno = ref()
+const newtelehandle = ref()
 
-export default {
-    data() {
-        return {
-            user : "",
-            showModal : false,
-            newemail: "",
-            newpassword: ""
-        }
-    },
-    components : {
-        ModalComponent
-    },
-    async mounted(){
-        let $vm = this;
-        $vm.user = await getCurrentUser();
-        let studentListing = await getListingById("student-listing", String($vm.user.id))
-        console.log(studentListing); //set up listings to be done.
-    },
-    methods: {
-        updateEmail(){
-            updateUserById(String(this.user.id), {email: this.newemail})
-        }
+const getCurrUserDetails = async() => {
+    currUserDetails.value = await getUserById(user.value.id);
+}
+
+onMounted( async() => {
+    await getCurrUserDetails();
+    id.value = user.value.id
+    //listings.value = getListingById(String(id.value))
+    //console.log(listings)
+    console.log(currUserDetails.value)
+}
+)
+
+const updateProfileDetails = async() => {
+    if (newtelehandle.value != "") {
+        updateTelegramHandle();
+    }
+    if (newphoneno.value != "") {
+        updatePhoneNumber();
+    }
+    if (newemail.value != "") {
+        updateEmail();
     }
 }
 
+const updatePhoneNumber = async () => {
+    console.log(newphoneno.value)
+    console.log(user.value.id)
+    updateUserById(String(id.value), { phoneNumber : newphoneno.value })
+    newphoneno.value = ""
+    showModal.value = false
+    //check for valid phone eg. len = 8, all integer, 
+}
+
+const updateTelegramHandle = async() => {
+    console.log(newtelehandle.value)
+    console.log(user.value.id)
+    updateUserById(String(id.value), { telegramHandle : newtelehandle.value })
+    showModal.value = false
+    newtelehandle.value = ""
+    //checks?
+}
+
+const updateEmail =  async() => {
+    console.log(newemail.value)
+    console.log(user.value.id)
+    updateUserById(String(id.value), { email : newemail.value })
+    showModal.value = false
+    newemail.value = ""
+    //check for valid email eg contain .com
+}
 </script>
 
 
