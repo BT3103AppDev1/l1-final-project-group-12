@@ -118,6 +118,7 @@ const signUpOnSubmit = async () => {
   padding: 5rem;
   padding-top: 2rem;
   box-sizing: border-box;
+  min-width: 350px;
 }
 
 @media screen and (min-width: 1440px) {
@@ -182,13 +183,14 @@ form input {
   padding: 0.3rem 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 1rem;
+  font-size: 1rem;
 }
 
 form button {
   background: var(--tent-orange);
   color: white;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0.5rem;
   margin-top: 1rem;
   border-radius: 1rem;
