@@ -128,19 +128,19 @@ const newexp = ref()
 const education = ref()
 const experience = ref()
 
-const getCurrUserDetails = async() => {
-    currUserDetails.value = await getUserById(user.value.id);
-}
 
 onMounted( async() => {
-    await getCurrUserDetails();
-    id.value = user.value.id
-    email.value = user.value.email
-    phonenum.value = user.value.phoneNumber
-    telegramHandle.value = user.value.telegramHandle
-    isTutor.value = user.value.isTutor
-    education.value = user.value.education
-    experience.value = user.value.experience
+    let user5 = await getCurrentUser()
+    console.log(user5)
+    id.value = user5.uid
+    let user6= await getUserById(id.value)
+    console.log(user6)
+    email.value = user5.email
+    phonenum.value = user6.phoneNumber
+    telegramHandle.value = user6.telegramHandle
+    isTutor.value = user6.isTutor
+    education.value = user6.education
+    experience.value = user6.experience
     //listings.value = getListingById(String(id.value))
     //console.log(listings)
     console.log(currUserDetails.value)
