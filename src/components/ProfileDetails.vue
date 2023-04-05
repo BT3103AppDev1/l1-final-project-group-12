@@ -6,8 +6,9 @@
         <div class = "details">
             <h1>Profile Details </h1>
             <br>
-            Email: {{email}}
+            <!--Email: {{email}}
             <br><br>
+            -->
             phoneNumber: {{phonenum}}
             <br><br>    
             telegramHandle: {{telegramHandle}}
@@ -18,11 +19,13 @@
                     Leave blank if you are not updating that field
                     <br>
                     <br>
+                    <!--
                     New Email:
                     <input v-model = "newemail" placeholder="Enter new email">
                     <br> <br>
+                    -->
                     New Phone Number:
-                    <input v-model = "newphoneno" placeholder="Enter new phone number">
+                    <input type = "number" v-model = "newphoneno" placeholder="Enter new phone number">
                     <br> <br>
                     New Telegram Handle:
                     <input v-model = "newtelehandle" placeholder="Enter new telegram handle">
@@ -62,8 +65,8 @@
                         <option value="none">Not changing</option>
                         <option value="secondary">Secondary</option>
                         <option value="post-secondary">Post-Secondary</option>
-                        <option value="secondary">Diploma/Professional Qualification</option>
-                        <option value="post-secondary">University</option>
+                        <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
+                        <option value="University">University</option>
                     </select>
                     </div>
                     <br> <br>
@@ -153,22 +156,34 @@ onMounted( async() => {
 )
 
 const updateProfileDetails = async() => {
-    if (newtelehandle.value != "") {
-        updateTelegramHandle();
-    }
+
     if (newphoneno.value != "") {
-        updatePhoneNumber();
+        if (newphoneno.value.toString().length == 8) {
+            updatePhoneNumber();
+            if (newtelehandle.value != "") {
+                updateTelegramHandle();
+            }
+            if (newemail.value != "") {
+                updateEmail();
+            }   
+        } else {
+            console.log("number not len 8, tele handle wont be processed as well")
+            //show fail toast
+        }
+    } else {
+        if (newtelehandle.value != "") {
+                updateTelegramHandle();
+            }
+            if (newemail.value != "") {
+                updateEmail();
+            }   
     }
-    if (newemail.value != "") {
-        updateEmail();
-    }   
 }
 
 const updateTutorDetails = async() => {
-    if (newedu.value != "") {
+    if (newedu.value != "") {   
         if (newedu.value != "none"){
             updateEducation();
-            showModal2.value = false;
         }
     }
     if (newexp.value !="") {
@@ -179,51 +194,57 @@ const updateTutorDetails = async() => {
 }
 
 const updatePhoneNumber = async () => {
-    console.log(newedu.value)
+    /*
+    console.log(newphoneno.value)
     console.log(user.value.id)
+    console.log(typeof(newphoneno.value))
+    */
     updateUserById(String(id.value), { phoneNumber : newphoneno.value })
     phonenum.value = newphoneno.value
     newphoneno.value = ""
-    showModal.value = false
+
     //check for valid phone eg. len = 8, all integer, 
 }
 
 const updateTelegramHandle = async() => {
+    /*
     console.log(newtelehandle.value)
     console.log(user.value.id)
+    */
     updateUserById(String(id.value), { telegramHandle : newtelehandle.value })
-    showModal.value = false
     telegramHandle.value = newtelehandle.value
     newtelehandle.value = ""
     //checks?
 }
 
 const updateEmail =  async() => {
+    /*
     console.log(newemail.value)
     console.log(user.value.id)
+    */
     updateUserById(String(id.value), { email : newemail.value })
-    showModal.value = false
     email.value = newemail.value
     newemail.value = ""
     //check for valid email eg contain .com
 }
 
 const updateEducation =  async() => {
-    console.log(newemail.value)
+    /*
+    console.log(newedu.value)
     console.log(user.value.id)
+    */
     updateTutorProfileById(String(id.value), { education : newedu.value })
-    showModal2.value = false
     education.value = newedu.value
     newedu.value = ""
 }
 
 const updateExperience =  async() => {
+    /*
     console.log(newexp.value)
     console.log(user.value.id)
+    */
     updateTutorProfileById(String(id.value), { experience : newexp.value })
-    showModal.value = false
     experience.value = newexp.value
-    showModal2.value = false
     newexp.value = ""
 }
 
