@@ -79,20 +79,9 @@ import { collection, addDoc } from "firebase/firestore";
 import { useToast, TYPE } from "vue-toastification";
 
 const toast = useToast()
-import { useAuthStore } from "@/stores/authStore";
-import { ref } from "vue";
-import { storeToRefs } from 'pinia';
-import { getUserById } from '../lib/handlers/user';
-
-const { user } = storeToRefs(useAuthStore());
-const currUserDetails = ref();
-
-const getCurrUserDetails = async () => {
-  currUserDetails.value = await getUserById(user.value.uid)
-}
-
-
+import { getCurrentUser } from "../lib/handlers/auth.js";
 export default {
+
   
   methods: {
     // save listing to firebase
@@ -102,6 +91,9 @@ export default {
       let location = document.getElementById("location2").value;
       let rates2 = document.getElementById("rates2").value;
       let desc = document.getElementById("desc2").value;
+      let User = await getCurrentUser();
+      let Userid = User.uid;
+     
 
       const data = {
         
@@ -111,8 +103,9 @@ export default {
         rates: rates2,
         description: desc,
         dateCreated: new Date(),
-        userId: getCurrUserDetails,
-        
+        UserID : Userid,
+
+    
       };
       if (level == "" || subject == "" || location == "" || rates2 == "" || desc == "") {
         toast("Missing details", {
