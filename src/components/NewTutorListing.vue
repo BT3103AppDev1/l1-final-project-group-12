@@ -63,7 +63,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="$emit('close-modal');savetutorlisting()">Add Listing</button>
+        <button type="button" class="button" @click="$emit('close-modal');savetutorlisting(); reloadPage()">Add Listing</button>
       </div>
     </form>
 
@@ -85,6 +85,9 @@ export default {
   
   methods: {
     // save listing to firebase
+    reloadPage() {
+      window.location.reload();
+    },
     async savetutorlisting() {
       let level = document.getElementById("level2").value;
       let subject = document.getElementById("subject2").value;

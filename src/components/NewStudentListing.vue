@@ -63,7 +63,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="$emit('close-modal'); savestudentlisting()">Add Listing</button>
+        <button type="button" class="button" @click="$emit('close-modal'); savestudentlisting(); reloadPage()">Add Listing</button>
       </div>
     </form>
 
@@ -84,6 +84,10 @@ import { getCurrentUser } from "../lib/handlers/auth.js";
 
 
 export default {
+
+  reloadPage() {
+    window.location.reload();
+  },
 
   methods: {
     // save listing to firebase
