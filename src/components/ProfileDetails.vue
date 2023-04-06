@@ -77,7 +77,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button class = "updatebn" id = "update-tutor" @click="updateTutorDetails"> Save </button>
+                        <button class = "updatebn" id = "update-tutor" @click="updateTutorDetails"> Save </button>
                 </div>
             </ModalComponent>
 
@@ -98,14 +98,40 @@
         <div class = "details">
             <h1> Your Listings </h1>
             <br>
+            <div class = "perlisting" v-for = "item in listings"> 
+                Type: Student Listing
+                <br>
+                Level: {{item.level}}
+                <br>
+                Subject: {{item.subject}}
+                <br>
+                Location: {{item.location}}
+                <br>
+                Description: {{item.description}}
+                <br>
+                Rates: {{item.rates}}
+                <br> 
+            </div>
+            <div class = "perlistings" v-for = "item in tutorlistings">
+                Type: Tutor Listing
+                <br>
+                Level: {{item.level}}
+                <br>
+                Subject: {{item.subject}}
+                <br>
+                Location: {{item.location}}
+                <br>
+                Rates: {{item.rates}}
+            </div>
 
+                
         </div>
     </div>
 </template>
 
 <script setup> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
-import {getListingById} from "../lib/handlers/listing.js"
+import {getAllListings} from "../lib/handlers/listing.js"
 import {getUserById, updateUserById, updateTutorProfileById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 import {useAuthStore} from "@/stores/authStore";
@@ -122,6 +148,7 @@ const currUserDetails = ref();
 const newemail = ref()
 const id = ref()
 const listings = ref()
+const tutorlistings = ref()
 const newphoneno = ref()
 const newtelehandle = ref()
 const email = ref()
@@ -146,10 +173,29 @@ onMounted( async() => {
     isTutor.value = user6.isTutor
     education.value = user6.education
     experience.value = user6.experience
-    //listings.value = getListingById(String(id.value))
-    //console.log(listings)
-    console.log(currUserDetails.value)
-    newemail.value = ""
+   //listings.value = await getListingById("student-listing", String(id.value))
+    let array = []
+    let allDocuments = await getAllListings("student-listing")
+    allDocuments.forEach((docs) => {
+        if (docs.UserID == id.value) {
+            array.push(docs)
+        }
+    })  
+    let array2 = []
+    if (isTutor.value) {
+        let allDocuments2 = await getAllListings("tutor-listing")
+        allDocuments2.forEach((docs) => {
+            if (docs.UserID == id.value) {
+                array2.push(docs)
+            }
+        }) 
+
+    }
+    console.log(array2)
+    listings.value = array
+    tutorlistings.value = array2
+    //console.log(listings.value)
+    newemail.value = email.value
     newtelehandle.value = telegramHandle.value
     newphoneno.value = phonenum.value
     newedu.value = education.value
@@ -294,5 +340,10 @@ text-align: center;
     margin-right: auto;
     min-width: 160px;
 
+}
+
+.perlisting{
+    border: black solid 1px;
+    margin-bottom: 1%;
 }
 </style>
