@@ -6,7 +6,7 @@ import { updateTutorProfileById } from "../lib/handlers/user.js";
 import { useAuthStore } from "../stores/authStore.js";
 import { useToast } from "vue-toastification";
 
-const showModal = ref(false);
+const showModal2 = ref(false);
 
 const { user } = storeToRefs(useAuthStore());
 
@@ -75,16 +75,16 @@ function saveTutorProfile() {
     subjects: subjects,
     region: location,
   });
-  showModal.value = false;
+  showModal2.value = false;
   toast.success('Successfully updated tutor profile.', { timeout: 3000 });
 }
 </script>
 
 <template>
   <p>Tutor Profile Modal Preview</p>
-  <button @click="showModal = true">show create tutor profile modal</button>
+  <button @click="showModal2 = true">show create tutor profile modal</button>
 
-  <ModalComponent v-show="showModal" @close-modal="showModal = false">
+  <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
     <div id="content">
       <!-- modal header -->
       <header class="modal-header">
@@ -168,7 +168,6 @@ function saveTutorProfile() {
 
       <!-- modal footer -->
       <footer class="modal-footer">
-        <!-- <button type="button" class="create-profile-button" @click="showModal = false"> -->
         <button type="button" class="create-profile-button" @click="saveTutorProfile">
           Create Tutor Profile
         </button>
