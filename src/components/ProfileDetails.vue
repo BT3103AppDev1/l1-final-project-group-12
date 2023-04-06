@@ -4,19 +4,19 @@
     <div class = "outer-details"> 
 
         <div class = "details">
-            <h1>Profile Details </h1>
+            <h1> Profile Details </h1>
             <br>
             <!--Email: {{email}}
             <br><br>
             -->
-            phoneNumber: {{phonenum}}
+            Phone Number: {{phonenum}}
             <br><br>    
-            telegramHandle: {{telegramHandle}}
+            Telegram Handle: {{telegramHandle}}
             <br><br>
-            <button @click="showModal = true">Update Details</button>
+            <button class ="update_Profile_btn" @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
                 <div id ="content">
-                    Leave blank if you are not updating that field
+                   <h3> Leave blank if you are not updating that field</h3>
                     <br>
                     <br>
                     <!--
@@ -56,7 +56,7 @@
             <br> <br>
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id ="content">
-                    Leave blank if you are not updating that field
+                    <h3>Leave blank if you are not updating that field</h3>
                     <br>
                     <br>
                     <div id="qualification">
@@ -78,18 +78,19 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button id = "update-tutor" @click="updateTutorDetails"> Save </button>
+                    <div class="modal-footer">
+                        <button type="button" class="button" @click=" updateTutorDetails">Save</button>
+                    </div>
+            
                 </div>
             </ModalComponent>
-
-                
         </div>
         <div class = "details" v-else>
             <h1> Tutor Profile </h1>
             <br>
             To become a tutor, you must set up a tutor profile.
             <br><br>
-            <button> Apply to be tutor (Replace with Bryan's create new tutor functionality) </button> <!-- to be repalced with bryan's create new tutor functionality -->
+            <button class="tutor_apply_btn"> Apply to be tutor (Replace with Bryan's create new tutor functionality) </button> <!-- to be repalced with bryan's create new tutor functionality -->
             <br> <br>
         </div>
     </div>
@@ -257,11 +258,65 @@ const updateExperience =  async() => {
 .outer-details{
     display: flex;
     justify-content: center;
+    
 }
 
 
 .details{
 width  : 50em;
 outline: 1px solid black;
+border-radius: 10px;
+overflow: auto;
+padding-left: 10px;
+padding-top: 10px;
+background-color:  #f6f5f6;
+
 }
+.update_Profile_btn {
+    background-color: #ff9040;
+    width: 25%;
+    height: 3em;
+    color: white;
+    font-size: 14px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border-style: none;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tutor_apply_btn {
+    background-color: #ff9040;
+    width:45%;
+    height: 4em;
+    color: white;
+    font-size: 14px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border-style: none;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#update-profile {
+    background-color: #ff9040;
+    width:40%;
+    height: 3em;
+    color: white;
+    font-size: 14px;
+    border-radius: 16px;
+    margin-top: 10px;
+    border-style: none;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
 </style>
