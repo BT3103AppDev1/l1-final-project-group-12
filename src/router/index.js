@@ -4,7 +4,6 @@ import AuthView from "../views/AuthView.vue";
 import HomeView from "../views/HomeView.vue";
 import TestView from "../views/TestView.vue";
 import BaseLayout from "../layouts/BaseLayout.vue";
-import TutorListingsView from "../views/TutorListingsView.vue";
 import CreateTutorProfile from "../views/CreateTutorProfile.vue"
 import DisplayTutorListings from '@/views/DisplayTutorListings.vue'
 import UserProfileView from "@/views/UserProfileView.vue"

@@ -58,12 +58,12 @@
           <label for="Description">Description and contact method</label><br /><br />
           <textarea type="text" id="desc2" class="modal-description-input" v-model="description"
             placeholder="Description and contact method" rows="4" required>
-            </textarea>
+              </textarea>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="savetutorlisting">Add Listing</button>
+        <button type="button" class="button" @click="$emit('close-modal');savetutorlisting(); reloadPage()">Add Listing</button>
       </div>
     </form>
 
@@ -76,33 +76,59 @@
 <script>
 import { db } from "../lib/firebase-config";
 import { collection, addDoc } from "firebase/firestore";
+import { useToast, TYPE } from "vue-toastification";
 
+const toast = useToast()
+import { getCurrentUser } from "../lib/handlers/auth.js";
 export default {
+
+  
   methods: {
     // save listing to firebase
+    reloadPage() {
+      window.location.reload();
+    },
     async savetutorlisting() {
       let level = document.getElementById("level2").value;
       let subject = document.getElementById("subject2").value;
       let location = document.getElementById("location2").value;
-      let rates = document.getElementById("rates2").value;
+      let rates2 = document.getElementById("rates2").value;
       let desc = document.getElementById("desc2").value;
+      let User = await getCurrentUser();
+      let Userid = User.uid;
+     
 
       const data = {
+        
         level: level,
         subject: subject,
         location: location,
-        rates: rates,
+        rates: rates2,
         description: desc,
         dateCreated: new Date(),
-        // userId:
-      };
+        UserID : Userid,
 
-      try {
-        const docRef = await addDoc(collection(db, "tutor-listing"), data);
-        console.log("Document written with ID: ", docRef.id);
-      } catch (e) {
-        console.error("Error adding document: ", e);
+    
+      };
+      if (level == "" || subject == "" || location == "" || rates2 == "" || desc == "") {
+        toast("Missing details", {
+          type: TYPE.ERROR
+        })
+      } else {
+        try {
+          const docRef = await addDoc(collection(db, "tutor-listing"), data);
+          console.log("Document written with ID: ", docRef.id);
+          toast("Listing Posted!", {
+            type: TYPE.SUCCESS
+          })
+        } catch (e) {
+          console.error("Error adding document: ", e);
+          toast("Oops! Something went wrong...", {
+            type: TYPE.ERROR
+          })
+        }
       }
+
     },
   },
 };
