@@ -1,5 +1,7 @@
 <template>
-    <TutorListing/>
+    <div class="body">
+        <TutorListing />
+    </div>
 </template>
 
 <script>
@@ -11,3 +13,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.body {
+    background-color: #f6f5f6;
+    height:100%;
+}
+</style>
