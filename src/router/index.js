@@ -6,6 +6,7 @@ import TestView from "../views/TestView.vue";
 import BaseLayout from "../layouts/BaseLayout.vue";
 import CreateTutorProfile from "../views/CreateTutorProfile.vue"
 import DisplayTutorListings from '@/views/DisplayTutorListings.vue'
+import ReviewView from '@/views/ReviewView.vue'
 import { getCurrentUser } from "../lib/handlers/auth";
 
 const router = createRouter({
@@ -22,7 +23,8 @@ const router = createRouter({
         { name: "tutor-listings", path: "/tutor-listings", component: DisplayTutorListings },
         { name: "me", path: "/me", component: TestView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
-        { name: "tutor-profile", path: "/tutorprofile", component: CreateTutorProfile}
+        { name: "tutor-profile", path: "/tutorprofile", component: CreateTutorProfile},
+        { name: "tutor-review", path:"/tutorreview", component: ReviewView}
       ],
       meta: { requiresAuth: true },
     },
