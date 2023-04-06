@@ -16,7 +16,7 @@
             <button @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
                 <div id ="content">
-                    Leave blank if you are not updating that field
+                    <h3> Update Profile Details</h3>
                     <br>
                     <br>
                     <!--
@@ -56,7 +56,7 @@
             <br> <br>
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id ="content">
-                    Leave blank if you are not updating that field
+                    <h3> Update Tutor Details </h3>
                     <br>
                     <br>
                     <div id="qualification">
@@ -148,10 +148,10 @@ onMounted( async() => {
     //console.log(listings)
     console.log(currUserDetails.value)
     newemail.value = ""
-    newtelehandle.value = ""
-    newphoneno.value = ""
-    newedu.value = ""
-    newexp.value = ""
+    newtelehandle.value = telegramHandle.value
+    newphoneno.value = phonenum.value
+    newedu.value = education.value
+    newexp.value = experience.value
 }
 )
 
@@ -162,6 +162,7 @@ const updateProfileDetails = async() => {
             updatePhoneNumber();
             if (newtelehandle.value != "") {
                 updateTelegramHandle();
+                showModal.value = false
             }
             if (newemail.value != "") {
                 updateEmail();
@@ -186,10 +187,12 @@ const updateTutorDetails = async() => {
             updateEducation();
         }
     }
+
     if (newexp.value !="") {
         updateExperience();
     }
 
+    showModal2.value = false
 
 }
 
@@ -201,7 +204,7 @@ const updatePhoneNumber = async () => {
     */
     updateUserById(String(id.value), { phoneNumber : newphoneno.value })
     phonenum.value = newphoneno.value
-    newphoneno.value = ""
+    //newphoneno.value = ""
 
     //check for valid phone eg. len = 8, all integer, 
 }
@@ -213,7 +216,7 @@ const updateTelegramHandle = async() => {
     */
     updateUserById(String(id.value), { telegramHandle : newtelehandle.value })
     telegramHandle.value = newtelehandle.value
-    newtelehandle.value = ""
+    //newtelehandle.value = ""
     //checks?
 }
 
@@ -224,7 +227,7 @@ const updateEmail =  async() => {
     */
     updateUserById(String(id.value), { email : newemail.value })
     email.value = newemail.value
-    newemail.value = ""
+    //newemail.value = ""
     //check for valid email eg contain .com
 }
 
@@ -235,7 +238,7 @@ const updateEducation =  async() => {
     */
     updateTutorProfileById(String(id.value), { education : newedu.value })
     education.value = newedu.value
-    newedu.value = ""
+    //newedu.value = ""
 }
 
 const updateExperience =  async() => {
@@ -245,7 +248,7 @@ const updateExperience =  async() => {
     */
     updateTutorProfileById(String(id.value), { experience : newexp.value })
     experience.value = newexp.value
-    newexp.value = ""
+    //newexp.value = ""
 }
 
 
