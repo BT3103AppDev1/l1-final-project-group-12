@@ -62,7 +62,6 @@
                     <div id="qualification">
                     <label for="qualification">Highest education</label><br />
                     <select v-model = "newedu" id="qualification1" name="qualification">
-                        <option value="none">Not changing</option>
                         <option value="secondary">Secondary</option>
                         <option value="post-secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
@@ -112,6 +111,9 @@ import ModalComponent from "@/components/ModalComponent.vue";
 import {useAuthStore} from "@/stores/authStore";
 import {storeToRefs} from "pinia";
 import {onMounted, ref} from "vue"
+import { useToast, TYPE } from "vue-toastification";
+
+const toast = useToast()
 
 const showModal = ref(false) //profile
 const showModal2 = ref(false) //tutor
@@ -157,43 +159,52 @@ onMounted( async() => {
 
 const updateProfileDetails = async() => {
 
-    if (newphoneno.value != "") {
+
         if (newphoneno.value.toString().length == 8) {
-            updatePhoneNumber();
-            if (newtelehandle.value != "") {
+            if (newtelehandle.value.toString().length >=5) {
+                updatePhoneNumber();
                 updateTelegramHandle();
                 showModal.value = false
+                toast("Profile Details saved!", {
+                    type: TYPE.SUCCESS
+                })
+            } else {
+                toast("Invalid telegram handle length, should be at least 5", {type : TYPE.ERROR})
             }
+/*
             if (newemail.value != "") {
                 updateEmail();
             }   
+            */
         } else {
-            console.log("number not len 8, tele handle wont be processed as well")
-            //show fail toast
+                toast("Invalid phone length, should be of length 8", {
+                    type: TYPE.ERROR
+                })
         }
-    } else {
-        if (newtelehandle.value != "") {
-                updateTelegramHandle();
-            }
-            if (newemail.value != "") {
-                updateEmail();
-            }   
-    }
 }
 
 const updateTutorDetails = async() => {
-    if (newedu.value != "") {   
-        if (newedu.value != "none"){
+
+    if (newexp.value =="") {
+        toast("Experience field empty", {
+                    type: TYPE.ERROR
+                })
+
+    } else {
+        if (newedu.value != "") {   
             updateEducation();
+            
         }
+
+        if (newexp.value !="") {
+            updateExperience();
+        }
+
+        showModal2.value = false
+        toast("Tutor details saved!", {
+                    type: TYPE.SUCCESS
+                })
     }
-
-    if (newexp.value !="") {
-        updateExperience();
-    }
-
-    showModal2.value = false
-
 }
 
 const updatePhoneNumber = async () => {
