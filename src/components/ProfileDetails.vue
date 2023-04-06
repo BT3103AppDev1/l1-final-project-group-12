@@ -59,9 +59,9 @@
                     <h3> Update Tutor Details </h3>
                     <br>
                     <br>
-                    <div id="qualification">
+                    <div>
                     <label for="qualification">Highest education</label><br />
-                    <select v-model = "newedu" id="qualification1" name="qualification">
+                    <select v-model = "newedu"  name="qualification">
                         <option value="secondary">Secondary</option>
                         <option value="post-secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
@@ -122,8 +122,8 @@
                             <option value="none">Highest qualification</option>
                             <option value="secondary">Secondary</option>
                             <option value="post-secondary">Post-Secondary</option>
-                            <option value="secondary">Diploma/Professional Qualification</option>
-                            <option value="post-secondary">University</option>
+                            <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
+                            <option value="University">University</option>
                         </select>
                         </div>
                         <!-- checkbox for subjects taught -->
