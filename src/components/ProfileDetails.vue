@@ -13,7 +13,7 @@
             <br><br>    
             telegramHandle: {{telegramHandle}}
             <br><br>
-            <button @click="showModal = true">Update Details</button>
+            <button class = "updatebn" @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
                 <div id ="content">
                     <h3> Update Profile Details</h3>
@@ -35,7 +35,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button id = "update-profile" @click="updateProfileDetails"> Save </button>
+                    <button class = "updatebn"  @click="updateProfileDetails"> Save </button>
                 </div>
             </ModalComponent>
             
@@ -52,7 +52,7 @@
             <br><br>
             Experience: {{experience}}
             <br> <br>
-            <button @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
+            <button class = "updatebn" @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
             <br> <br>
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id ="content">
@@ -77,7 +77,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button id = "update-tutor" @click="updateTutorDetails"> Save </button>
+                    <button class = "updatebn" id = "update-tutor" @click="updateTutorDetails"> Save </button>
                 </div>
             </ModalComponent>
 
@@ -277,5 +277,22 @@ const updateExperience =  async() => {
 .details{
 width  : 50em;
 outline: 1px solid black;
+text-align: center;
+}
+
+.updatebn {
+    background-color: #ff9040;
+    width: 40%;
+    height: 3em;
+    color: white;
+    font-size: 14px;
+    border-radius: 16px;
+    border-style: none;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 160px;
+
 }
 </style>
