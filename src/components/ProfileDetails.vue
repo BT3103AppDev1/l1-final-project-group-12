@@ -81,12 +81,15 @@
                 </div>
             </ModalComponent>
         </div>
-        <div class = "details" v-else>
+        <div class = "detail" v-else>
+            <div class ="details">
             <h1> Tutor Profile </h1>
             <br>
             To become a tutor, you must set up a tutor profile.
             <br><br>
             <button class="createprofilebn" @click="showModal3 = true">Create Tutor Profile</button>
+            <br><br>
+            </div>
             <ModalComponent v-show="showModal3" @close-modal="showModal3 = false">
                 <div id="content">
                 <!-- modal header -->
@@ -476,7 +479,12 @@ function saveTutorProfile() {
 .details{
 width  : 50em;
 outline: 1px solid black;
+border-radius: 10px;
 text-align: center;
+overflow: auto;
+padding-left: 10px;
+padding-top: 10px;
+background-color:  #f6f5f6;
 }
 
 .updatebn, .createprofilebn {
@@ -610,5 +618,11 @@ text-align: center;
   border: 1px solid darkorange;
 }
 
+
+label {
+    text-align: left ;
+    display: inline-block;
+
+}
 
 </style>
