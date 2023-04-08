@@ -13,10 +13,10 @@
             <br><br>    
             Telegram Handle: {{telegramHandle}}
             <br><br>
-            <button class ="update_Profile_btn" @click="showModal = true">Update Details</button>
+            <button class = "updatebn" @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
                 <div id ="content">
-                   <h3> Leave blank if you are not updating that field</h3>
+                    <h3> Update Profile Details</h3>
                     <br>
                     <br>
                     <!--
@@ -35,7 +35,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button id = "update-profile" @click="updateProfileDetails"> Save </button>
+                    <button class = "updatebn"  @click="updateProfileDetails"> Save </button>
                 </div>
             </ModalComponent>
             
@@ -52,17 +52,16 @@
             <br><br>
             Experience: {{experience}}
             <br> <br>
-            <button @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
+            <button class = "updatebn" @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
             <br> <br>
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id ="content">
-                    <h3>Leave blank if you are not updating that field</h3>
+                    <h3> Update Tutor Details </h3>
                     <br>
                     <br>
-                    <div id="qualification">
+                    <div>
                     <label for="qualification">Highest education</label><br />
-                    <select v-model = "newedu" id="qualification1" name="qualification">
-                        <option value="none">Not changing</option>
+                    <select v-model = "newedu"  name="qualification">
                         <option value="secondary">Secondary</option>
                         <option value="post-secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
@@ -78,10 +77,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <div class="modal-footer">
-                        <button type="button" class="button" @click=" updateTutorDetails">Save</button>
-                    </div>
-            
+                        <button class = "updatebn" id = "update-tutor" @click="updateTutorDetails"> Save </button>
                 </div>
             </ModalComponent>
         </div>
@@ -90,7 +86,97 @@
             <br>
             To become a tutor, you must set up a tutor profile.
             <br><br>
-            <button class="tutor_apply_btn"> Apply to be tutor (Replace with Bryan's create new tutor functionality) </button> <!-- to be repalced with bryan's create new tutor functionality -->
+            <button class="createprofilebn" @click="showModal3 = true">Create Tutor Profile</button>
+            <ModalComponent v-show="showModal3" @close-modal="showModal3 = false">
+                <div id="content">
+                <!-- modal header -->
+                <header class="modal-header">
+                    <slot name="header"> Set up tutor profile </slot>
+                </header>
+
+                <!-- modal body -->
+                <section class="modal-body">
+                    <slot name="form">
+                    <form>
+                        <!-- input box for name of tutor -->
+                        <div id="name">
+                        <label for="name">Name</label><br />
+                        <input type="text" id="name1" name="name" placeholder="Name" v-model="inputs.name" /><br />
+                        </div>
+                        <!-- dropdown selection for gender of tutor -->
+                        <div id="gender">
+                        <label for="gender">Gender</label><br />
+                        <select id="gender1" name="gender" v-model="inputs.gender">
+                            <option value="none">Select a gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        </div>
+                        <br />
+                        <!-- dropdown selection for highest qualification -->
+                        <div id="qualification">
+                        <label for="qualification">Highest qualification</label><br />
+                        <select id="qualification1" name="qualification" v-model="inputs.qualification">
+                            <option value="none">Highest qualification</option>
+                            <option value="secondary">Secondary</option>
+                            <option value="post-secondary">Post-Secondary</option>
+                            <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
+                            <option value="University">University</option>
+                        </select>
+                        </div>
+                        <!-- checkbox for subjects taught -->
+                        <div id="subjects">
+                        <label for="subjects">Subjects teaching</label><br />
+                        <form action="/action_page.php">
+                            <input type="checkbox" id="english" name="english" value="english" v-model="inputs.english"/>
+                            <label for="english"> English</label><br />
+                            <input type="checkbox" id="math" name="math" value="math" v-model="inputs.math"/>
+                            <label for="math"> Mathematics</label><br />
+                            <input type="checkbox" id="science" name="science" value="science" v-model="inputs.science"/>
+                            <label for="science"> Science</label><br /><br />
+                        </form>
+                        </div>
+                        <br />
+                        <!-- checkbox for levels taught -->
+                        <div id="levels">
+                        <label for="levels">Levels taught</label><br />
+                        <form action="/action_page.php">
+                            <input type="checkbox" id="primary" name="primary" value="primary" v-model="inputs.primary"/>
+                            <label for="primary"> Primary</label><br />
+                            <input type="checkbox" id="secondary" name="secondary" value="secondary" v-model="inputs.secondary"/>
+                            <label for="secondary"> Secondary</label><br />
+                            <input type="checkbox" id="jc" name="jc" value="jc" v-model="inputs.jc"/>
+                            <label for="jc"> Junior College</label><br /><br />
+                        </form>
+                        </div>
+                        <!-- input box for location of tutor -->
+                        <div id="location">
+                        <label for="location">Location</label><br />
+                        <input type="text" id="location1" name="location" placeholder="Location" v-model="inputs.location"/><br />
+                        </div>
+                        <br />
+                        <!-- input box for contact number -->
+                        <div id="contact">
+                        <label for="contact">Contact Number</label><br />
+                        <input type="text" id="contact1" name="contact" placeholder="Contact" v-model="inputs.contact"/><br />
+                        </div>
+                        <!-- input box for telegram @ -->
+                        <div id="tele">
+                        <label for="tele">Telegram</label><br />
+                        <input type="text" id="tele1" name="tele" placeholder="Telegram @" v-model="inputs.tele"/><br />
+                        </div>
+                    </form>
+                    </slot>
+                </section>
+
+                <!-- modal footer -->
+                <footer class="modal-footer">
+                    <button type="button" class="create-profile-button" @click="saveTutorProfile">
+                    Create Tutor Profile
+                    </button>
+                </footer>
+                </div>
+            </ModalComponent>
             <br> <br>
         </div>
     </div>
@@ -100,27 +186,58 @@
         <div class = "details">
             <h1> Your Listings </h1>
             <br>
+            <div class = "perlisting" v-for = "item in listings"> 
+                Type: Student Listing
+                <br>
+                Level: {{item.level}}
+                <br>
+                Subject: {{item.subject}}
+                <br>
+                Location: {{item.location}}
+                <br>
+                Description: {{item.description}}
+                <br>
+                Rates: {{item.rates}}
+                <br> 
+            </div>
+            <div class = "perlistings" v-for = "item in tutorlistings">
+                Type: Tutor Listing
+                <br>
+                Level: {{item.level}}
+                <br>
+                Subject: {{item.subject}}
+                <br>
+                Location: {{item.location}}
+                <br>
+                Rates: {{item.rates}}
+            </div>
 
+                
         </div>
     </div>
 </template>
 
 <script setup> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
-import {getListingById} from "../lib/handlers/listing.js"
+import {getAllListings} from "../lib/handlers/listing.js"
 import {getUserById, updateUserById, updateTutorProfileById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 import {useAuthStore} from "@/stores/authStore";
 import {storeToRefs} from "pinia";
 import {onMounted, ref} from "vue"
+import { useToast, TYPE } from "vue-toastification";
+
+const toast = useToast()
 
 const showModal = ref(false) //profile
 const showModal2 = ref(false) //tutor
+const showModal3 = ref(false) //create tutor profile modal
 const {user} = storeToRefs(useAuthStore());
 const currUserDetails = ref();
 const newemail = ref()
 const id = ref()
 const listings = ref()
+const tutorlistings = ref()
 const newphoneno = ref()
 const newtelehandle = ref()
 const email = ref()
@@ -131,7 +248,20 @@ const newedu = ref()
 const newexp = ref()
 const education = ref()
 const experience = ref()
-
+const inputs = ref({
+  name: "",
+  gender: "",
+  qualification: "",
+  english: "",
+  math: "",
+  science: "",
+  primary: "",
+  secondary: "",
+  jc: "",
+  location: "",
+  contact: "",
+  tele: ""
+});
 
 onMounted( async() => {
     let user5 = await getCurrentUser()
@@ -145,53 +275,84 @@ onMounted( async() => {
     isTutor.value = user6.isTutor
     education.value = user6.education
     experience.value = user6.experience
-    //listings.value = getListingById(String(id.value))
-    //console.log(listings)
-    console.log(currUserDetails.value)
-    newemail.value = ""
-    newtelehandle.value = ""
-    newphoneno.value = ""
-    newedu.value = ""
-    newexp.value = ""
+   //listings.value = await getListingById("student-listing", String(id.value))
+    let array = []
+    let allDocuments = await getAllListings("student-listing")
+    allDocuments.forEach((docs) => {
+        if (docs.UserID == id.value) {
+            array.push(docs)
+        }
+    })  
+    let array2 = []
+    if (isTutor.value) {
+        let allDocuments2 = await getAllListings("tutor-listing")
+        allDocuments2.forEach((docs) => {
+            if (docs.UserID == id.value) {
+                array2.push(docs)
+            }
+        }) 
+
+    }
+    console.log(array2)
+    listings.value = array
+    tutorlistings.value = array2
+    //console.log(listings.value)
+    newemail.value = email.value
+    newtelehandle.value = telegramHandle.value
+    newphoneno.value = phonenum.value
+    newedu.value = education.value
+    newexp.value = experience.value
 }
 )
 
 const updateProfileDetails = async() => {
 
-    if (newphoneno.value != "") {
+
         if (newphoneno.value.toString().length == 8) {
-            updatePhoneNumber();
-            if (newtelehandle.value != "") {
+            if (newtelehandle.value.toString().length >=5) {
+                updatePhoneNumber();
                 updateTelegramHandle();
+                showModal.value = false
+                toast("Profile Details saved!", {
+                    type: TYPE.SUCCESS
+                })
+            } else {
+                toast("Invalid telegram handle length, should be at least 5", {type : TYPE.ERROR})
             }
+/*
             if (newemail.value != "") {
                 updateEmail();
             }   
+            */
         } else {
-            console.log("number not len 8, tele handle wont be processed as well")
-            //show fail toast
+                toast("Invalid phone length, should be of length 8", {
+                    type: TYPE.ERROR
+                })
         }
-    } else {
-        if (newtelehandle.value != "") {
-                updateTelegramHandle();
-            }
-            if (newemail.value != "") {
-                updateEmail();
-            }   
-    }
 }
 
 const updateTutorDetails = async() => {
-    if (newedu.value != "") {   
-        if (newedu.value != "none"){
+
+    if (newexp.value =="") {
+        toast("Experience field empty", {
+                    type: TYPE.ERROR
+                })
+
+    } else {
+        if (newedu.value != "") {   
             updateEducation();
+            
         }
-    }
-    if (newexp.value !="") {
-        updateExperience();
-    }
 
+        if (newexp.value !="") {
+            updateExperience();
+        }
 
+        showModal2.value = false
+        toast("Tutor details saved!", {
+                    type: TYPE.SUCCESS
+                })
+    }
 }
 
 const updatePhoneNumber = async () => {
@@ -202,7 +363,7 @@ const updatePhoneNumber = async () => {
     */
     updateUserById(String(id.value), { phoneNumber : newphoneno.value })
     phonenum.value = newphoneno.value
-    newphoneno.value = ""
+    //newphoneno.value = ""
 
     //check for valid phone eg. len = 8, all integer, 
 }
@@ -214,7 +375,7 @@ const updateTelegramHandle = async() => {
     */
     updateUserById(String(id.value), { telegramHandle : newtelehandle.value })
     telegramHandle.value = newtelehandle.value
-    newtelehandle.value = ""
+    //newtelehandle.value = ""
     //checks?
 }
 
@@ -225,7 +386,7 @@ const updateEmail =  async() => {
     */
     updateUserById(String(id.value), { email : newemail.value })
     email.value = newemail.value
-    newemail.value = ""
+    //newemail.value = ""
     //check for valid email eg contain .com
 }
 
@@ -236,7 +397,7 @@ const updateEducation =  async() => {
     */
     updateTutorProfileById(String(id.value), { education : newedu.value })
     education.value = newedu.value
-    newedu.value = ""
+    //newedu.value = ""
 }
 
 const updateExperience =  async() => {
@@ -246,10 +407,60 @@ const updateExperience =  async() => {
     */
     updateTutorProfileById(String(id.value), { experience : newexp.value })
     experience.value = newexp.value
-    newexp.value = ""
+    //newexp.value = ""
 }
 
+function saveTutorProfile() {
+  // fetches all the inputs and stores them as variables to be pushed to firebase
+  // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
+  let name = inputs.value.name;
 
+  let gender = inputs.value.gender;
+
+  let qualification = inputs.value.qualification;
+
+  alert(name)
+  console.log(inputs.value.math)
+  // checkbox options for subjects taught, returns a boolean for if the option was checked
+  const subjects = [];
+  if (inputs.value.english) {
+    subjects.push("English");
+  }
+  if (inputs.value.math) {
+    subjects.push("Math");
+  }
+  if (inputs.value.science) {
+    subjects.push("Science");
+  }
+
+  // checkbox options for levels taught, returns a boolean for if the option was checked
+  const levels = [];
+  if (inputs.value.primary) {
+    levels.push("Primary");
+  }
+  if (inputs.value.secondary) {
+    levels.push("Secondary");
+  }
+  if (inputs.value.jc) {
+    levels.push("Junior College");
+  }
+
+  let location = inputs.value.location;
+
+  let contact = inputs.value.contact;
+
+  let tele = inputs.value.tele;
+
+  updateTutorProfileById(String(id.value), {
+    isTutor: true,
+    education: qualification,
+    levels: levels,
+    subjects: subjects,
+    region: location,
+  });
+  showModal3.value = false;
+  toast.success('Successfully updated tutor profile.', { timeout: 3000 });
+}
 
 </script>
 
@@ -265,57 +476,138 @@ const updateExperience =  async() => {
 .details{
 width  : 50em;
 outline: 1px solid black;
-border-radius: 10px;
-overflow: auto;
-padding-left: 10px;
-padding-top: 10px;
-background-color:  #f6f5f6;
-
+text-align: center;
 }
-.update_Profile_btn {
+
+.updatebn, .createprofilebn {
     background-color: #ff9040;
-    width: 25%;
+    width: 40%;
     height: 3em;
     color: white;
     font-size: 14px;
     border-radius: 16px;
-    margin-top: 20px;
     border-style: none;
     cursor: pointer;
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
-
-.tutor_apply_btn {
-    background-color: #ff9040;
-    width:45%;
-    height: 4em;
-    color: white;
-    font-size: 14px;
-    border-radius: 16px;
-    margin-top: 20px;
-    border-style: none;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    min-width: 160px;
 
 }
-#update-profile {
-    background-color: #ff9040;
-    width:40%;
-    height: 3em;
-    color: white;
-    font-size: 14px;
-    border-radius: 16px;
-    margin-top: 10px;
-    border-style: none;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 
+.perlisting{
+    border: black solid 1px;
+    margin-bottom: 1%;
+}
+
+/* everything below is tutor profile modal css */
+#content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-header {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #ff9040;
+  text-align: left;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+.modal-header,
+.modal-body {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+#name,
+#name1,
+#contact,
+#contact1 {
+  float: left;
+  margin-right: 80px;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  width: 230px;
+  height: 20px;
+  padding: 2px;
+}
+
+#gender,
+#gender1 {
+  float: left;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  width: 200px;
+  height: 28px;
+  padding: 2px;
+}
+
+#qualification,
+#qualification1 {
+  float: left;
+  margin-right: 80px;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  width: 230px;
+  height: 28px;
+  padding: 2px;
+}
+
+#subjects {
+  float: left;
+  border-radius: 8px;
+  margin-bottom: 60px;
+  width: 200px;
+  height: 28px;
+  padding: 2px;
+}
+#levels {
+  float: left;
+  margin-right: 80px;
+  margin-bottom: 70px;
+  border-radius: 8px;
+  width: 230px;
+  height: 28px;
+  padding: 2px;
+}
+
+#location,
+#location1,
+#tele,
+#tele1 {
+  float: left;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  width: 230px;
+  height: 20px;
+  padding: 2px;
+}
+
+.modal-footer {
+  border-top: 1px solid #eeeeee;
+  flex-direction: column;
+  justify-content: center;
+  display: grid;
+}
+.create-profile-button,
+.create-profile-button:hover {
+  color: white;
+  background: #ff9040;
+  border: 1px solid #ff9040;
+  border-radius: 2px;
+  margin-top: 1rem;
+  padding-top: 10px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.create-profile-button:hover {
+  background: darkorange;
+  border: 1px solid darkorange;
 }
 
 
