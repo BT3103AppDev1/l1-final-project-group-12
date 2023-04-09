@@ -189,6 +189,7 @@ export default {
                 let location = documentData.location
                 let desc = documentData.description
                 let rates = documentData.rates
+                let uid = documentData.UserID
                 /*
                             let ul = document.getElementById("listings")
                             var li = document.createElement("li")
@@ -265,6 +266,7 @@ export default {
                     $vm.data[2] = subject
                     $vm.data[3] = desc
                     $vm.data[4] = rates
+                    $vm.data[5] = uid
                     $vm.showIndividualListingModel = true;
                 })
                 // }

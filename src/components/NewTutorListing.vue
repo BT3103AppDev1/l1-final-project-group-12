@@ -63,7 +63,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="savetutorlisting">Add Listing</button>
+        <button type="button" class="button" @click="$emit('close-modal');savetutorlisting(); reloadPage()">Add Listing</button>
       </div>
     </form>
 
@@ -79,25 +79,36 @@ import { collection, addDoc } from "firebase/firestore";
 import { useToast, TYPE } from "vue-toastification";
 
 const toast = useToast()
-
+import { getCurrentUser } from "../lib/handlers/auth.js";
 export default {
+
+  
   methods: {
     // save listing to firebase
+    reloadPage() {
+      window.location.reload();
+    },
     async savetutorlisting() {
       let level = document.getElementById("level2").value;
       let subject = document.getElementById("subject2").value;
       let location = document.getElementById("location2").value;
       let rates2 = document.getElementById("rates2").value;
       let desc = document.getElementById("desc2").value;
+      let User = await getCurrentUser();
+      let Userid = User.uid;
+     
 
       const data = {
+        
         level: level,
         subject: subject,
         location: location,
         rates: rates2,
         description: desc,
         dateCreated: new Date(),
-        // userId:
+        UserID : Userid,
+
+    
       };
       if (level == "" || subject == "" || location == "" || rates2 == "" || desc == "") {
         toast("Missing details", {

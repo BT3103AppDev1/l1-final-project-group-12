@@ -7,6 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.vue";
 import CreateTutorProfile from "../views/CreateTutorProfile.vue"
 import DisplayTutorListings from '@/views/DisplayTutorListings.vue'
 import ReviewView from '@/views/ReviewView.vue'
+import UserProfileView from "@/views/UserProfileView.vue"
 import { getCurrentUser } from "../lib/handlers/auth";
 
 const router = createRouter({
@@ -21,10 +22,10 @@ const router = createRouter({
         { name: "home", path: "/home", component: HomeView },
         { name: "student-listings", path: "/student-listings", component: DisplayStudentListings },
         { name: "tutor-listings", path: "/tutor-listings", component: DisplayTutorListings },
-        { name: "me", path: "/me", component: TestView },
+        { name: "me", path: "/me", component: UserProfileView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
         { name: "tutor-profile", path: "/tutorprofile", component: CreateTutorProfile},
-        { name: "tutor-review", path:"/tutorreview", component: ReviewView}
+        { name: "tutor-review", path:"/review/:id", component: ReviewView}
       ],
       meta: { requiresAuth: true },
     },
