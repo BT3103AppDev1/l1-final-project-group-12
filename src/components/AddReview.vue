@@ -13,7 +13,8 @@
                     <label>RATING</label> <br>
                     <div class="parent">
                         <div class="child">
-                            <input type="number" maxlength="1" min="0" max="5" v-model="ratinginput" required />
+                            <input type="number" id="rating-input" maxlength="1" min="0" max="5" v-model="ratinginput"
+                                required />
                         </div>
                         <div class="child">
                             <h2 id="rate-number">/5</h2>
@@ -28,24 +29,53 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import { useToast, TYPE } from "vue-toastification";
+import { getCurrentUser } from "../lib/handlers/auth.js";
+import { createReview } from "@/lib/handlers/review";
 
 const toast = useToast()
+const url = window.location.href;
+const parts = url.split('/');
+const tutorid = parts[parts.length - 1];
+const user = await getCurrentUser();
+
+const reviewFields = ref({
+    dateCreated: new Date(),
+    body: "",
+    rating: "",
+    tutorId: tutorid,
+    reviewerId: user.uid,
+});
 
 export default {
-methods: {
-    async submitReview() {
-        try {
-          toast("Review Submitted!", {
-            type: TYPE.SUCCESS
-          })
-        } catch (e) {
-          console.error("Error adding document: ", e);
-          toast("Oops! Something went wrong...", {
-            type: TYPE.ERROR
-          })
+    methods: {
+        async submitReview() {
+            const bodyValue = document.querySelector("#review-input").value;
+            const ratingValue = document.querySelector("#rating-input").value;
+
+            if (bodyValue == "" || ratingValue == "") {
+                toast("Missing details", {
+                    type: TYPE.ERROR
+                })
+            } else {
+                reviewFields.value.body = bodyValue;
+                reviewFields.value.rating = ratingValue;
+                try {
+                    createReview(reviewFields.value)
+                    console.log(reviewFields.value)
+                    toast("Review Submitted!", {
+                        type: TYPE.SUCCESS
+                    })
+                    this.$emit("reviewAdded")
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    toast("Oops! Something went wrong...", {
+                        type: TYPE.ERROR
+                    })
+                }
+            }
         }
-      }
     },
 }
 </script>

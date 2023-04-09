@@ -6,9 +6,14 @@ import { ref } from "vue";
 
 const reviewlist = ref([]);
 
+const url = window.location.href;
+const parts = url.split('/');
+const tutorid = parts[parts.length - 1];
+console.log(tutorid)
+
 const getReviews = async () => {
-//figure out how to get the user id here
-  reviewlist.value = await getReviewsByUserId("lV6MRARwFWNtfVNk9JQeL7ED5XZ2");
+  reviewlist.value = await getReviewsByUserId(tutorid);
+  console.log(reviewlist.value)
 };
 
 getReviews();
@@ -16,10 +21,28 @@ getReviews();
 
 <template>
   <div class="body">
-    <AddReview /><br>
-    <ReviewList :listing="reviewlist"/>
+    <AddReview @reviewAdded="change" /><br>
+    <div v-for="review in reviewlist">
+      <ReviewList :listing="review" :key="refreshComp" />
+    </div>
+
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      refreshComp: 0
+    }
+  },
+  methods: {
+    change() {
+      this.refreshComp += 1
+    }
+  }
+}
+</script>
 
 <style scoped>
 #content {
