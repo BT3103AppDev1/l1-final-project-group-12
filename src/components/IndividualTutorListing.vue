@@ -13,12 +13,12 @@
             <h3 id> RATING<br> </h3>
             <h3 id = "rateNum" >  5.0</h3>
           </div>
-          <h3> Education:  </h3>
-          <h3> Experience: </h3>
+          <h3> Education: {{data[5].education}} </h3>
+          <h3> Experience: {{data[5].experience}} </h3>
           <h3> Location: {{ data[1] }} </h3>
           <h3> Levels: {{data[0]}}</h3>
           <h3> Subject: {{ data[2] }} </h3>
-          <h3> Contact: </h3>
+          <h3> Contact:{{ data[5].phoneNumber }} / @{{data[5].telegramHandle}}</h3>
           <h3> Rates: {{ data[4] }}/hr</h3>
           <h3> Description: {{data[3]}} </h3>
           <br>  

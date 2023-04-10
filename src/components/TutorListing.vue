@@ -75,6 +75,7 @@ import { getAllListings } from "../lib/handlers/listing.js";
 import SelectListingType from "../components/SelectListingType.vue";
 import NewStudentListing from "../components/NewStudentListing.vue";
 import NewTutorListing from "../components/NewTutorListing.vue";
+import {getUserById} from "../lib/handlers/user.js"
 /*    
 
 import firebaseApp from '../firebase.js'
@@ -94,7 +95,7 @@ export default {
     data() {
         return {
             showIndividualListingModel: false,
-            data: ["a", "b", "c", "d", 1], //default values
+            data: ["a", "b", "c", "d", 1,"user"], //default values
             datalevel: "default",
             datasubject: "default",
             datalocation: "default",
@@ -180,7 +181,7 @@ export default {
 
             //console.log(allDocuments)
             let index = 1
-            allDocuments.forEach((docs) => {
+            allDocuments.forEach(async(docs) => {
                 let documentData = docs
                 console.log(docs)
 
@@ -189,7 +190,10 @@ export default {
                 let location = documentData.location
                 let desc = documentData.description
                 let rates = documentData.rates
-                let uid = documentData.UserID
+                let UserID = documentData.UserID
+                let user = await getUserById(UserID)
+                console.log(user)
+                
                 /*
                             let ul = document.getElementById("listings")
                             var li = document.createElement("li")
@@ -218,8 +222,8 @@ export default {
                 cell1.innerHTML = ` <div id = ${outerDivID}>
 
         <div id = ${index}>  
-        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation: <br><br> &nbsp;  Experience: <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Level:${level} <br> <br> 
-        &nbsp; Subject:${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact: <br> <br> &nbsp;
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation:${user.education} <br><br> &nbsp;  Experience:${user.experience} <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Level:${level} <br> <br> 
+        &nbsp; Subject:${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact:${user.phoneNumber} / @${user.telegramHandle} <br> <br> &nbsp;
         </div>
         <br>
         <br>     
@@ -266,7 +270,7 @@ export default {
                     $vm.data[2] = subject
                     $vm.data[3] = desc
                     $vm.data[4] = rates
-                    $vm.data[5] = uid
+                    $vm.data[5] = user
                     $vm.showIndividualListingModel = true;
                 })
                 // }
