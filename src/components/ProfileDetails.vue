@@ -60,7 +60,7 @@
                     <br>
                     <div>
                     <label for="qualification">Highest education</label><br />
-                    <select v-model = "newedu"  name="qualification">
+                    <select v-model = "newedu" id="edulevel" name="qualification">
                         <option value="secondary">Secondary</option>
                         <option value="post-secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
@@ -657,5 +657,14 @@ label {
     text-align: right;
 }
 
+input,#edulevel {
+  background-color: #f6f5f6;
+  height: 40px;
+  color: black;
+  font-size: 14px;
+  border-radius: 16px;
+  border-style: none;
+  text-indent: 10px;
+}
 
 </style>
