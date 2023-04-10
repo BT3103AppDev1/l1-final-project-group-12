@@ -23,7 +23,7 @@
           <h3> Description: {{data[3]}} </h3>
           <br>  
           <br>
-          <button id = "viewReviewBN"> View Tutor Reviews  </button>
+          <button id = "viewReviewBN" @click="this.$router.push({path: `/review/${data[5].id}`})"> View Tutor Reviews  </button>
         </div>
         
       </div>
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-
 export default {
   name : 'IndividualListing',
   data() {

@@ -1,5 +1,4 @@
 <template>
-
 <br>
     <div class = "outer-details"> 
 
@@ -25,11 +24,11 @@
                     <br> <br>
                     -->
                     New Phone Number:
-                    <input type = "number" v-model = "newphoneno" placeholder="Enter new phone number">
+                    <input type="number" v-model="newphoneno" placeholder="Enter new phone number">
                     <br> <br>
                     New Telegram Handle:
-                    <input v-model = "newtelehandle" placeholder="Enter new telegram handle">
-                    <br> <br>                  
+                    <input v-model="newtelehandle" placeholder="Enter new telegram handle">
+                    <br> <br>
                     <!--
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
@@ -38,19 +37,19 @@
                     <button class = "updatebn"  @click="updateProfileDetails"> Save </button>
                 </div>
             </ModalComponent>
-            
+
             <br> <br>
         </div>
     </div>
     <br>
-    <div class = "outer-details">
+    <div class="outer-details">
 
-        <div class = "details" v-if="isTutor">
+        <div class="details" v-if="isTutor">
             <h1> Tutor Details </h1>
             <br>
-            Education: {{education}}
+            Education: {{ education }}
             <br><br>
-            Experience: {{experience}}
+            Experience: {{ experience }}
             <br> <br>
             <button class = "updatebn" @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
             <br> <br>
@@ -70,8 +69,8 @@
                     </div>
                     <br> <br>
                     New Experience:
-                    <input v-model = "newexp" placeholder="Enter years of experience">
-                    <br> <br>                  
+                    <input v-model="newexp" placeholder="Enter years of experience">
+                    <br> <br>
                     <!--
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
@@ -185,8 +184,8 @@
     </div>
     <br>
 
-    <div class = "outer-details">
-        <div class = "details">
+    <div class="outer-details">
+        <div class="details">
             <h1> Your Listings </h1>
             <br>
             <div class = "perlisting" v-for = "item in listings"> 
@@ -273,11 +272,11 @@ const inputs = ref({
   tele: ""
 });
 
-onMounted( async() => {
+onMounted(async () => {
     let user5 = await getCurrentUser()
     console.log(user5)
     id.value = user5.uid
-    let user6= await getUserById(id.value)
+    let user6 = await getUserById(id.value)
     console.log(user6)
     email.value = user5.email
     phonenum.value = user6.phoneNumber
@@ -315,7 +314,7 @@ onMounted( async() => {
 }
 )
 
-const updateProfileDetails = async() => {
+const updateProfileDetails = async () => {
 
 
         if (newphoneno.value.toString().length == 8) {
@@ -371,51 +370,63 @@ const updatePhoneNumber = async () => {
     console.log(user.value.id)
     console.log(typeof(newphoneno.value))
     */
-    updateUserById(String(id.value), { phoneNumber : newphoneno.value })
+    updateUserById(String(id.value), { phoneNumber: newphoneno.value })
     phonenum.value = newphoneno.value
     //newphoneno.value = ""
 
     //check for valid phone eg. len = 8, all integer, 
+    //if checks, remember to integrate the toast!
+    toast("Updated Phone Number!", {
+        type: TYPE.SUCCESS
+    })
 }
 
-const updateTelegramHandle = async() => {
+const updateTelegramHandle = async () => {
     /*
     console.log(newtelehandle.value)
     console.log(user.value.id)
     */
-    updateUserById(String(id.value), { telegramHandle : newtelehandle.value })
+    updateUserById(String(id.value), { telegramHandle: newtelehandle.value })
     telegramHandle.value = newtelehandle.value
     //newtelehandle.value = ""
     //checks?
+    //if checks, remember to integrate the toast!
+    toast("Updated Telegram!", {
+        type: TYPE.SUCCESS
+    })
 }
 
-const updateEmail =  async() => {
+const updateEmail = async () => {
     /*
     console.log(newemail.value)
     console.log(user.value.id)
     */
-    updateUserById(String(id.value), { email : newemail.value })
+    updateUserById(String(id.value), { email: newemail.value })
     email.value = newemail.value
     //newemail.value = ""
     //check for valid email eg contain .com
+    //if checks, remember to integrate the toast!
+    toast("Updated Email!", {
+        type: TYPE.SUCCESS
+    })
 }
 
-const updateEducation =  async() => {
+const updateEducation = async () => {
     /*
     console.log(newedu.value)
     console.log(user.value.id)
     */
-    updateTutorProfileById(String(id.value), { education : newedu.value })
+    updateTutorProfileById(String(id.value), { education: newedu.value })
     education.value = newedu.value
     //newedu.value = ""
 }
 
-const updateExperience =  async() => {
+const updateExperience = async () => {
     /*
     console.log(newexp.value)
     console.log(user.value.id)
     */
-    updateTutorProfileById(String(id.value), { experience : newexp.value })
+    updateTutorProfileById(String(id.value), { experience: newexp.value })
     experience.value = newexp.value
     //newexp.value = ""
 }
@@ -476,7 +487,7 @@ function saveTutorProfile() {
 
 
 <style scoped>
-.outer-details{
+.outer-details {
     display: flex;
     justify-content: center;
     

@@ -225,6 +225,7 @@ input {
   border-style: none;
   text-indent: 10px;
   padding-top: 10px;
+  resize: none;
 }
 
 select {
