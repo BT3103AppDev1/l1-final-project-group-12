@@ -190,6 +190,9 @@
             <h1> Your Listings </h1>
             <br>
             <div class = "perlisting" v-for = "item in listings"> 
+                <div class="close">
+                    <img class="close-img" src="src\assets\close-icon.png" alt="" />
+                </div>
                 Type: Student Listing
                 <br>
                 Level: {{item.level}}
@@ -201,9 +204,13 @@
                 Description: {{item.description}}
                 <br>
                 Rates: {{item.rates}}
-                <br> 
+                <br>
+
             </div>
             <div class = "perlistings" v-for = "item in tutorlistings">
+                <div class="close">
+                        <img class="close-img" src="src\assets\close-icon.png" alt="" />
+                    </div>
                 Type: Tutor Listing
                 <br>
                 Level: {{item.level}}
@@ -503,10 +510,20 @@ background-color:  #f6f5f6;
 
 }
 
-.perlisting{
+.perlisting,.perlistings{
     border: black solid 1px;
-    margin-bottom: 1%;
+    margin-bottom: 3%;
+    border-radius: 8px;
+    text-align: center;
 }
+.perlisting{
+    background-color: beige;
+}
+.perlistings{
+    background-color: antiquewhite;
+}
+
+
 
 /* everything below is tutor profile modal css */
 #content {
@@ -624,5 +641,10 @@ label {
     display: inline-block;
 
 }
+
+.close{
+    text-align: right;
+}
+
 
 </style>
