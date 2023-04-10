@@ -23,7 +23,7 @@ getReviews();
   <div class="body">
     <AddReview @reviewAdded="change" /><br>
     <div v-for="review in reviewlist">
-      <ReviewList :listing="review" :key="refreshComp" />
+      <ReviewList :listing="review" />
     </div>
 
   </div>
@@ -53,6 +53,6 @@ export default {
 
 .body {
   background-color: #f6f5f6;
-  height: 100%;
+  overflow: auto;
 }
 </style>

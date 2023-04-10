@@ -13,7 +13,7 @@
                     <label>RATING</label> <br>
                     <div class="parent">
                         <div class="child">
-                            <input type="number" id="rating-input" maxlength="1" min="0" max="5" v-model="ratinginput"
+                            <input type="number" id="rating-input" maxlength="1" oninput="this.value = this.value.slice(0, 1); validity.valid || (value='');" onpaste="return false" min="0" max="5" v-model="ratinginput"
                                 required />
                         </div>
                         <div class="child">
@@ -56,6 +56,14 @@ export default {
 
             if (bodyValue == "" || ratingValue == "") {
                 toast("Missing details", {
+                    type: TYPE.ERROR
+                })
+            } else if (ratingValue < 0 || ratingValue > 5) {
+                toast("Select a rating between 0 and 5", {
+                    type: TYPE.ERROR
+                })
+            } else if (tutorid == user.uid) {
+                toast("Can't review yourself! Get others to review you", {
                     type: TYPE.ERROR
                 })
             } else {
