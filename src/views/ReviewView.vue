@@ -54,5 +54,6 @@ export default {
 .body {
   background-color: #f6f5f6;
   overflow: auto;
+  min-height: 100%;
 }
 </style>

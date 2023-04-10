@@ -1,7 +1,4 @@
 <template>
-    <br>
-    <div class="outer-details">
-
 <br>
     <div class = "outer-details"> 
 
