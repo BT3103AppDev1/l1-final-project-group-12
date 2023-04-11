@@ -195,22 +195,10 @@
         <div class="details">
             <h1> Your Listings </h1>
             <br>
-            <div class = "perlisting" v-for = "item in listings" @click="showIndividualListingModal = true"> 
-                Type: Student Listing
-                <br>
-                Level: {{item.level}}
-                <br>
-                Subject: {{item.subject}}
-                <br>
-                Location: {{item.location}}
-                <br>
-                Description: {{item.description}}
-                <br>
-                Rates: {{item.rates}}
-                <br>
-            </div>
-            <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
             <div class = "perlisting" v-for = "item in listings"> 
+                <div class="close">
+                    <img class="close-img" src="src\assets\close-icon.png" alt="" />
+                </div>
                 Type: Student Listing
                 <br>
                 Level: {{item.level}}
@@ -223,9 +211,8 @@
                 <br>
                 Rates: {{item.rates}}
                 <br>
+
             </div>
-            <button> Edit </button>
-            </ModalComponent>
             <div class = "perlistings" v-for = "item in tutorlistings">
                 <div class="close">
                         <img class="close-img" src="src\assets\close-icon.png" alt="" />
@@ -277,7 +264,6 @@ const newedu = ref()
 const newexp = ref()
 const education = ref()
 const experience = ref()
-const showIndividualListingModal = ref(false)
 const inputs = ref({
   name: "",
   gender: "",
