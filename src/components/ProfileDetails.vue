@@ -103,7 +103,7 @@
                         <!-- input box for name of tutor -->
                         <div id="name">
                         <label for="name">Name</label><br />
-                        <input type="text" id="name1" name="name" placeholder="Name" v-model="inputs.name" /><br />
+                        <input type="text" id="name1" name="name" required="required" placeholder="Name" v-model="inputs.name" /><br />
                         </div>
                         <!-- dropdown selection for gender of tutor -->
                         <div id="gender">
@@ -442,11 +442,35 @@ function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
   let name = inputs.value.name;
+  if(name == "") {
+    toast("Name cannot be empty. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  if(/\d/.test(name)) {
+    toast("Name cannot contain numbers. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
 
   let gender = inputs.value.gender;
+  if(gender == "") {
+    toast("Please select a gender.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  
 
   let qualification = inputs.value.qualification;
-
+  if(qualification == "") {
+    toast("Please select your highest qualification.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
   // checkbox options for subjects taught, returns a boolean for if the option was checked
 //   const subjects = [];
 //   if (inputs.value.english) {
@@ -472,6 +496,12 @@ function saveTutorProfile() {
 //   }
 
   let location = inputs.value.location;
+  if(location == "") {
+    toast("Please select a region.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
 
   updateTutorProfileById(String(id.value), {
     name: name,
