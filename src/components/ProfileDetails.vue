@@ -109,7 +109,7 @@
                         <div id="gender">
                         <label for="gender">Gender</label><br />
                         <select id="gender1" name="gender" v-model="inputs.gender">
-                            <option value="none">Select a gender</option>
+                            <option value="">Select a gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
@@ -119,7 +119,7 @@
                         <div id="qualification">
                         <label for="qualification">Highest qualification</label><br />
                         <select id="qualification1" name="qualification" v-model="inputs.qualification">
-                            <option value="none">Highest qualification</option>
+                            <option value="">Highest qualification</option>
                             <option value="Secondary">Secondary</option>
                             <option value="Post-secondary">Post-Secondary</option>
                             <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
@@ -151,22 +151,29 @@
                             <label for="jc"> Junior College</label><br /><br />
                         </form>
                         </div> -->
-                        <!-- input box for location of tutor -->
+                        <!-- dropdown for location of tutor -->
                         <div id="location">
-                        <label for="location">Location</label><br />
-                        <input type="text" id="location1" name="location" placeholder="Location" v-model="inputs.location"/><br />
+                        <label for="location">Region</label><br />
+                        <select id="location1" name="location" v-model="inputs.location">
+                            <option value="">Select region</option>
+                            <option value="North">North</option>
+                            <option value="East">East</option>
+                            <option value="West">West</option>
+                            <option value="South">South</option>
+                            <option value="Central">Central</option>
+                        </select><br />
                         </div>
                         <br />
                         <!-- input box for contact number -->
-                        <div id="contact">
+                        <!-- <div id="contact">
                         <label for="contact">Contact Number</label><br />
                         <input type="text" id="contact1" name="contact" placeholder="Contact" v-model="inputs.contact"/><br />
-                        </div>
+                        </div> -->
                         <!-- input box for telegram @ -->
-                        <div id="tele">
+                        <!-- <div id="tele">
                         <label for="tele">Telegram</label><br />
                         <input type="text" id="tele1" name="tele" placeholder="Telegram @" v-model="inputs.tele"/><br />
-                        </div>
+                        </div> -->
                     </form>
                     </slot>
                 </section>
@@ -261,15 +268,15 @@ const inputs = ref({
   name: "",
   gender: "",
   qualification: "",
-  english: "",
-  math: "",
-  science: "",
-  primary: "",
-  secondary: "",
-  jc: "",
-  location: "",
-  contact: "",
-  tele: ""
+//   english: "",
+//   math: "",
+//   science: "",
+//   primary: "",
+//   secondary: "",
+//   jc: "",
+  location: ""
+//   contact: "",
+//   tele: ""
 });
 
 onMounted(async () => {
@@ -440,43 +447,37 @@ function saveTutorProfile() {
 
   let qualification = inputs.value.qualification;
 
-  alert(name)
-  console.log(inputs.value.math)
   // checkbox options for subjects taught, returns a boolean for if the option was checked
-  const subjects = [];
-  if (inputs.value.english) {
-    subjects.push("English");
-  }
-  if (inputs.value.math) {
-    subjects.push("Math");
-  }
-  if (inputs.value.science) {
-    subjects.push("Science");
-  }
+//   const subjects = [];
+//   if (inputs.value.english) {
+//     subjects.push("English");
+//   }
+//   if (inputs.value.math) {
+//     subjects.push("Math");
+//   }
+//   if (inputs.value.science) {
+//     subjects.push("Science");
+//   }
 
   // checkbox options for levels taught, returns a boolean for if the option was checked
-  const levels = [];
-  if (inputs.value.primary) {
-    levels.push("Primary");
-  }
-  if (inputs.value.secondary) {
-    levels.push("Secondary");
-  }
-  if (inputs.value.jc) {
-    levels.push("Junior College");
-  }
+//   const levels = [];
+//   if (inputs.value.primary) {
+//     levels.push("Primary");
+//   }
+//   if (inputs.value.secondary) {
+//     levels.push("Secondary");
+//   }
+//   if (inputs.value.jc) {
+//     levels.push("Junior College");
+//   }
 
   let location = inputs.value.location;
 
-  let contact = inputs.value.contact;
-
-  let tele = inputs.value.tele;
-
   updateTutorProfileById(String(id.value), {
+    name: name,
     isTutor: true,
+    gender: gender,
     education: qualification,
-    levels: levels,
-    subjects: subjects,
     region: location,
   });
   showModal3.value = false;
@@ -616,7 +617,7 @@ background-color:  #f6f5f6;
   margin-bottom: 50px;
   border-radius: 8px;
   width: 230px;
-  height: 20px;
+  height: 28px;
   padding: 2px;
 }
 
