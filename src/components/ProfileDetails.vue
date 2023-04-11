@@ -195,9 +195,10 @@
         <div class="details">
             <h1> Your Listings </h1>
             <br>
-            <div class = "perlisting" v-for = "item in listings" @click="showListingDetailStudent([item.level, item.subject, item.locaation, item.description, item.rates])"> 
-                
-                Type: Student Listing
+            <div class = "perlisting" v-for = "item in listings"> 
+                Type: Student Listing    
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "deleteListing(item.dateCreated.seconds)"/>
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates])"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -214,21 +215,50 @@
             <div class = "perlisting">     
                 Type: Student Listing
                 <br>
-                Level: {{listingDetailStudent[0]}}
+                Level: <select v-model="newstulevel"  required>
+                        <option>Primary</option>
+                        <option>Secondary</option>
+                        <option>Junior College</option>
+                        <option>Others</option>
+                        </select>
                 <br>
-                Subject: {{listingDetailStudent[1]}}
+
+                Subject: 
+                <select v-model="newstusubject" required>
+              <option>Biology</option>
+              <option>Chinese Language</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>Math</option>
+              <option>Malay Language</option>
+              <option>Physics</option>
+              <option>Tamil Language</option>
+              <option>Others</option>
+            </select>
                 <br>
-                Location: {{listingDetailStudent[2]}}
+
+                Location: 
+                <select v-model="newstulocation"  required>
+                <option>North</option>
+                <option>South</option>
+                <option>East</option>
+                <option>West</option>
+                <option>Central</option>
+                <option>Others</option>
+                </select>
                 <br>
-                Description: {{listingDetailStudent[3]}}
+                Description: 
                 <br>
-                Rates: {{listingDetailStudent[4]}}
+                <textarea type="text"  v-model="newstudesc"
+            placeholder="Description and contact method" rows="4" required>
+                </textarea>
+                <br>
+                Rates: 
+                <input type="number"  min="0" v-model="newsturates" placeholder="Enter your rates" required />
                 <br>
                 
             </div>
-            <button> Edit </button>
-            <br>
-            <button> Delete </button>
+            <button> Save </button>
             </ModalComponent>
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
@@ -249,13 +279,14 @@
 
 <script setup> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
-import {getAllListings} from "../lib/handlers/listing.js"
+import {getAllListings, updateListingById} from "../lib/handlers/listing.js"
 import {getUserById, updateUserById, updateTutorProfileById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 import {useAuthStore} from "@/stores/authStore";
 import {storeToRefs} from "pinia";
 import {onMounted, ref} from "vue"
 import { useToast, TYPE } from "vue-toastification";
+import { deleteDoc } from "firebase/firestore";
 
 const toast = useToast()
 
@@ -266,7 +297,7 @@ const {user} = storeToRefs(useAuthStore());
 const currUserDetails = ref();
 const newemail = ref()
 const id = ref()
-    const listings = ref()
+const listings = ref()
 const tutorlistings = ref()
 const newphoneno = ref()
 const newtelehandle = ref()
@@ -279,7 +310,13 @@ const newexp = ref()
 const education = ref()
 const experience = ref()
 const showIndividualListingModal = ref(false)
-const listingDetailStudent = ref();
+const listingDetailStudent = ref([0,0,0,0,0]);
+const newstulevel = ref()
+const newstusubject = ref()
+const newstulocation = ref()
+const newstudesc = ref()
+const newsturates = ref()
+
 const inputs = ref({
   name: "",
   gender: "",
@@ -313,6 +350,7 @@ onMounted(async () => {
     allDocuments.forEach((docs) => {
         if (docs.UserID == id.value) {
             array.push(docs)
+            //console.log(docs.dateCreated.seconds)
         }
     })  
     let array2 = []
@@ -325,7 +363,7 @@ onMounted(async () => {
         }) 
 
     }
-    console.log(array2)
+
     listings.value = array
     tutorlistings.value = array2
     //console.log(listings.value)
@@ -455,9 +493,34 @@ const updateExperience = async () => {
 }
 const showListingDetailStudent = async (details) =>{
     listingDetailStudent.value = details
+    console.log(details)
+    newstulevel.value = details[0]
+    newstusubject.value = details[1]
+    newstulocation.value = details[2]
+    newstudesc.value = details[3]
+    newsturates.value = details[4]
     showIndividualListingModal.value = true
 }
 
+const deleteListing = async (timeCreated) => {
+    for (let i = 0, len = listings.value.length; i < len;i++){
+        if(listings.value[i].dateCreated.seconds == timeCreated) {
+            console.log(timeCreated)
+            console.log(listings.value[i])
+        } 
+    }
+
+}
+const editStudentListing = async (timeCreated) => {
+    for (let i = 0, len = listings.value.length; i < len;i++){
+        if(listings.value[i].dateCreated.seconds == timeCreated) {
+            console.log(timeCreated)
+            console.log(listings.value[i])
+            //updateListingById("student-listing", )
+        } 
+    }
+
+}
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
