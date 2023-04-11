@@ -198,7 +198,7 @@
             <div class = "perlisting" v-for = "item in listings"> 
                 Type: Student Listing    
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "deleteListing(item.dateCreated.seconds)"/>
-                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates])"> edit</button> <!-- NEED A EDIT ICON-->
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds])"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -258,7 +258,7 @@
                 <br>
                 
             </div>
-            <button> Save </button>
+            <button @click = editStudentListing(listingDetailStudent[5]) > Save </button>
             </ModalComponent>
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
@@ -279,14 +279,17 @@
 
 <script setup> 
 import {getCurrentUser} from "../lib/handlers/auth.js"
-import {getAllListings, updateListingById} from "../lib/handlers/listing.js"
+import {getAllListings, updateListingById, getListingById} from "../lib/handlers/listing.js"
 import {getUserById, updateUserById, updateTutorProfileById} from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 import {useAuthStore} from "@/stores/authStore";
 import {storeToRefs} from "pinia";
 import {onMounted, ref} from "vue"
 import { useToast, TYPE } from "vue-toastification";
-import { deleteDoc } from "firebase/firestore";
+import {db} from "../lib/firebase-config.js"
+import { documentId, getFirestore } from "firebase/firestore"
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
+
 
 const toast = useToast()
 
@@ -310,7 +313,7 @@ const newexp = ref()
 const education = ref()
 const experience = ref()
 const showIndividualListingModal = ref(false)
-const listingDetailStudent = ref([0,0,0,0,0]);
+const listingDetailStudent = ref([0,0,0,0,0,0]);
 const newstulevel = ref()
 const newstusubject = ref()
 const newstulocation = ref()
@@ -502,13 +505,27 @@ const showListingDetailStudent = async (details) =>{
     showIndividualListingModal.value = true
 }
 
-const deleteListing = async (timeCreated) => {
-    for (let i = 0, len = listings.value.length; i < len;i++){
-        if(listings.value[i].dateCreated.seconds == timeCreated) {
-            console.log(timeCreated)
-            console.log(listings.value[i])
-        } 
-    }
+const  deleteListing = async (timeCreated) => {
+    console.log(collection(db,"student-listing"))
+
+    const querySnap = await getDocs(collection(db, "student-listing"));
+    querySnap.forEach(async (x) => {
+        let a = await getListingById("student-listing", x.id)
+        if (a.dateCreated.seconds == timeCreated){          
+            for (let i = 0, len = listings.value.length; i < len;i++){
+                if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    listings.value.splice(i,1)
+                    break
+
+                } 
+            }
+            await deleteDoc(doc(db, "student-listing",x.id))
+        }
+      
+    //console.log(doc.id)
+    //console.log(doc)
+    });
+  
 
 }
 const editStudentListing = async (timeCreated) => {
