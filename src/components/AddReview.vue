@@ -1,6 +1,16 @@
 <template>
     <form>
         <div class="parent">
+            <div id="tutor-details">
+                <br>
+                <div id="tutor-details-container">
+                    <h2 id="tutor-name">{{ name }}</h2>
+                    <br>
+                    <p id="tutor-education">Education: {{ education }}</p>
+                    <p id ="tutor-experience">Experience: {{ experience }} years</p>
+                    <p id ="tutor-region">Region: {{ region }}</p>
+                </div>
+            </div>
             <div id="review-input-child">
                 <br>
                 <textarea type="text" id="review-input" v-model="reviewinput" placeholder="Write your review here" rows="3"
@@ -33,6 +43,7 @@ import { ref } from "vue";
 import { useToast, TYPE } from "vue-toastification";
 import { getCurrentUser } from "../lib/handlers/auth.js";
 import { createReview } from "@/lib/handlers/review";
+import { getAllTutors } from "@/lib/handlers/user";
 
 const toast = useToast()
 const url = window.location.href;
@@ -48,7 +59,34 @@ const reviewFields = ref({
     reviewerId: user.uid,
 });
 
+const tutordetails = ref({
+    name: "",
+    education:"",
+    experience:""
+})
+
+const tutors = await getAllTutors()
+let reviewed_tutor = ""
+for (let tutor in tutors){
+    if (tutors[tutor]['id'] == tutorid) {
+        reviewed_tutor = tutors[tutor]
+        break
+    }
+}
+tutordetails.value.name = reviewed_tutor['telegramHandle']
+tutordetails.value.education = reviewed_tutor['education']
+tutordetails.value.experience = reviewed_tutor['experience']
+tutordetails.value.region = reviewed_tutor['region']
+
 export default {
+    data() {
+        return{
+            name: tutordetails.value.name,
+            education: tutordetails.value.education,
+            experience: tutordetails.value.experience,
+            region: tutordetails.value.region
+        }
+    },
     methods: {
         async submitReview() {
             const bodyValue = document.querySelector("#review-input").value;
@@ -97,6 +135,20 @@ export default {
 .child {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+#tutor-details {
+    flex: 1;
+    margin-left: 3em;
+}
+
+#tutor-details-container {
+    border-radius: 16px;
+    background-color: white;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
 }
 
 #review-input-child {
