@@ -61,8 +61,8 @@
                     <div>
                     <label for="qualification">Highest education</label><br />
                     <select v-model = "newedu" id="edulevel" name="qualification">
-                        <option value="secondary">Secondary</option>
-                        <option value="post-secondary">Post-Secondary</option>
+                        <option value="Secondary">Secondary</option>
+                        <option value="Post-Secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
                         <option value="University">University</option>
                     </select>
@@ -120,14 +120,14 @@
                         <label for="qualification">Highest qualification</label><br />
                         <select id="qualification1" name="qualification" v-model="inputs.qualification">
                             <option value="none">Highest qualification</option>
-                            <option value="secondary">Secondary</option>
-                            <option value="post-secondary">Post-Secondary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Post-secondary">Post-Secondary</option>
                             <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
                             <option value="University">University</option>
                         </select>
                         </div>
                         <!-- checkbox for subjects taught -->
-                        <div id="subjects">
+                        <!-- <div id="subjects">
                         <label for="subjects">Subjects teaching</label><br />
                         <form action="/action_page.php">
                             <input type="checkbox" id="english" name="english" value="english" v-model="inputs.english"/>
@@ -138,9 +138,9 @@
                             <label for="science"> Science</label><br /><br />
                         </form>
                         </div>
-                        <br />
+                        <br /> -->
                         <!-- checkbox for levels taught -->
-                        <div id="levels">
+                        <!-- <div id="levels">
                         <label for="levels">Levels taught</label><br />
                         <form action="/action_page.php">
                             <input type="checkbox" id="primary" name="primary" value="primary" v-model="inputs.primary"/>
@@ -150,7 +150,7 @@
                             <input type="checkbox" id="jc" name="jc" value="jc" v-model="inputs.jc"/>
                             <label for="jc"> Junior College</label><br /><br />
                         </form>
-                        </div>
+                        </div> -->
                         <!-- input box for location of tutor -->
                         <div id="location">
                         <label for="location">Location</label><br />
