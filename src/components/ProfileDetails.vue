@@ -195,7 +195,8 @@
         <div class="details">
             <h1> Your Listings </h1>
             <br>
-            <div class = "perlisting" v-for = "item in listings" @click="showIndividualListingModal = true"> 
+            <div class = "perlisting" v-for = "item in listings" @click="showListingDetailStudent([item.level, item.subject, item.locaation, item.description, item.rates])"> 
+                
                 Type: Student Listing
                 <br>
                 Level: {{item.level}}
@@ -210,26 +211,26 @@
                 <br>
             </div>
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
-            <div class = "perlisting" v-for = "item in listings"> 
+            <div class = "perlisting">     
                 Type: Student Listing
                 <br>
-                Level: {{item.level}}
+                Level: {{listingDetailStudent[0]}}
                 <br>
-                Subject: {{item.subject}}
+                Subject: {{listingDetailStudent[1]}}
                 <br>
-                Location: {{item.location}}
+                Location: {{listingDetailStudent[2]}}
                 <br>
-                Description: {{item.description}}
+                Description: {{listingDetailStudent[3]}}
                 <br>
-                Rates: {{item.rates}}
+                Rates: {{listingDetailStudent[4]}}
                 <br>
+                
             </div>
             <button> Edit </button>
+            <br>
+            <button> Delete </button>
             </ModalComponent>
             <div class = "perlistings" v-for = "item in tutorlistings">
-                <div class="close">
-                        <img class="close-img" src="src\assets\close-icon.png" alt="" />
-                    </div>
                 Type: Tutor Listing
                 <br>
                 Level: {{item.level}}
@@ -265,7 +266,7 @@ const {user} = storeToRefs(useAuthStore());
 const currUserDetails = ref();
 const newemail = ref()
 const id = ref()
-const listings = ref()
+    const listings = ref()
 const tutorlistings = ref()
 const newphoneno = ref()
 const newtelehandle = ref()
@@ -278,6 +279,7 @@ const newexp = ref()
 const education = ref()
 const experience = ref()
 const showIndividualListingModal = ref(false)
+const listingDetailStudent = ref();
 const inputs = ref({
   name: "",
   gender: "",
@@ -451,6 +453,10 @@ const updateExperience = async () => {
     experience.value = newexp.value
     //newexp.value = ""
 }
+const showListingDetailStudent = async (details) =>{
+    listingDetailStudent.value = details
+    showIndividualListingModal.value = true
+}
 
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
@@ -497,6 +503,8 @@ function saveTutorProfile() {
   showModal3.value = false;
   toast.success('Successfully updated tutor profile.', { timeout: 3000 });
 }
+
+
 
 </script>
 
