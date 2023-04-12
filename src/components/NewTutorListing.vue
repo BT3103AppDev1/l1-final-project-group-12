@@ -129,6 +129,7 @@ export default {
           toast("Listing Posted!", {
             type: TYPE.SUCCESS
           })
+          this.$emit("updatedata", data)
         } catch (e) {
           console.error("Error adding document: ", e);
           toast("Oops! Something went wrong...", {
