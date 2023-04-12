@@ -103,7 +103,7 @@
                         <!-- input box for name of tutor -->
                         <div id="name">
                         <label for="name">Name</label><br />
-                        <input type="text" id="name1" name="name" placeholder="Name" v-model="inputs.name" /><br />
+                        <input type="text" id="name1" name="name" required="required" placeholder="Name" v-model="inputs.name" /><br />
                         </div>
                         <!-- dropdown selection for gender of tutor -->
                         <div id="gender">
@@ -196,6 +196,7 @@
             <h1> Your Listings </h1>
             <br>
             <div class = "perlisting" v-for = "item in listings"> 
+
                 Type: Student Listing    
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
                 <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"> edit</button> <!-- NEED A EDIT ICON-->
@@ -233,6 +234,7 @@
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
             <div class = "perlisting">     
                 Listing details
+
                 <br>
                 Level: <select v-model="newstulevel"  required>
                         <option>Primary</option>
@@ -272,6 +274,7 @@
             placeholder="Description and contact method" rows="4" required>
                 </textarea>
                 <br>
+
                 Rates: 
                 <input type="number"  min="0" v-model="newsturates" placeholder="Enter your rates" required />
                 <br>
@@ -279,6 +282,7 @@
             </div>
             <button @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
             </ModalComponent>
+
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
@@ -334,6 +338,7 @@ const newedu = ref()
 const newexp = ref()
 const education = ref()
 const experience = ref()
+
 const showIndividualListingModal = ref(false)
 const listingDetailStudent = ref([0,0,0,0,0,0,""]);
 const newstulevel = ref()
@@ -630,11 +635,35 @@ function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
   let name = inputs.value.name;
+  if(name == "") {
+    toast("Name cannot be empty. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  if(/\d/.test(name)) {
+    toast("Name cannot contain numbers. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
 
   let gender = inputs.value.gender;
+  if(gender == "") {
+    toast("Please select a gender.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  
 
   let qualification = inputs.value.qualification;
-
+  if(qualification == "") {
+    toast("Please select your highest qualification.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
   // checkbox options for subjects taught, returns a boolean for if the option was checked
 //   const subjects = [];
 //   if (inputs.value.english) {
@@ -660,6 +689,12 @@ function saveTutorProfile() {
 //   }
 
   let location = inputs.value.location;
+  if(location == "") {
+    toast("Please select a region.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
 
   updateTutorProfileById(String(id.value), {
     name: name,
