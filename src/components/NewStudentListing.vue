@@ -63,7 +63,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="button" @click="$emit('close-modal'); savestudentlisting(); reloadPage()">Add Listing</button>
+        <button type="button" class="button" @click="$emit('close-modal'); savestudentlisting()">Add Listing</button>
       </div>
     </form>
 

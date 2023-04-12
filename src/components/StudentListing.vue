@@ -286,6 +286,7 @@ export default {
 
 #midcontainer {
     flex: 3;
+
 }
 
 #LeftContainer {
