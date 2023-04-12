@@ -1,32 +1,43 @@
 <script setup>
 import { createListing } from "@/lib/handlers/listing";
-import { validateInputs } from "@/lib/utils";
 import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { Form, Field } from "vee-validate";
+import { toFormValidator } from "@vee-validate/zod";
+import { z } from "zod";
+import { useToast, TYPE } from "vue-toastification";
+
+const toast = useToast();
 
 const { user } = storeToRefs(useAuthStore());
 
-const createListingInputs = ref({
-  subject: undefined,
-  level: undefined,
-  region: undefined,
-  description: undefined,
-  rates: undefined,
-});
+const createListingSchema = toFormValidator(
+  z.object({
+    subject: z.string().nonempty(),
+    level: z.string().nonempty(),
+    region: z.string().nonempty(),
+    description: z.string().nonempty(),
+    rates: z.preprocess((n) => parseInt(n), z.number().nonnegative()),
+  })
+);
 
-const createListingOnClick = async () => {
+const createListingOnClick = async (inputs) => {
   try {
-    validateInputs(createListingInputs.value);
-
     await createListing("tutor-listing", {
       userId: user.value.uid,
       dateCreated: new Date().toLocaleString(),
-      ...createListingInputs.value,
+      ...inputs,
     });
+    toast("Successfully created listing", { type: TYPE.SUCCESS });
   } catch (error) {
     console.log(error);
+    toast("Error creating listing", { type: TYPE.ERROR });
   }
+};
+
+const onInvalidSubmit = ({ values, errors, results }) => {
+  console.log(values, errors, results);
+  toast("Invalid submission", { type: TYPE.ERROR });
 };
 </script>
 
@@ -34,23 +45,30 @@ const createListingOnClick = async () => {
   <div id="modal-content">
     <h1>Add Tutor Listing</h1>
 
-    <form @submit.prevent="createListingOnClick">
+    <Form
+      :validation-schema="createListingSchema"
+      @submit="createListingOnClick"
+      @invalid-submit="onInvalidSubmit"
+    >
       <div id="input-container">
-        <label>Subject</label>
-        <input type="text" v-model="createListingInputs.subject" required />
+        <label>Subject </label>
+        <Field name="subject" type="text" />
 
         <label>Level</label>
-        <input type="text" v-model="createListingInputs.level" required />
+        <Field name="level" type="text" />
 
         <label>Region</label>
-        <input type="text" v-model="createListingInputs.region" required />
+        <Field name="region" type="text" />
 
         <label>Description</label>
-        <input type="text" v-model="createListingInputs.description" required />
+        <Field name="description" type="text" />
+
+        <label>Rates</label>
+        <Field name="rates" type="number" />
       </div>
 
       <button type="submit">Add Listing</button>
-    </form>
+    </Form>
   </div>
 </template>
 
