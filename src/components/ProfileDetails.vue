@@ -197,8 +197,8 @@
             <br>
             <div class = "perlisting" v-for = "item in listings"> 
                 Type: Student Listing    
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds])"/>
-                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds])"> edit</button> <!-- NEED A EDIT ICON-->
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -214,7 +214,7 @@
 
             <ModalComponent v-show = "showConfirmDelete" @close-modal = "showConfirmDelete = false">
                 Are you sure you want to delete the listing?
-                <br>
+                <br> <br>
                 Level: {{deleteDetails[0]}}
                 <br>
                 Subject: {{deleteDetails[1]}}
@@ -226,13 +226,13 @@
                 Rates: {{deleteDetails[4]}}
                 <br><br>
 
-                <button @click = "deleteListing(deleteDetails[5])"> Delete </button>
+                <button @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
            
             </ModalComponent>
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
             <div class = "perlisting">     
-                Type: Student Listing
+                Listing details
                 <br>
                 Level: <select v-model="newstulevel"  required>
                         <option>Primary</option>
@@ -277,16 +277,20 @@
                 <br>
                 
             </div>
-            <button @click = editStudentListing(listingDetailStudent[5]) > Save </button>
+            <button @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
             </ModalComponent>
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
                 Subject: {{item.subject}}
                 <br>
                 Location: {{item.location}}
+                <br>
+                Description: {{item.description}}
                 <br>
                 Rates: {{item.rates}}
             </div>
@@ -306,7 +310,6 @@ import {storeToRefs} from "pinia";
 import {onMounted, ref} from "vue"
 import { useToast, TYPE } from "vue-toastification";
 import {db} from "../lib/firebase-config.js"
-import { documentId, getFirestore } from "firebase/firestore"
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
 
 
@@ -332,14 +335,17 @@ const newexp = ref()
 const education = ref()
 const experience = ref()
 const showIndividualListingModal = ref(false)
-const listingDetailStudent = ref([0,0,0,0,0,0]);
+const listingDetailStudent = ref([0,0,0,0,0,0,""]);
 const newstulevel = ref()
 const newstusubject = ref()
 const newstulocation = ref()
 const newstudesc = ref()
 const newsturates = ref()
 const showConfirmDelete = ref(false)
-const deleteDetails = ref([0,0,0,0,0,0])
+const deleteDetails = ref([0,0,0,0,0,0,""])
+const studentlisting = ref("student-listing")
+const tutorlisting = ref("tutor-listing")
+const listingtype = ref("")
 
 const inputs = ref({
   name: "",
@@ -461,9 +467,11 @@ const updatePhoneNumber = async () => {
 
     //check for valid phone eg. len = 8, all integer, 
     //if checks, remember to integrate the toast!
+    /*
     toast("Updated Phone Number!", {
         type: TYPE.SUCCESS
     })
+    */
 }
 
 const updateTelegramHandle = async () => {
@@ -476,9 +484,11 @@ const updateTelegramHandle = async () => {
     //newtelehandle.value = ""
     //checks?
     //if checks, remember to integrate the toast!
+    /*
     toast("Updated Telegram!", {
         type: TYPE.SUCCESS
     })
+    */
 }
 
 const updateEmail = async () => {
@@ -515,7 +525,7 @@ const updateExperience = async () => {
     experience.value = newexp.value
     //newexp.value = ""
 }
-const showListingDetailStudent = async (details) =>{
+const showListingDetailStudent = async (details, typeoflisting) =>{
     listingDetailStudent.value = details
     console.log(details)
     newstulevel.value = details[0]
@@ -524,27 +534,38 @@ const showListingDetailStudent = async (details) =>{
     newstudesc.value = details[3]
     newsturates.value = details[4]
     showIndividualListingModal.value = true
+    listingtype.value = typeoflisting
+
 }
 
-const showCancelDetails = async(details) => {
+const showCancelDetails = async(details, typeoflisting) => {
     deleteDetails.value = details
     showConfirmDelete.value= true
+    listingtype.value = typeoflisting
 }
 
 const  deleteListing = async (timeCreated) => {
-    console.log(collection(db,"student-listing"))
-
-    const querySnap = await getDocs(collection(db, "student-listing"));
+    const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
-        let a = await getListingById("student-listing", x.id)
-        if (a.dateCreated.seconds == timeCreated){          
-            for (let i = 0, len = listings.value.length; i < len;i++){
-                if(listings.value[i].dateCreated.seconds == timeCreated) {
-                    listings.value.splice(i,1)
-                    break
-                } 
+        let a = await getListingById(listingtype.value, x.id)
+        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){     
+            if (listingtype.value == "tutor-listing") {
+                for (let i = 0, len = tutorlistings.value.length; i < len;i++){
+                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                        tutorlistings.value.splice(i,1)
+                        break
+                    } 
+                }
+
+            } else { 
+                for (let i = 0, len = listings.value.length; i < len;i++){
+                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                        listings.value.splice(i,1)
+                        break
+                    } 
+                }
             }
-            await deleteDoc(doc(db, "student-listing",x.id))
+            await deleteDoc(doc(db, listingtype.value,x.id))
             showConfirmDelete.value = false
             toast("Listing deleted!", {
                     type: TYPE.SUCCESS
@@ -555,23 +576,36 @@ const  deleteListing = async (timeCreated) => {
     });
 
 }
-const editStudentListing = async (timeCreated) => {
-    console.log(collection(db,"student-listing"))
-    const querySnap = await getDocs(collection(db, "student-listing"));
+const editStudentListing = async (timeCreated ) => {
+
+    const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
-        let a = await getListingById("student-listing", x.id)
-        if (a.dateCreated.seconds == timeCreated){
-      
-            for (let i = 0, len = listings.value.length; i < len;i++){
-                if(listings.value[i].dateCreated.seconds == timeCreated) {
-                    listings.value[i].description = newstudesc.value
-                    listings.value[i].level = newstulevel.value
-                    listings.value[i].location = newstulocation.value
-                    listings.value[i].subject = newstusubject.value
-                    listings.value[i].rates = newsturates.value
-                    break
-                } 
-            }
+        let a = await getListingById(listingtype.value, x.id)
+        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){
+            if (listingtype.value == "tutor-listing") {
+                for (let i = 0, len = tutorlistings.value.length; i < len;i++){
+                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                        tutorlistings.value[i].description = newstudesc.value
+                        tutorlistings.value[i].level = newstulevel.value
+                        tutorlistings.value[i].location = newstulocation.value
+                        tutorlistings.value[i].subject = newstusubject.value
+                        tutorlistings.value[i].rates = newsturates.value
+                        break
+                    } 
+                }
+
+            } else {
+                for (let i = 0, len = listings.value.length; i < len;i++){
+                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                        listings.value[i].description = newstudesc.value
+                        listings.value[i].level = newstulevel.value
+                        listings.value[i].location = newstulocation.value
+                        listings.value[i].subject = newstusubject.value
+                        listings.value[i].rates = newsturates.value
+                        break
+                    } 
+                }
+        }
 
 
             const newInfo = {
@@ -581,7 +615,7 @@ const editStudentListing = async (timeCreated) => {
                 description : newstudesc.value,
                 rates : newsturates.value
             }
-            await updateListingById("student-listing", x.id, newInfo)
+            await updateListingById(listingtype.value, x.id, newInfo)
             showIndividualListingModal.value = false
             toast("Listing Updated!", {
                     type: TYPE.SUCCESS
