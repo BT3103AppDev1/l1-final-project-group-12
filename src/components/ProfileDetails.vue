@@ -197,7 +197,7 @@
             <br>
             <div class = "perlisting" v-for = "item in listings"> 
                 Type: Student Listing    
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "deleteListing(item.dateCreated.seconds)"/>
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds])"/>
                 <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds])"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
@@ -211,6 +211,25 @@
                 Rates: {{item.rates}}
                 <br>
             </div>
+
+            <ModalComponent v-show = "showConfirmDelete" @close-modal = "showConfirmDelete = false">
+                Are you sure you want to delete the listing?
+                <br>
+                Level: {{deleteDetails[0]}}
+                <br>
+                Subject: {{deleteDetails[1]}}
+                <br>
+                Location: {{deleteDetails[2]}}
+                <br>
+                Description: {{deleteDetails[3]}}
+                <br>
+                Rates: {{deleteDetails[4]}}
+                <br><br>
+
+                <button @click = "deleteListing(deleteDetails[5])"> Delete </button>
+           
+            </ModalComponent>
+
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
             <div class = "perlisting">     
                 Type: Student Listing
@@ -319,6 +338,8 @@ const newstusubject = ref()
 const newstulocation = ref()
 const newstudesc = ref()
 const newsturates = ref()
+const showConfirmDelete = ref(false)
+const deleteDetails = ref([0,0,0,0,0,0])
 
 const inputs = ref({
   name: "",
@@ -505,6 +526,11 @@ const showListingDetailStudent = async (details) =>{
     showIndividualListingModal.value = true
 }
 
+const showCancelDetails = async(details) => {
+    deleteDetails.value = details
+    showConfirmDelete.value= true
+}
+
 const  deleteListing = async (timeCreated) => {
     console.log(collection(db,"student-listing"))
 
@@ -520,6 +546,10 @@ const  deleteListing = async (timeCreated) => {
                 } 
             }
             await deleteDoc(doc(db, "student-listing",x.id))
+            showConfirmDelete.value = false
+            toast("Listing deleted!", {
+                    type: TYPE.SUCCESS
+                })
         }
       
     //console.log(doc.id)
