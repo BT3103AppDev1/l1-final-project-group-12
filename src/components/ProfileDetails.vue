@@ -59,13 +59,13 @@
                     <br>
                     <br>
                     <div>
-                        <label for="qualification">Highest Education</label><br />
-                        <select v-model="newedu" name="qualification">
-                            <option value="secondary">Secondary</option>
-                            <option value="post-secondary">Post-Secondary</option>
-                            <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
-                            <option value="University">University</option>
-                        </select>
+                    <label for="qualification">Highest education</label><br />
+                    <select v-model = "newedu" id="edulevel" name="qualification">
+                        <option value="Secondary">Secondary</option>
+                        <option value="Post-Secondary">Post-Secondary</option>
+                        <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
+                        <option value="University">University</option>
+                    </select>
                     </div>
                     <br> <br>
                     New Experience:
@@ -96,89 +96,87 @@
                         <slot name="header"> Set up tutor profile </slot>
                     </header>
 
-                    <!-- modal body -->
-                    <section class="modal-body">
-                        <slot name="form">
-                            <form>
-                                <!-- input box for name of tutor -->
-                                <div id="name">
-                                    <label for="name">Name</label><br />
-                                    <input type="text" id="name1" name="name" placeholder="Name"
-                                        v-model="inputs.name" /><br />
-                                </div>
-                                <!-- dropdown selection for gender of tutor -->
-                                <div id="gender">
-                                    <label for="gender">Gender</label><br />
-                                    <select id="gender1" name="gender" v-model="inputs.gender">
-                                        <option value="none">Select a gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </div>
-                                <br />
-                                <!-- dropdown selection for highest qualification -->
-                                <div id="qualification">
-                                    <label for="qualification">Highest qualification</label><br />
-                                    <select id="qualification1" name="qualification" v-model="inputs.qualification">
-                                        <option value="none">Highest qualification</option>
-                                        <option value="secondary">Secondary</option>
-                                        <option value="post-secondary">Post-Secondary</option>
-                                        <option value="Diploma/Professional Qualification">Diploma/Professional
-                                            Qualification</option>
-                                        <option value="University">University</option>
-                                    </select>
-                                </div>
-                                <!-- checkbox for subjects taught -->
-                                <div id="subjects">
-                                    <label for="subjects">Subjects teaching</label><br />
-                                    <form action="/action_page.php">
-                                        <input type="checkbox" id="english" name="english" value="english"
-                                            v-model="inputs.english" />
-                                        <label for="english"> English</label><br />
-                                        <input type="checkbox" id="math" name="math" value="math" v-model="inputs.math" />
-                                        <label for="math"> Mathematics</label><br />
-                                        <input type="checkbox" id="science" name="science" value="science"
-                                            v-model="inputs.science" />
-                                        <label for="science"> Science</label><br /><br />
-                                    </form>
-                                </div>
-                                <br />
-                                <!-- checkbox for levels taught -->
-                                <div id="levels">
-                                    <label for="levels">Levels taught</label><br />
-                                    <form action="/action_page.php">
-                                        <input type="checkbox" id="primary" name="primary" value="primary"
-                                            v-model="inputs.primary" />
-                                        <label for="primary"> Primary</label><br />
-                                        <input type="checkbox" id="secondary" name="secondary" value="secondary"
-                                            v-model="inputs.secondary" />
-                                        <label for="secondary"> Secondary</label><br />
-                                        <input type="checkbox" id="jc" name="jc" value="jc" v-model="inputs.jc" />
-                                        <label for="jc"> Junior College</label><br /><br />
-                                    </form>
-                                </div>
-                                <!-- input box for location of tutor -->
-                                <div id="location">
-                                    <label for="location">Location</label><br />
-                                    <input type="text" id="location1" name="location" placeholder="Location"
-                                        v-model="inputs.location" /><br />
-                                </div>
-                                <br />
-                                <!-- input box for contact number -->
-                                <div id="contact">
-                                    <label for="contact">Contact Number</label><br />
-                                    <input type="text" id="contact1" name="contact" placeholder="Contact"
-                                        v-model="inputs.contact" /><br />
-                                </div>
-                                <!-- input box for telegram @ -->
-                                <div id="tele">
-                                    <label for="tele">Telegram</label><br />
-                                    <input type="text" id="tele1" name="tele" placeholder="Telegram @"
-                                        v-model="inputs.tele" /><br />
-                                </div>
-                            </form>
-                        </slot>
-                    </section>
+                <!-- modal body -->
+                <section class="modal-body">
+                    <slot name="form">
+                    <form>
+                        <!-- input box for name of tutor -->
+                        <div id="name">
+                        <label for="name">Name</label><br />
+                        <input type="text" id="name1" name="name" required="required" placeholder="Name" v-model="inputs.name" /><br />
+                        </div>
+                        <!-- dropdown selection for gender of tutor -->
+                        <div id="gender">
+                        <label for="gender">Gender</label><br />
+                        <select id="gender1" name="gender" v-model="inputs.gender">
+                            <option value="">Select a gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        </div>
+                        <br />
+                        <!-- dropdown selection for highest qualification -->
+                        <div id="qualification">
+                        <label for="qualification">Highest qualification</label><br />
+                        <select id="qualification1" name="qualification" v-model="inputs.qualification">
+                            <option value="">Highest qualification</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Post-secondary">Post-Secondary</option>
+                            <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
+                            <option value="University">University</option>
+                        </select>
+                        </div>
+                        <!-- checkbox for subjects taught -->
+                        <!-- <div id="subjects">
+                        <label for="subjects">Subjects teaching</label><br />
+                        <form action="/action_page.php">
+                            <input type="checkbox" id="english" name="english" value="english" v-model="inputs.english"/>
+                            <label for="english"> English</label><br />
+                            <input type="checkbox" id="math" name="math" value="math" v-model="inputs.math"/>
+                            <label for="math"> Mathematics</label><br />
+                            <input type="checkbox" id="science" name="science" value="science" v-model="inputs.science"/>
+                            <label for="science"> Science</label><br /><br />
+                        </form>
+                        </div>
+                        <br /> -->
+                        <!-- checkbox for levels taught -->
+                        <!-- <div id="levels">
+                        <label for="levels">Levels taught</label><br />
+                        <form action="/action_page.php">
+                            <input type="checkbox" id="primary" name="primary" value="primary" v-model="inputs.primary"/>
+                            <label for="primary"> Primary</label><br />
+                            <input type="checkbox" id="secondary" name="secondary" value="secondary" v-model="inputs.secondary"/>
+                            <label for="secondary"> Secondary</label><br />
+                            <input type="checkbox" id="jc" name="jc" value="jc" v-model="inputs.jc"/>
+                            <label for="jc"> Junior College</label><br /><br />
+                        </form>
+                        </div> -->
+                        <!-- dropdown for location of tutor -->
+                        <div id="location">
+                        <label for="location">Region</label><br />
+                        <select id="location1" name="location" v-model="inputs.location">
+                            <option value="">Select region</option>
+                            <option value="North">North</option>
+                            <option value="East">East</option>
+                            <option value="West">West</option>
+                            <option value="South">South</option>
+                            <option value="Central">Central</option>
+                        </select><br />
+                        </div>
+                        <br />
+                        <!-- input box for contact number -->
+                        <!-- <div id="contact">
+                        <label for="contact">Contact Number</label><br />
+                        <input type="text" id="contact1" name="contact" placeholder="Contact" v-model="inputs.contact"/><br />
+                        </div> -->
+                        <!-- input box for telegram @ -->
+                        <!-- <div id="tele">
+                        <label for="tele">Telegram</label><br />
+                        <input type="text" id="tele1" name="tele" placeholder="Telegram @" v-model="inputs.tele"/><br />
+                        </div> -->
+                    </form>
+                    </slot>
+                </section>
 
                     <!-- modal footer -->
                     <footer class="modal-footer">
@@ -197,39 +195,108 @@
         <div class="details">
             <h1> Your Listings </h1>
             <br>
-            <div class="perlisting" v-for="item in listings">
-                <div class="close">
-                    <img class="close-img" src="src\assets\close-icon.png" alt="" />
-                </div>
-                Type: Student Listing
+            <div class = "perlisting" v-for = "item in listings"> 
+
+                Type: Student Listing    
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
-                Level: {{ item.level }}
+                Level: {{item.level}}
                 <br>
-                Subject: {{ item.subject }}
+                Subject: {{item.subject}}
                 <br>
-                Location: {{ item.location }}
+                Location: {{item.location}}
                 <br>
-                Rates: ${{ item.rates }}/hr
+                Rates: {{item.rates}}
                 <br>
-                Description: {{ item.description }}
-                <br>
+                Description: {{item.description}}
                 <br>
             </div>
-            <div class="perlistings" v-for="item in tutorlistings">
-                <div class="close">
-                    <img class="close-img" src="src\assets\close-icon.png" alt="" />
-                </div>
+
+            <ModalComponent v-show = "showConfirmDelete" @close-modal = "showConfirmDelete = false">
+                Are you sure you want to delete the listing?
+                <br> <br>
+                Level: {{deleteDetails[0]}}
+                <br>
+                Subject: {{deleteDetails[1]}}
+                <br>
+                Location: {{deleteDetails[2]}}
+                <br>
+                Description: {{deleteDetails[3]}}
+                <br>
+                Rates: {{deleteDetails[4]}}
+                <br><br>
+
+                <button @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
+           
+            </ModalComponent>
+
+            <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
+            <div class = "perlisting">     
+                Listing details
+
+                <br>
+                Level: <select v-model="newstulevel"  required>
+                        <option>Primary</option>
+                        <option>Secondary</option>
+                        <option>Junior College</option>
+                        <option>Others</option>
+                        </select>
+                <br>
+
+                Subject: 
+                <select v-model="newstusubject" required>
+              <option>Biology</option>
+              <option>Chinese Language</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>Math</option>
+              <option>Malay Language</option>
+              <option>Physics</option>
+              <option>Tamil Language</option>
+              <option>Others</option>
+            </select>
+                <br>
+
+                Location: 
+                <select v-model="newstulocation"  required>
+                <option>North</option>
+                <option>South</option>
+                <option>East</option>
+                <option>West</option>
+                <option>Central</option>
+                <option>Others</option>
+                </select>
+                <br>
+                Description: 
+                <br>
+                <textarea type="text"  v-model="newstudesc"
+            placeholder="Description and contact method" rows="4" required>
+                </textarea>
+                <br>
+
+                Rates: 
+                <input type="number"  min="0" v-model="newsturates" placeholder="Enter your rates" required />
+                <br>
+                
+            </div>
+            <button @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
+            </ModalComponent>
+
+            <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"> edit</button> <!-- NEED A EDIT ICON-->
                 <br>
-                Level: {{ item.level }}
+                Level: {{item.level}}
                 <br>
-                Subject: {{ item.subject }}
+                Subject: {{item.subject}}
                 <br>
-                Location: {{ item.location }}
+                Location: {{item.location}}
                 <br>
-                Rates: ${{ item.rates }}/hr
+                Rates: {{item.rates}}
                 <br>
-                <br>
+                Description: {{item.description}}
             </div>
 
 
@@ -239,13 +306,16 @@
 
 <script setup>
 import { getCurrentUser } from "../lib/handlers/auth.js"
-import { getAllListings } from "../lib/handlers/listing.js"
+import { getAllListings, updateListingById, getListingById } from "../lib/handlers/listing.js"
 import { getUserById, updateUserById, updateTutorProfileById } from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
 import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue"
 import { useToast, TYPE } from "vue-toastification";
+import {db} from "../lib/firebase-config.js"
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
+
 
 const toast = useToast()
 
@@ -268,19 +338,33 @@ const newedu = ref()
 const newexp = ref()
 const education = ref()
 const experience = ref()
+
+const showIndividualListingModal = ref(false)
+const listingDetailStudent = ref([0,0,0,0,0,0,""]);
+const newstulevel = ref()
+const newstusubject = ref()
+const newstulocation = ref()
+const newstudesc = ref()
+const newsturates = ref()
+const showConfirmDelete = ref(false)
+const deleteDetails = ref([0,0,0,0,0,0,""])
+const studentlisting = ref("student-listing")
+const tutorlisting = ref("tutor-listing")
+const listingtype = ref("")
+
 const inputs = ref({
-    name: "",
-    gender: "",
-    qualification: "",
-    english: "",
-    math: "",
-    science: "",
-    primary: "",
-    secondary: "",
-    jc: "",
-    location: "",
-    contact: "",
-    tele: ""
+  name: "",
+  gender: "",
+  qualification: "",
+//   english: "",
+//   math: "",
+//   science: "",
+//   primary: "",
+//   secondary: "",
+//   jc: "",
+  location: ""
+//   contact: "",
+//   tele: ""
 });
 
 onMounted(async () => {
@@ -301,6 +385,7 @@ onMounted(async () => {
     allDocuments.forEach((docs) => {
         if (docs.UserID == id.value) {
             array.push(docs)
+            //console.log(docs.dateCreated.seconds)
         }
     })
     let array2 = []
@@ -313,7 +398,7 @@ onMounted(async () => {
         })
 
     }
-    console.log(array2)
+
     listings.value = array
     tutorlistings.value = array2
     //console.log(listings.value)
@@ -387,9 +472,11 @@ const updatePhoneNumber = async () => {
 
     //check for valid phone eg. len = 8, all integer, 
     //if checks, remember to integrate the toast!
+    /*
     toast("Updated Phone Number!", {
         type: TYPE.SUCCESS
     })
+    */
 }
 
 const updateTelegramHandle = async () => {
@@ -402,9 +489,11 @@ const updateTelegramHandle = async () => {
     //newtelehandle.value = ""
     //checks?
     //if checks, remember to integrate the toast!
+    /*
     toast("Updated Telegram!", {
         type: TYPE.SUCCESS
     })
+    */
 }
 
 const updateEmail = async () => {
@@ -441,58 +530,184 @@ const updateExperience = async () => {
     experience.value = newexp.value
     //newexp.value = ""
 }
+const showListingDetailStudent = async (details, typeoflisting) =>{
+    listingDetailStudent.value = details
+    console.log(details)
+    newstulevel.value = details[0]
+    newstusubject.value = details[1]
+    newstulocation.value = details[2]
+    newstudesc.value = details[3]
+    newsturates.value = details[4]
+    showIndividualListingModal.value = true
+    listingtype.value = typeoflisting
 
-function saveTutorProfile() {
-    // fetches all the inputs and stores them as variables to be pushed to firebase
-    // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
-    let name = inputs.value.name;
-
-    let gender = inputs.value.gender;
-
-    let qualification = inputs.value.qualification;
-
-    alert(name)
-    console.log(inputs.value.math)
-    // checkbox options for subjects taught, returns a boolean for if the option was checked
-    const subjects = [];
-    if (inputs.value.english) {
-        subjects.push("English");
-    }
-    if (inputs.value.math) {
-        subjects.push("Math");
-    }
-    if (inputs.value.science) {
-        subjects.push("Science");
-    }
-
-    // checkbox options for levels taught, returns a boolean for if the option was checked
-    const levels = [];
-    if (inputs.value.primary) {
-        levels.push("Primary");
-    }
-    if (inputs.value.secondary) {
-        levels.push("Secondary");
-    }
-    if (inputs.value.jc) {
-        levels.push("Junior College");
-    }
-
-    let location = inputs.value.location;
-
-    let contact = inputs.value.contact;
-
-    let tele = inputs.value.tele;
-
-    updateTutorProfileById(String(id.value), {
-        isTutor: true,
-        education: qualification,
-        levels: levels,
-        subjects: subjects,
-        region: location,
-    });
-    showModal3.value = false;
-    toast.success('Successfully updated tutor profile.', { timeout: 3000 });
 }
+
+const showCancelDetails = async(details, typeoflisting) => {
+    deleteDetails.value = details
+    showConfirmDelete.value= true
+    listingtype.value = typeoflisting
+}
+
+const  deleteListing = async (timeCreated) => {
+    const querySnap = await getDocs(collection(db, listingtype.value));
+    querySnap.forEach(async (x) => {
+        let a = await getListingById(listingtype.value, x.id)
+        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){     
+            if (listingtype.value == "tutor-listing") {
+                for (let i = 0, len = tutorlistings.value.length; i < len;i++){
+                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                        tutorlistings.value.splice(i,1)
+                        break
+                    } 
+                }
+
+            } else { 
+                for (let i = 0, len = listings.value.length; i < len;i++){
+                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                        listings.value.splice(i,1)
+                        break
+                    } 
+                }
+            }
+            await deleteDoc(doc(db, listingtype.value,x.id))
+            showConfirmDelete.value = false
+            toast("Listing deleted!", {
+                    type: TYPE.SUCCESS
+                })
+        }
+    //console.log(doc.id)
+    //console.log(doc)
+    });
+
+}
+const editStudentListing = async (timeCreated ) => {
+
+    const querySnap = await getDocs(collection(db, listingtype.value));
+    querySnap.forEach(async (x) => {
+        let a = await getListingById(listingtype.value, x.id)
+        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){
+            if (listingtype.value == "tutor-listing") {
+                for (let i = 0, len = tutorlistings.value.length; i < len;i++){
+                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                        tutorlistings.value[i].description = newstudesc.value
+                        tutorlistings.value[i].level = newstulevel.value
+                        tutorlistings.value[i].location = newstulocation.value
+                        tutorlistings.value[i].subject = newstusubject.value
+                        tutorlistings.value[i].rates = newsturates.value
+                        break
+                    } 
+                }
+
+            } else {
+                for (let i = 0, len = listings.value.length; i < len;i++){
+                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                        listings.value[i].description = newstudesc.value
+                        listings.value[i].level = newstulevel.value
+                        listings.value[i].location = newstulocation.value
+                        listings.value[i].subject = newstusubject.value
+                        listings.value[i].rates = newsturates.value
+                        break
+                    } 
+                }
+        }
+
+
+            const newInfo = {
+                subject : newstusubject.value,
+                level : newstulevel.value,
+                region : newstulocation.value,
+                description : newstudesc.value,
+                rates : newsturates.value
+            }
+            await updateListingById(listingtype.value, x.id, newInfo)
+            showIndividualListingModal.value = false
+            toast("Listing Updated!", {
+                    type: TYPE.SUCCESS
+                })
+        
+    }
+    });
+    
+
+}
+function saveTutorProfile() {
+  // fetches all the inputs and stores them as variables to be pushed to firebase
+  // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
+  let name = inputs.value.name;
+  if(name == "") {
+    toast("Name cannot be empty. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  if(/\d/.test(name)) {
+    toast("Name cannot contain numbers. Please try again.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+
+  let gender = inputs.value.gender;
+  if(gender == "") {
+    toast("Please select a gender.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  
+
+  let qualification = inputs.value.qualification;
+  if(qualification == "") {
+    toast("Please select your highest qualification.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+  // checkbox options for subjects taught, returns a boolean for if the option was checked
+//   const subjects = [];
+//   if (inputs.value.english) {
+//     subjects.push("English");
+//   }
+//   if (inputs.value.math) {
+//     subjects.push("Math");
+//   }
+//   if (inputs.value.science) {
+//     subjects.push("Science");
+//   }
+
+  // checkbox options for levels taught, returns a boolean for if the option was checked
+//   const levels = [];
+//   if (inputs.value.primary) {
+//     levels.push("Primary");
+//   }
+//   if (inputs.value.secondary) {
+//     levels.push("Secondary");
+//   }
+//   if (inputs.value.jc) {
+//     levels.push("Junior College");
+//   }
+
+  let location = inputs.value.location;
+  if(location == "") {
+    toast("Please select a region.", {
+        type: TYPE.ERROR
+    })
+    return; // break out of function
+  }
+
+  updateTutorProfileById(String(id.value), {
+    name: name,
+    isTutor: true,
+    gender: gender,
+    education: qualification,
+    region: location,
+  });
+  showModal3.value = false;
+  toast.success('Successfully updated tutor profile.', { timeout: 3000 });
+}
+
+
 
 </script>
 
@@ -544,8 +759,7 @@ function saveTutorProfile() {
     text-align: start;
     width: 80%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    padding-left: 3em;
-    /* padding-right: 3em; */
+    padding: 2em;
 }
 
 .perlisting {
@@ -641,7 +855,7 @@ function saveTutorProfile() {
     margin-bottom: 50px;
     border-radius: 8px;
     width: 230px;
-    height: 20px;
+    height: 28px;
     padding: 2px;
 }
 
@@ -683,26 +897,14 @@ label {
     text-align: right;
 }
 
-input {
-    background-color: #f6f5f6;
-    width: 80%;
-    height: 40px;
-    color: black;
-    font-size: 14px;
-    border-radius: 16px;
-    border-style: none;
-    text-indent: 10px;
-    align-self: center;
+input,#edulevel {
+  background-color: #f6f5f6;
+  height: 40px;
+  color: black;
+  font-size: 14px;
+  border-radius: 16px;
+  border-style: none;
+  text-indent: 10px;
 }
 
-select {
-    background-color: #f6f5f6;
-    width: 80%;
-    height: 40px;
-    color: black;
-    font-size: 14px;
-    border-radius: 16px;
-    border-style: none;
-    text-indent: 10px;
-}
 </style>

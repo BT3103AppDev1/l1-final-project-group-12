@@ -76,8 +76,9 @@
 
 <script>
 import { db } from "../lib/firebase-config";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { doc, collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { useToast, TYPE } from "vue-toastification";
+import { getUserById } from "@/lib/handlers/user";
 
 const toast = useToast()
 import { getCurrentUser } from "../lib/handlers/auth.js";
@@ -98,10 +99,7 @@ export default {
       let User = await getCurrentUser();
       let Userid = User.uid;
 
-      const usersRef = collection(db, "users");
-      const usersQuery = query(usersRef, where("uid", "==", User.uid), where("isTutor", "==", true));
-      const usersSnapshot = await getDocs(usersQuery);
-
+      const userSnapshot = await getUserById(Userid)
 
       const data = {
 
@@ -119,7 +117,7 @@ export default {
         toast("Missing details", {
           type: TYPE.ERROR
         })
-      } else if (usersSnapshot.docs.length == 0) {
+      } else if (userSnapshot.isTutor == false) {
         toast("Please set up your tutor profile!", {
           type: TYPE.ERROR
         })
