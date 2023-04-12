@@ -8,7 +8,6 @@ import HomeView from "../views/HomeView.vue";
 const StudentListingsView = () => import("../views/StudentListingsView.vue");
 const TutorListingsView = () => import("../views/TutorListingsView.vue");
 const MyProfileView = () => import("../views/MyProfileView.vue");
-const CreateTutorProfile = () => import("../views/CreateTutorProfile.vue");
 const TestView = () => import("../views/TestView.vue");
 
 const router = createRouter({
@@ -25,7 +24,6 @@ const router = createRouter({
         { name: "tutor-listings", path: "/tutor-listings", component: TutorListingsView },
         { name: "profile", path: "/profile", component: MyProfileView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
-        { name: "tutor-profile", path: "/tutorprofile", component: CreateTutorProfile },
       ],
       meta: { requiresAuth: true },
     },

@@ -1,19 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { signIn, signUp } from "@/lib/handlers/auth";
+import SignInFormComponent from "@/components/auth-view/SignInFormComponent.vue";
+import SignUpFormComponent from "@/components/auth-view/SignUpFormComponent.vue";
 
 const mode = ref("sign-in");
-const router = useRouter();
-
-const inputs = ref({
-  email: "",
-  password: "",
-  phoneNumber: "",
-  telegramHandle: "",
-});
-
-const buttonDisabled = ref(false);
 
 /**
  * Changes mode of the current form
@@ -21,42 +11,6 @@ const buttonDisabled = ref(false);
  */
 const changeModeOnClick = (newMode) => {
   mode.value = newMode;
-};
-
-const redirect = () => {
-  const redirectPath = router.currentRoute.value.query.redirect;
-  router.push(redirectPath ? redirectPath : { name: "home" });
-};
-
-const signInOnSubmit = async () => {
-  buttonDisabled.value = true;
-  const error = await signIn(inputs.value.email, inputs.value.password);
-  buttonDisabled.value = false;
-  inputs.value = {
-    email: "",
-    password: "",
-    phoneNumber: "",
-    telegramHandle: "",
-  };
-  if (error === undefined) redirect();
-};
-
-const signUpOnSubmit = async () => {
-  buttonDisabled.value = true;
-  const error = await signUp(
-    inputs.value.email,
-    inputs.value.password,
-    inputs.value.phoneNumber,
-    inputs.value.telegramHandle
-  );
-  buttonDisabled.value = false;
-  inputs.value = {
-    email: "",
-    password: "",
-    phoneNumber: "",
-    telegramHandle: "",
-  };
-  if (error === undefined) redirect();
 };
 </script>
 
@@ -66,39 +20,17 @@ const signUpOnSubmit = async () => {
       <h1 id="tent-title">Tent</h1>
 
       <div id="mode-buttons">
-        <button @click="changeModeOnClick('sign-in')">Sign In</button>
-        <button @click="changeModeOnClick('sign-up')">Sign Up</button>
+        <button @click="changeModeOnClick('sign-in')" :class="{ currentMode: mode === 'sign-in' }">
+          Sign In
+        </button>
+        <button @click="changeModeOnClick('sign-up')" :class="{ currentMode: mode === 'sign-up' }">
+          Sign Up
+        </button>
       </div>
 
-      <form @submit.prevent="signInOnSubmit" v-show="mode === 'sign-in'">
-        <label>Email</label>
-        <input type="text" v-model="inputs.email" />
+      <SignInFormComponent v-show="mode === 'sign-in'" />
 
-        <label>Password</label>
-        <input type="text" v-model="inputs.password" />
-
-        <button type="submit" :disabled="buttonDisabled">
-          {{ buttonDisabled ? "loading..." : "Sign In" }}
-        </button>
-      </form>
-
-      <form @submit.prevent="signUpOnSubmit" v-show="mode === 'sign-up'">
-        <label>Email</label>
-        <input type="text" v-model="inputs.email" />
-
-        <label>Password</label>
-        <input type="text" v-model="inputs.password" />
-
-        <label>Phone Number</label>
-        <input type="text" v-model="inputs.phoneNumber" />
-
-        <label>Telegram Handle</label>
-        <input type="text" v-model="inputs.telegramHandle" />
-
-        <button type="submit" :disabled="buttonDisabled">
-          {{ buttonDisabled ? "loading..." : "Sign Up" }}
-        </button>
-      </form>
+      <SignUpFormComponent v-show="mode === 'sign-up'" />
     </div>
   </div>
 </template>
@@ -174,34 +106,8 @@ const signUpOnSubmit = async () => {
   transition: color 150ms;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form label {
-  margin-bottom: 0.3rem;
-}
-
-form input {
-  padding: 0.3rem 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 1rem;
-}
-
-form button {
-  background: var(--tent-orange);
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  margin-top: 1rem;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-
-form button:hover {
-  background: rgb(220, 120, 66);
-  transition: background 150ms;
+.currentMode {
+  font-weight: bold;
+  text-decoration: underline;
 }
 </style>
