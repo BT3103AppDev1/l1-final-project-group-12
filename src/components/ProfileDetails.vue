@@ -199,7 +199,7 @@
 
                 Type: Student Listing    
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
-                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"> edit</button> <!-- NEED A EDIT ICON-->
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -286,7 +286,7 @@
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
-                <button style = "float:right" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"> edit</button> <!-- NEED A EDIT ICON-->
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
                 <br>
                 Level: {{item.level}}
                 <br>
