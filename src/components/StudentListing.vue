@@ -3,7 +3,7 @@
         <SelectListingType v-show="showSelectListingModal" @close-modal="showSelectListingModal = false"
             @switch-student-modal="swapStudentModal" @switch-tutor-modal="swapTutorModal" />
 
-        <NewStudentListing v-show="showStudentListingModal" @close-modal="showStudentListingModal = false" />
+        <NewStudentListing v-show="showStudentListingModal" @close-modal="showStudentListingModal = false"  @updatedata = "showNewData($event)"/>
 
         <NewTutorListing v-show="showTutorListingModal" @close-modal="showTutorListingModal = false" />
 
@@ -102,9 +102,96 @@ export default {
             showSelectListingModal: false,
             showStudentListingModal: false,
             showTutorListingModal: false,
+            numbering :1
         }
     },
     methods: {
+        showNewData(x) {
+            let $vm = this
+            let level = x.level
+            let subject = x.subject
+            let location = x.location
+            let desc = x.description
+            let rates = x.rates
+
+            let table = document.getElementById("table")
+
+            let row1 = table.insertRow(this.numbering)
+            this.numbering +=1
+            let numbering = this.numbering
+            row1.id = "roll" + numbering
+            let cell1 = row1.insertCell(0)
+            let str = "cell" + numbering
+
+
+            let imgID = "img" + numbering
+            let innerID = "inner" + numbering
+            let ratesID = "rates" + numbering
+            let outerDivID = "outer" + numbering
+            cell1.id = str
+
+            cell1.innerHTML = ` <div id = ${outerDivID}>
+
+
+            <div id = ${numbering}>  
+            <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Level:${level} <br><br> &nbsp; Subject:${subject} <div id = ${innerID}> <b> RATES:  </b> </div> <br> <br> 
+            &nbsp; Location:${location} <div id = ${ratesID}> <b> $${rates}/hr  </b> </div> <br> <br> &nbsp; Description:${desc} <br> <br> &nbsp; 
+            </div>
+            <br>
+            <br>     
+            </div>
+
+            `
+
+                            //<button id = ${bnID}> Apply </button>     
+                            document.getElementById(outerDivID).style.backgroundColor = "#f6f5f6"
+                document.getElementById(numbering).style.backgroundColor = "white"
+                document.getElementById(imgID).style.float = "left"
+                document.getElementById(imgID).style.height = "5em"
+                document.getElementById(imgID).style.height = "8.5em"
+                document.getElementById(imgID).style.marginTop = "0.5em"
+                //document.getElementById(index).style.border = "solid 1px"
+                //document.getElementById(index).style.borderRadius = "2em"
+                //document.getElementById(str).style.borderRadius = "2em"
+                /*
+                document.getElementById(bnID).style.width = "15em"
+                document.getElementById(bnID).style.height = "5em"
+                document.getElementById(bnID).style.float = "right";
+                document.getElementById(bnID).style.marginRight = "1.5em";
+                */
+                document.getElementById(innerID).style.float = "right"
+                document.getElementById(innerID).style.marginRight = "7em";
+                document.getElementById(innerID).style.fontSize = "1.2em";
+
+                // document.getElementById(ratesID).style.float = "right"
+                // document.getElementById(ratesID).style.marginRight = "2.8em";
+                // document.getElementById(ratesID).style.fontSize = "2.5em";
+                // document.getElementById(ratesID).style.color = "#ff9040";
+                /*
+                if (aaa) {
+                    document.getElementById(outerDivID).style.display = "none"
+                }
+                */
+
+                cell1.bgColor = "white"
+                cell1.width = '1000em';
+
+                document.getElementById(str).addEventListener('click', function () {
+                    $vm.data[0] = String(level)
+                    $vm.data[1] = String(location)
+                    $vm.data[2] = String(subject)
+                    $vm.data[3] = String(desc)
+                    $vm.data[4] = parseInt(rates)
+                    $vm.showIndividualListingModel = true;
+                })
+                // }
+                $vm.totallistings.push(numbering)
+                console.log($vm.totallistings)
+   
+
+
+            
+        },
         resetFilter() {
             this.datalevel = "default"
             this.datasubject = "default"
@@ -198,6 +285,7 @@ export default {
                 let table = document.getElementById("table")
                 let row1 = table.insertRow(index)
                 index += 1
+                $vm.numbering +=1
                 row1.id = "roll" + index
                 let cell1 = row1.insertCell(0)
                 let str = "cell" + index
