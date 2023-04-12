@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -68,7 +69,9 @@ async function getListingById(collectionName, id) {
  */
 async function getAllListings(collectionName) {
   try {
-    const querySnap = await getDocs(collection(db, collectionName));
+    const querySnap = await getDocs(
+      query(collection(db, collectionName), orderBy("dateCreated", "desc"))
+    );
 
     /** @type {Models.Listing[]} */
     let listings = [];
