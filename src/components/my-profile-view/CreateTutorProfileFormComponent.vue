@@ -1,32 +1,41 @@
 <script setup>
 import { updateTutorProfileById } from "@/lib/handlers/user";
-import { validateInputs } from "@/lib/utils";
 import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { toFormValidator } from "@vee-validate/zod";
+import { z } from "zod";
+import { Form, Field } from "vee-validate";
+import { useToast, TYPE } from "vue-toastification";
+
+const toast = useToast();
 
 const { user } = storeToRefs(useAuthStore());
 
-const createTutorProfileInputs = ref({
-  gender: undefined,
-  education: undefined,
-  experience: undefined,
-  levels: undefined,
-  subjects: undefined,
-  region: undefined,
-});
+const updateTutorProfileSchema = toFormValidator(
+  z.object({
+    gender: z.string().nonempty(),
+    education: z.string().nonempty(),
+    experience: z.string().nonempty(),
+    levels: z.string().nonempty(),
+    subjects: z.string().nonempty(),
+    region: z.string().nonempty(),
+  })
+);
 
-const createListingOnClick = async () => {
+const updateTutorProfileOnClick = async (inputs, { resetForm }) => {
   try {
-    validateInputs(createTutorProfileInputs.value);
-
-    await updateTutorProfileById(user.value.uid, {
-      isTutor: true,
-      ...createTutorProfileInputs.value,
-    });
+    await updateTutorProfileById(user.value.uid, { isTutor: true, ...inputs });
+    toast("Successfully update tutor profile", { type: TYPE.SUCCESS });
+    resetForm();
   } catch (error) {
     console.log(error);
+    toast("Error updating tutor profile", { type: TYPE.ERROR });
   }
+};
+
+const onInvalidSubmit = ({ values, errors, results }) => {
+  console.log(values, errors, results);
+  toast("Invalid submission", { type: TYPE.ERROR });
 };
 </script>
 
@@ -34,11 +43,33 @@ const createListingOnClick = async () => {
   <div id="modal-content">
     <h1>Create Tutor Profile</h1>
 
-    <form @submit.prevent="createListingOnClick">
-      <div id="input-container"></div>
+    <Form
+      :validation-schema="updateTutorProfileSchema"
+      @submit="updateTutorProfileOnClick"
+      @invalid-submit="onInvalidSubmit"
+    >
+      <div id="input-container">
+        <label>Gender</label>
+        <Field name="gender" type="text" />
+
+        <label>Education</label>
+        <Field name="education" type="text" />
+
+        <label>Experience</label>
+        <Field name="experience" type="text" />
+
+        <label>Levels</label>
+        <Field name="levels" type="text" />
+
+        <label>Subjects</label>
+        <Field name="subjects" type="text" />
+
+        <label>Region</label>
+        <Field name="region" type="text" />
+      </div>
 
       <button type="submit">Create Profile</button>
-    </form>
+    </Form>
   </div>
 </template>
 

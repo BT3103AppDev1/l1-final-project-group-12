@@ -18,7 +18,7 @@ const logOutOnClick = async () => {
     <div id="navbar-buttons">
       <router-link to="/student-listings">Look for students</router-link>
       <router-link to="/tutor-listings">Look for tutors</router-link>
-      <router-link to="/profile">My Profile</router-link>
+      <router-link to="/profile">My profile</router-link>
       <p @click="logOutOnClick">Log out</p>
     </div>
   </nav>

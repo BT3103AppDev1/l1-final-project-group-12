@@ -21,7 +21,7 @@ const createListingSchema = toFormValidator(
   })
 );
 
-const createListingOnClick = async (inputs) => {
+const createListingOnClick = async (inputs, { resetForm }) => {
   try {
     await createListing("student-listing", {
       userId: user.value.uid,
@@ -29,6 +29,7 @@ const createListingOnClick = async (inputs) => {
       ...inputs,
     });
     toast("Successfully created listing", { type: TYPE.SUCCESS });
+    resetForm();
   } catch (error) {
     console.log(error);
     toast("Error creating listing", { type: TYPE.ERROR });
