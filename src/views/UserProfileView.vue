@@ -18,5 +18,6 @@ export default {
 .body {
     background-color: #f6f5f6;
     height: 100%;
+    overflow:auto
 }
 </style>

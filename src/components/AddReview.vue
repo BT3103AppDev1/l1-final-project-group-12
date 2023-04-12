@@ -45,18 +45,20 @@ import { getCurrentUser } from "../lib/handlers/auth.js";
 import { createReview } from "@/lib/handlers/review";
 import { getAllTutors } from "@/lib/handlers/user";
 
+
 const toast = useToast()
 const url = window.location.href;
 const parts = url.split('/');
 const tutorid = parts[parts.length - 1];
-const user = await getCurrentUser();
+
+
 
 const reviewFields = ref({
     dateCreated: new Date(),
     body: "",
     rating: "",
     tutorId: tutorid,
-    reviewerId: user.uid,
+    reviewerId: "",
 });
 
 const tutordetails = ref({
@@ -91,6 +93,7 @@ export default {
         async submitReview() {
             const bodyValue = document.querySelector("#review-input").value;
             const ratingValue = document.querySelector("#rating-input").value;
+            const user = await getCurrentUser()
 
             if (bodyValue == "" || ratingValue == "") {
                 toast("Missing details", {
@@ -107,6 +110,7 @@ export default {
             } else {
                 reviewFields.value.body = bodyValue;
                 reviewFields.value.rating = ratingValue;
+                reviewFields.value.reviewerId = user.uid;
                 try {
                     createReview(reviewFields.value)
                     console.log(reviewFields.value)

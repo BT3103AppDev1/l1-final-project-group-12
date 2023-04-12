@@ -1,20 +1,20 @@
 <template>
-<br>
-    <div class = "outer-details"> 
+    <br>
+    <div class="outer-details">
 
-        <div class = "details">
+        <div class="details">
             <h1> Profile Details </h1>
             <br>
             <!--Email: {{email}}
             <br><br>
             -->
-            Phone Number: {{phonenum}}
-            <br><br>    
-            Telegram Handle: {{telegramHandle}}
+            Phone Number: {{ phonenum }}
             <br><br>
-            <button class = "updatebn" @click="showModal = true">Update Details</button>
+            Telegram Handle: {{ telegramHandle }}
+            <br><br>
+            <button class="updatebn" @click="showModal = true">Update Details</button>
             <ModalComponent v-show="showModal" @close-modal="showModal = false">
-                <div id ="content">
+                <div id="content">
                     <h3> Update Profile Details</h3>
                     <br>
                     <br>
@@ -34,7 +34,7 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                    <button class = "updatebn"  @click="updateProfileDetails"> Save </button>
+                    <button class="updatebn" @click="updateProfileDetails"> Save </button>
                 </div>
             </ModalComponent>
 
@@ -51,10 +51,10 @@
             <br><br>
             Experience: {{ experience }}
             <br> <br>
-            <button class = "updatebn" @click="showModal2 = true" id = "updateTutorButton"> Update details </button>
+            <button class="updatebn" @click="showModal2 = true" id="updateTutorButton"> Update Details </button>
             <br> <br>
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
-                <div id ="content">
+                <div id="content">
                     <h3> Update Tutor Details </h3>
                     <br>
                     <br>
@@ -76,25 +76,25 @@
                     <input v-model = "newpassword" placeholder="Enter new password">
                     <br> <br>
                     -->
-                        <button class = "updatebn" id = "update-tutor" @click="updateTutorDetails"> Save </button>
+                    <button class="updatebn" id="update-tutor" @click="updateTutorDetails"> Save </button>
                 </div>
             </ModalComponent>
         </div>
-        <div class = "detail" v-else>
-            <div class ="details">
-            <h1> Tutor Profile </h1>
-            <br>
-            To become a tutor, you must set up a tutor profile.
-            <br><br>
-            <button class="createprofilebn" @click="showModal3 = true">Create Tutor Profile</button>
-            <br><br>
+        <div class="detail" v-else>
+            <div class="details">
+                <h1> Tutor Profile </h1>
+                <br>
+                To become a tutor, you must set up a tutor profile.
+                <br><br>
+                <button class="createprofilebn" @click="showModal3 = true">Create Tutor Profile</button>
+                <br><br>
             </div>
             <ModalComponent v-show="showModal3" @close-modal="showModal3 = false">
                 <div id="content">
-                <!-- modal header -->
-                <header class="modal-header">
-                    <slot name="header"> Set up tutor profile </slot>
-                </header>
+                    <!-- modal header -->
+                    <header class="modal-header">
+                        <slot name="header"> Set up tutor profile </slot>
+                    </header>
 
                 <!-- modal body -->
                 <section class="modal-body">
@@ -178,12 +178,12 @@
                     </slot>
                 </section>
 
-                <!-- modal footer -->
-                <footer class="modal-footer">
-                    <button type="button" class="create-profile-button" @click="saveTutorProfile">
-                    Create Tutor Profile
-                    </button>
-                </footer>
+                    <!-- modal footer -->
+                    <footer class="modal-footer">
+                        <button type="button" class="create-profile-button" @click="saveTutorProfile">
+                            Create Tutor Profile
+                        </button>
+                    </footer>
                 </div>
             </ModalComponent>
             <br> <br>
@@ -207,9 +207,9 @@
                 <br>
                 Location: {{item.location}}
                 <br>
-                Description: {{item.description}}
-                <br>
                 Rates: {{item.rates}}
+                <br>
+                Description: {{item.description}}
                 <br>
             </div>
 
@@ -294,24 +294,24 @@
                 <br>
                 Location: {{item.location}}
                 <br>
-                Description: {{item.description}}
-                <br>
                 Rates: {{item.rates}}
+                <br>
+                Description: {{item.description}}
             </div>
 
-                
+
         </div>
     </div>
 </template>
 
-<script setup> 
-import {getCurrentUser} from "../lib/handlers/auth.js"
-import {getAllListings, updateListingById, getListingById} from "../lib/handlers/listing.js"
-import {getUserById, updateUserById, updateTutorProfileById} from "../lib/handlers/user.js"
+<script setup>
+import { getCurrentUser } from "../lib/handlers/auth.js"
+import { getAllListings, updateListingById, getListingById } from "../lib/handlers/listing.js"
+import { getUserById, updateUserById, updateTutorProfileById } from "../lib/handlers/user.js"
 import ModalComponent from "@/components/ModalComponent.vue";
-import {useAuthStore} from "@/stores/authStore";
-import {storeToRefs} from "pinia";
-import {onMounted, ref} from "vue"
+import { useAuthStore } from "@/stores/authStore";
+import { storeToRefs } from "pinia";
+import { onMounted, ref } from "vue"
 import { useToast, TYPE } from "vue-toastification";
 import {db} from "../lib/firebase-config.js"
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
@@ -322,7 +322,7 @@ const toast = useToast()
 const showModal = ref(false) //profile
 const showModal2 = ref(false) //tutor
 const showModal3 = ref(false) //create tutor profile modal
-const {user} = storeToRefs(useAuthStore());
+const { user } = storeToRefs(useAuthStore());
 const currUserDetails = ref();
 const newemail = ref()
 const id = ref()
@@ -379,7 +379,7 @@ onMounted(async () => {
     isTutor.value = user6.isTutor
     education.value = user6.education
     experience.value = user6.experience
-   //listings.value = await getListingById("student-listing", String(id.value))
+    //listings.value = await getListingById("student-listing", String(id.value))
     let array = []
     let allDocuments = await getAllListings("student-listing")
     allDocuments.forEach((docs) => {
@@ -387,7 +387,7 @@ onMounted(async () => {
             array.push(docs)
             //console.log(docs.dateCreated.seconds)
         }
-    })  
+    })
     let array2 = []
     if (isTutor.value) {
         let allDocuments2 = await getAllListings("tutor-listing")
@@ -395,7 +395,7 @@ onMounted(async () => {
             if (docs.UserID == id.value) {
                 array2.push(docs)
             }
-        }) 
+        })
 
     }
 
@@ -413,50 +413,50 @@ onMounted(async () => {
 const updateProfileDetails = async () => {
 
 
-        if (newphoneno.value.toString().length == 8) {
-            if (newtelehandle.value.toString().length >=5) {
-                updatePhoneNumber();
-                updateTelegramHandle();
-                showModal.value = false
-                toast("Profile Details saved!", {
-                    type: TYPE.SUCCESS
-                })
-            } else {
-                toast("Invalid telegram handle length, should be at least 5", {type : TYPE.ERROR})
-            }
-/*
-            if (newemail.value != "") {
-                updateEmail();
-            }   
-            */
+    if (newphoneno.value.toString().length == 8) {
+        if (newtelehandle.value.toString().length >= 5) {
+            updatePhoneNumber();
+            updateTelegramHandle();
+            showModal.value = false
+            toast("Profile Details saved!", {
+                type: TYPE.SUCCESS
+            })
         } else {
-                toast("Invalid phone length, should be of length 8", {
-                    type: TYPE.ERROR
-                })
+            toast("Invalid telegram handle length, should be at least 5", { type: TYPE.ERROR })
         }
+        /*
+                    if (newemail.value != "") {
+                        updateEmail();
+                    }   
+                    */
+    } else {
+        toast("Invalid phone length, should be of length 8", {
+            type: TYPE.ERROR
+        })
+    }
 }
 
-const updateTutorDetails = async() => {
+const updateTutorDetails = async () => {
 
-    if (newexp.value =="") {
+    if (newexp.value == "") {
         toast("Experience field empty", {
-                    type: TYPE.ERROR
-                })
+            type: TYPE.ERROR
+        })
 
     } else {
-        if (newedu.value != "") {   
+        if (newedu.value != "") {
             updateEducation();
-            
+
         }
 
-        if (newexp.value !="") {
+        if (newexp.value != "") {
             updateExperience();
         }
 
         showModal2.value = false
         toast("Tutor details saved!", {
-                    type: TYPE.SUCCESS
-                })
+            type: TYPE.SUCCESS
+        })
     }
 }
 
@@ -716,22 +716,26 @@ function saveTutorProfile() {
 .outer-details {
     display: flex;
     justify-content: center;
-    
+
 }
 
 
-.details{
-width  : 50em;
-outline: 1px solid black;
-border-radius: 10px;
-text-align: center;
-overflow: auto;
-padding-left: 10px;
-padding-top: 10px;
-background-color:  #f6f5f6;
+.details {
+    width: 50em;
+    border-radius: 16px;
+    text-align: center;
+    overflow: auto;
+    padding-left: 1em;
+    padding-top: 1em;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.updatebn, .createprofilebn {
+.updatebn,
+.createprofilebn {
     background-color: #ff9040;
     width: 40%;
     height: 3em;
@@ -747,139 +751,149 @@ background-color:  #f6f5f6;
 
 }
 
-.perlisting,.perlistings{
-    border: black solid 1px;
+.perlisting,
+.perlistings {
+    /* border: black solid 1px; */
     margin-bottom: 3%;
-    border-radius: 8px;
-    text-align: center;
+    border-radius: 16px;
+    text-align: start;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 2em;
 }
-.perlisting{
-    background-color: beige;
+
+.perlisting {
+    /* background-color: beige; */
 }
-.perlistings{
-    background-color: antiquewhite;
+
+.perlistings {
+    /* background-color: antiquewhite; */
 }
 
 
 
 /* everything below is tutor profile modal css */
 #content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
+
 .modal-header {
-  font-weight: bold;
-  font-size: 2rem;
-  color: #ff9040;
-  text-align: left;
-  margin-left: 2rem;
-  margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #ff9040;
+    text-align: left;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
 }
+
 .modal-header,
 .modal-body {
-  padding-left: 3rem;
-  padding-right: 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
 #name,
 #name1,
 #contact,
 #contact1 {
-  float: left;
-  margin-right: 80px;
-  margin-bottom: 50px;
-  border-radius: 8px;
-  width: 230px;
-  height: 20px;
-  padding: 2px;
+    float: left;
+    margin-right: 80px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    width: 230px;
+    height: 20px;
+    padding: 2px;
 }
 
 #gender,
 #gender1 {
-  float: left;
-  border-radius: 8px;
-  margin-bottom: 50px;
-  width: 200px;
-  height: 28px;
-  padding: 2px;
+    float: left;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    width: 200px;
+    height: 28px;
+    padding: 2px;
 }
 
 #qualification,
 #qualification1 {
-  float: left;
-  margin-right: 80px;
-  margin-bottom: 50px;
-  border-radius: 8px;
-  width: 230px;
-  height: 28px;
-  padding: 2px;
+    float: left;
+    margin-right: 80px;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    width: 230px;
+    height: 28px;
+    padding: 2px;
 }
 
 #subjects {
-  float: left;
-  border-radius: 8px;
-  margin-bottom: 60px;
-  width: 200px;
-  height: 28px;
-  padding: 2px;
+    float: left;
+    border-radius: 8px;
+    margin-bottom: 60px;
+    width: 200px;
+    height: 28px;
+    padding: 2px;
 }
+
 #levels {
-  float: left;
-  margin-right: 80px;
-  margin-bottom: 70px;
-  border-radius: 8px;
-  width: 230px;
-  height: 28px;
-  padding: 2px;
+    float: left;
+    margin-right: 80px;
+    margin-bottom: 70px;
+    border-radius: 8px;
+    width: 230px;
+    height: 28px;
+    padding: 2px;
 }
 
 #location,
 #location1,
 #tele,
 #tele1 {
-  float: left;
-  margin-bottom: 50px;
-  border-radius: 8px;
-  width: 230px;
-  height: 28px;
-  padding: 2px;
+    float: left;
+    margin-bottom: 50px;
+    border-radius: 8px;
+    width: 230px;
+    height: 28px;
+    padding: 2px;
 }
 
 .modal-footer {
-  border-top: 1px solid #eeeeee;
-  flex-direction: column;
-  justify-content: center;
-  display: grid;
+    border-top: 1px solid #eeeeee;
+    flex-direction: column;
+    justify-content: center;
+    display: grid;
 }
+
 .create-profile-button,
 .create-profile-button:hover {
-  color: white;
-  background: #ff9040;
-  border: 1px solid #ff9040;
-  border-radius: 2px;
-  margin-top: 1rem;
-  padding-top: 10px;
-  padding-right: 40px;
-  padding-bottom: 10px;
-  padding-left: 40px;
-  text-align: center;
-  border-radius: 8px;
+    color: white;
+    background: #ff9040;
+    border: 1px solid #ff9040;
+    border-radius: 2px;
+    margin-top: 1rem;
+    padding-top: 10px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    text-align: center;
+    border-radius: 8px;
 }
 
 .create-profile-button:hover {
-  background: darkorange;
-  border: 1px solid darkorange;
+    background: darkorange;
+    border: 1px solid darkorange;
 }
 
 
 label {
-    text-align: left ;
+    text-align: left;
     display: inline-block;
 
 }
 
-.close{
+.close {
     text-align: right;
 }
 
