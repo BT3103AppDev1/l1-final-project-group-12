@@ -542,7 +542,6 @@ const  deleteListing = async (timeCreated) => {
                 if(listings.value[i].dateCreated.seconds == timeCreated) {
                     listings.value.splice(i,1)
                     break
-
                 } 
             }
             await deleteDoc(doc(db, "student-listing",x.id))
@@ -551,21 +550,46 @@ const  deleteListing = async (timeCreated) => {
                     type: TYPE.SUCCESS
                 })
         }
-      
     //console.log(doc.id)
     //console.log(doc)
     });
-  
 
 }
 const editStudentListing = async (timeCreated) => {
-    for (let i = 0, len = listings.value.length; i < len;i++){
-        if(listings.value[i].dateCreated.seconds == timeCreated) {
-            console.log(timeCreated)
-            console.log(listings.value[i])
-            //updateListingById("student-listing", )
-        } 
+    console.log(collection(db,"student-listing"))
+    const querySnap = await getDocs(collection(db, "student-listing"));
+    querySnap.forEach(async (x) => {
+        let a = await getListingById("student-listing", x.id)
+        if (a.dateCreated.seconds == timeCreated){
+      
+            for (let i = 0, len = listings.value.length; i < len;i++){
+                if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    listings.value[i].description = newstudesc.value
+                    listings.value[i].level = newstulevel.value
+                    listings.value[i].location = newstulocation.value
+                    listings.value[i].subject = newstusubject.value
+                    listings.value[i].rates = newsturates.value
+                    break
+                } 
+            }
+
+
+            const newInfo = {
+                subject : newstusubject.value,
+                level : newstulevel.value,
+                region : newstulocation.value,
+                description : newstudesc.value,
+                rates : newsturates.value
+            }
+            await updateListingById("student-listing", x.id, newInfo)
+            showIndividualListingModal.value = false
+            toast("Listing Updated!", {
+                    type: TYPE.SUCCESS
+                })
+        
     }
+    });
+    
 
 }
 function saveTutorProfile() {
