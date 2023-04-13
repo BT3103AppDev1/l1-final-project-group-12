@@ -6,8 +6,11 @@ import { Form, Field } from "vee-validate";
 import { toFormValidator } from "@vee-validate/zod";
 import { z } from "zod";
 import { useToast, TYPE } from "vue-toastification";
+import { useStudentListingStore } from "@/stores/listingStore";
 
 const toast = useToast();
+
+const { updateStudentListings } = useStudentListingStore();
 
 const { user } = storeToRefs(useAuthStore());
 
@@ -30,6 +33,7 @@ const createListingOnClick = async (inputs, { resetForm }) => {
     });
     toast("Successfully created listing", { type: TYPE.SUCCESS });
     resetForm();
+    await updateStudentListings();
   } catch (error) {
     toast("Error creating listing", { type: TYPE.ERROR });
   }

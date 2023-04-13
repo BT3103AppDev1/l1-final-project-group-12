@@ -2,8 +2,9 @@
 import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import CreateTutorListingFormComponent from "@/components/tutor-listings-view/CreateTutorListingFormComponent.vue";
 import TutorListingComponent from "@/components/global-components/TutorListingComponent.vue";
-import { getAllListings } from "@/lib/handlers/listing";
 import { ref, computed } from "vue";
+import { useTutorListingStore } from "@/stores/listingStore";
+import { storeToRefs } from "pinia";
 
 const showModal = ref(false);
 
@@ -13,7 +14,8 @@ const filters = ref({
   region: "",
 });
 
-const allTutorListings = ref([]);
+const { updateTutorListings } = useTutorListingStore();
+const { tutorListings } = storeToRefs(useTutorListingStore());
 
 const predicate = (value, condition) => {
   if (condition === "") return true;
@@ -21,7 +23,7 @@ const predicate = (value, condition) => {
 };
 
 const filteredTutorListings = computed(() => {
-  return allTutorListings.value.filter(
+  return tutorListings.value.filter(
     (listing) =>
       predicate(listing.level, filters.value.level) &&
       predicate(listing.subject, filters.value.subject) &&
@@ -29,11 +31,7 @@ const filteredTutorListings = computed(() => {
   );
 });
 
-const getAllTutorListings = async () => {
-  allTutorListings.value = await getAllListings("tutor-listing");
-};
-
-getAllTutorListings();
+updateTutorListings();
 </script>
 
 <template>

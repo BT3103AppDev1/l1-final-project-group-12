@@ -2,8 +2,9 @@
 import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import CreateStudentListingFormComponent from "@/components/student-listings-view/CreateStudentListingFormComponent.vue";
 import StudentListingComponent from "@/components/global-components/StudentListingComponent.vue";
-import { getAllListings } from "@/lib/handlers/listing";
 import { ref, computed } from "vue";
+import { storeToRefs } from "pinia";
+import { useStudentListingStore } from "@/stores/listingStore";
 
 const showModal = ref(false);
 
@@ -13,7 +14,8 @@ const filters = ref({
   region: "",
 });
 
-const allStudentListings = ref([]);
+const { updateStudentListings } = useStudentListingStore();
+const { studentListings } = storeToRefs(useStudentListingStore());
 
 const predicate = (value, condition) => {
   if (condition === "") return true;
@@ -21,7 +23,7 @@ const predicate = (value, condition) => {
 };
 
 const filteredStudentListings = computed(() => {
-  return allStudentListings.value.filter(
+  return studentListings.value.filter(
     (listing) =>
       predicate(listing.level, filters.value.level) &&
       predicate(listing.subject, filters.value.subject) &&
@@ -29,11 +31,7 @@ const filteredStudentListings = computed(() => {
   );
 });
 
-const getAllStudentListings = async () => {
-  allStudentListings.value = await getAllListings("student-listing");
-};
-
-getAllStudentListings();
+updateStudentListings();
 </script>
 
 <template>
