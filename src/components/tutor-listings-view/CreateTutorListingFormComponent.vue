@@ -47,7 +47,7 @@ const onInvalidSubmit = ({ values, errors, results }) => {
 
 <template>
   <div id="modal-content">
-    <h1>Add Tutor Listing</h1>
+    <h3>Add Tutor Listing</h3>
 
     <Form
       :validation-schema="createListingSchema"
