@@ -50,6 +50,7 @@ How to use:
   min-height: 25%;
   background-color: white;
   border-radius: 1rem;
+  word-wrap: break-word;
 }
 
 .close {
