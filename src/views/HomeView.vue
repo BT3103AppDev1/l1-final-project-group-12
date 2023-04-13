@@ -19,15 +19,18 @@ getListings();
   <div id="listings-container">
     <section id="student-listings-container">
       <h1>Student Listings</h1>
-      <div class="student-listing-cards" v-for="studentListing in studentListings">
-        <StudentListingComponent :listing="studentListing" />
+      <div class="listing-cards">
+        <StudentListingComponent
+          v-for="studentListing in studentListings"
+          :listing="studentListing"
+        />
       </div>
     </section>
 
     <section id="tutor-listings-container">
       <h1>Tutor Listings</h1>
-      <div class="tutor-listing-cards" v-for="tutorListing in tutorListings">
-        <TutorListingComponent :listing="tutorListing" />
+      <div class="listing-cards">
+        <TutorListingComponent v-for="tutorListing in tutorListings" :listing="tutorListing" />
       </div>
     </section>
   </div>
@@ -40,9 +43,6 @@ getListings();
   align-items: start;
   justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 section {
@@ -54,5 +54,11 @@ section {
 
 section h1 {
   text-align: center;
+}
+
+.listing-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
