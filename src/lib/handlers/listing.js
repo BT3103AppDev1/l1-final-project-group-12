@@ -38,6 +38,7 @@ async function createListing(collectionName, listingFields) {
     await updateDoc(listingDoc, { id: listingDoc.id });
   } catch (error) {
     console.error("ERROR: failed to create listing", collectionName, error);
+    throw error;
   }
 }
 
@@ -60,6 +61,7 @@ async function getListingById(collectionName, id) {
     }
   } catch (error) {
     console.error("ERROR: failed to get listing by id", collectionName, error);
+    throw error;
   }
 }
 
@@ -83,6 +85,7 @@ async function getAllListings(collectionName) {
     return listings;
   } catch (error) {
     console.error("ERROR: failed to get all listings", collectionName, error);
+    throw error;
   }
 }
 
@@ -127,6 +130,7 @@ async function getListingsByQuery(collectionName, queryFields) {
     return listings;
   } catch (error) {
     console.error("ERROR: failed to get all queried listings", collectionName, error);
+    throw error;
   }
 }
 
@@ -146,6 +150,7 @@ async function updateListingById(collectionName, id, updateFields) {
     await updateDoc(doc(db, collectionName, id), updateFields);
   } catch (error) {
     console.error("ERROR: failed to update listing by id", collectionName, error);
+    throw error;
   }
 }
 

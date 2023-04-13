@@ -31,7 +31,6 @@ const createListingOnClick = async (inputs, { resetForm }) => {
     toast("Successfully created listing", { type: TYPE.SUCCESS });
     resetForm();
   } catch (error) {
-    console.log(error);
     toast("Error creating listing", { type: TYPE.ERROR });
   }
 };
