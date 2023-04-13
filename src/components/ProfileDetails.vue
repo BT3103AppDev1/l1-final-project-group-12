@@ -69,7 +69,7 @@
                     </div>
                     <br> <br>
                     New Experience:
-                    <input v-model="newexp" placeholder="Enter years of experience">
+                    <input type = "number" min="0" max="99" v-model="newexp" placeholder="Enter years of experience">
                     <br> <br>
                     <!--
                     New Password:
@@ -437,27 +437,35 @@ const updateProfileDetails = async () => {
 }
 
 const updateTutorDetails = async () => {
+    console.log(newexp.value)
 
-    if (newexp.value == "") {
+    if (String(newexp.value) == "" ) {
         toast("Experience field empty", {
             type: TYPE.ERROR
         })
 
     } else {
-        if (newedu.value != "") {
-            updateEducation();
-
-        }
-
-        if (newexp.value != "") {
-            updateExperience();
-        }
-
-        showModal2.value = false
-        toast("Tutor details saved!", {
-            type: TYPE.SUCCESS
+        if (newexp.value > 99) {
+            toast("Invalid experience, greater than 99 ", {
+            type: TYPE.ERROR
         })
+        } 
+
+        else if (newexp.value < 0){
+            toast("Invalid experience, less than 0 ", {
+            type: TYPE.ERROR
+        })
+        }
+
+        else if (newedu.value != "") {
+            updateEducation();
+            updateExperience();
+            showModal2.value = false
+            toast("Tutor details saved!", {
+                type: TYPE.SUCCESS
+            })
     }
+}
 }
 
 const updatePhoneNumber = async () => {
