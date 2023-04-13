@@ -1,6 +1,7 @@
 <script setup>
 import ListingComponent from "./ListingComponent.vue";
 import ModalComponent from "./ModalComponent.vue";
+import StudentListingDetailsComponent from "./StudentListingDetailsComponent.vue";
 import { ref } from "vue";
 
 const props = defineProps(["listing"]);
@@ -18,7 +19,7 @@ const showModal = ref(false);
   </ListingComponent>
 
   <ModalComponent v-show="showModal" @close-modal="showModal = false">
-    {{ props.listing }}
+    <StudentListingDetailsComponent :listing="listing" />
   </ModalComponent>
 </template>
 
