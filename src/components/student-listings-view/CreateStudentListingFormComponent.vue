@@ -55,7 +55,7 @@ const onInvalidSubmit = ({ values, errors, results }) => {
       @invalid-submit="onInvalidSubmit"
     >
       <div id="input-container">
-        <label>Subject </label>
+        <label>Subject</label>
         <Field name="subject" as="select">
           <option>Biology</option>
           <option>Chinese Language</option>
