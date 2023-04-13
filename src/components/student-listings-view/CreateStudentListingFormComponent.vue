@@ -57,33 +57,33 @@ const onInvalidSubmit = ({ values, errors, results }) => {
       <div id="input-container">
         <label>Subject</label>
         <Field name="subject" as="select">
-          <option>Biology</option>
-          <option>Chinese Language</option>
-          <option>Chemistry</option>
-          <option>English</option>
-          <option>Math</option>
-          <option>Malay Language</option>
-          <option>Physics</option>
-          <option>Tamil Language</option>
-          <option>Others</option>
+          <option value="Biology">Biology</option>
+          <option value="Chinese Language">Chinese Language</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="English">English</option>
+          <option value="Math">Math</option>
+          <option value="Malay Language">Malay Language</option>
+          <option value="Physics">Physics</option>
+          <option value="Tamil Language">Tamil Language</option>
+          <option value="Others">Others</option>
         </Field>
 
         <label>Level</label>
         <Field name="level" as="select">
-          <option>Primary</option>
-          <option>Secondary</option>
-          <option>Junior College</option>
-          <option>Others</option>
+          <option value="Primary">Primary</option>
+          <option value="Secondary">Secondary</option>
+          <option value="Junior College">Junior College</option>
+          <option value="Others">Others</option>
         </Field>
 
         <label>Region</label>
         <Field name="region" as="select">
-          <option>North</option>
-          <option>South</option>
-          <option>East</option>
-          <option>West</option>
-          <option>Central</option>
-          <option>Others</option>
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+          <option value="Central">Central</option>
+          <option value="Others">Others</option>
         </Field>
 
         <label>Description</label>
