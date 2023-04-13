@@ -17,6 +17,14 @@ const filters = ref({
 const { updateTutorListings } = useTutorListingStore();
 const { tutorListings } = storeToRefs(useTutorListingStore());
 
+const resetFilters = () => {
+  filters.value = {
+    level: "",
+    subject: "",
+    region: "",
+  };
+};
+
 const predicate = (value, condition) => {
   if (condition === "") return true;
   return value.toUpperCase().includes(condition.toUpperCase());
@@ -37,10 +45,12 @@ updateTutorListings();
 <template>
   <div id="container">
     <section id="left-section">
-      <button @click="showModal = true">+ Add Listing</button>
+      <button id="add-listing-button" @click="showModal = true">+ Add Listing</button>
 
       <div id="filter-form">
         <h3>Filter Listings</h3>
+
+        <button @click="resetFilters">Reset Filters</button>
 
         <label>Level</label>
         <select name="level" v-model="filters.level">
@@ -113,7 +123,7 @@ updateTutorListings();
   gap: 1rem;
 }
 
-#left-section button {
+#add-listing-button {
   background-color: var(--tent-orange);
   color: white;
   border: none;
@@ -125,7 +135,7 @@ updateTutorListings();
   transition: scale 150ms ease-in-out;
 }
 
-#left-section button:hover {
+#add-listing-button:hover {
   scale: 102%;
 }
 
