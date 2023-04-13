@@ -1,18 +1,18 @@
 <script setup>
+import { updateTutorProfileById } from '@/lib/handlers/user';
 import { getAllTutors } from '@/lib/handlers/user';
-import { getUserById } from '@/lib/handlers/user';
 async function showTutors() {
-  const user = await getUserById("32u4clBmNaZa9dkfHNE8E6gOfTN2")
-  console.log(user)
-  const tutors = await getAllTutors()
-  let reviewed_tutor = ""
-  for (let tutor in tutors){
-    if (tutors[tutor]['id'] == "32u4clBmNaZa9dkfHNE8E6gOfTN2") {
-      reviewed_tutor = tutors[tutor]
-      break
-    }
-  }
-  alert(reviewed_tutor['telegramHandle'])
+  // const tutors = await getAllTutors()
+  // let reviewed_tutor = ""
+  // for (let tutor in tutors){
+  //   console.log(tutors[tutor])
+  //   // if (tutors[tutor]['id'] == "32u4clBmNaZa9dkfHNE8E6gOfTN2") {
+  //   //   reviewed_tutor = tutors[tutor]
+  //   //   break
+  //   // }
+  // }
+  // alert(reviewed_tutor['telegramHandle'])
+  await updateTutorProfileById('XTCKBgoDvQga7Re3sytXixdRHyw2', {isTutor: false})
 }
 
 </script>

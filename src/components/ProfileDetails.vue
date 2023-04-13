@@ -164,6 +164,8 @@
                         </select><br />
                         </div>
                         <br />
+                        <label for="experience">Years of Experience:</label>
+                        <input type="number" id="quantity1" name="quantity" min="0" max="99" v-model="inputs.experience">
                         <!-- input box for contact number -->
                         <!-- <div id="contact">
                         <label for="contact">Contact Number</label><br />
@@ -362,7 +364,8 @@ const inputs = ref({
 //   primary: "",
 //   secondary: "",
 //   jc: "",
-  location: ""
+  location: "",
+  experience: 0
 //   contact: "",
 //   tele: ""
 });
@@ -664,6 +667,8 @@ function saveTutorProfile() {
     })
     return; // break out of function
   }
+
+  let experience = inputs.value.experience;
   // checkbox options for subjects taught, returns a boolean for if the option was checked
 //   const subjects = [];
 //   if (inputs.value.english) {
@@ -702,9 +707,15 @@ function saveTutorProfile() {
     gender: gender,
     education: qualification,
     region: location,
+    experience: experience
   });
   showModal3.value = false;
+  
   toast.success('Successfully updated tutor profile.', { timeout: 3000 });
+  setTimeout(() => {
+      // Reload the page to display the updated data
+      window.location.reload();
+    }, 3000);
 }
 
 
@@ -905,6 +916,10 @@ input,#edulevel {
   border-radius: 16px;
   border-style: none;
   text-indent: 10px;
+}
+
+#quantity1 {
+    margin-left: 1em;
 }
 
 </style>
