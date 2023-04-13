@@ -55,42 +55,48 @@ const onInvalidSubmit = ({ values, errors, results }) => {
       @invalid-submit="onInvalidSubmit"
     >
       <div id="input-container">
-        <label>Subject</label>
-        <Field name="subject" as="select">
-          <option value="Biology">Biology</option>
-          <option value="Chinese Language">Chinese Language</option>
-          <option value="Chemistry">Chemistry</option>
-          <option value="English">English</option>
-          <option value="Math">Math</option>
-          <option value="Malay Language">Malay Language</option>
-          <option value="Physics">Physics</option>
-          <option value="Tamil Language">Tamil Language</option>
-          <option value="Others">Others</option>
-        </Field>
+        <div id="small-inputs">
+          <div id="left-inputs">
+            <label>Subject</label>
+            <Field name="subject" as="select">
+              <option value="Biology">Biology</option>
+              <option value="Chinese Language">Chinese Language</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="English">English</option>
+              <option value="Math">Math</option>
+              <option value="Malay Language">Malay Language</option>
+              <option value="Physics">Physics</option>
+              <option value="Tamil Language">Tamil Language</option>
+              <option value="Others">Others</option>
+            </Field>
 
-        <label>Level</label>
-        <Field name="level" as="select">
-          <option value="Primary">Primary</option>
-          <option value="Secondary">Secondary</option>
-          <option value="Junior College">Junior College</option>
-          <option value="Others">Others</option>
-        </Field>
+            <label>Level</label>
+            <Field name="level" as="select">
+              <option value="Primary">Primary</option>
+              <option value="Secondary">Secondary</option>
+              <option value="Junior College">Junior College</option>
+              <option value="Others">Others</option>
+            </Field>
+          </div>
 
-        <label>Region</label>
-        <Field name="region" as="select">
-          <option value="North">North</option>
-          <option value="South">South</option>
-          <option value="East">East</option>
-          <option value="West">West</option>
-          <option value="Central">Central</option>
-          <option value="Others">Others</option>
-        </Field>
+          <div id="right-inputs">
+            <label>Region</label>
+            <Field name="region" as="select">
+              <option value="North">North</option>
+              <option value="South">South</option>
+              <option value="East">East</option>
+              <option value="West">West</option>
+              <option value="Central">Central</option>
+              <option value="Others">Others</option>
+            </Field>
+
+            <label>Rates</label>
+            <Field name="rates" type="number" />
+          </div>
+        </div>
 
         <label>Description</label>
-        <Field name="description" as="textarea" />
-
-        <label>Rates</label>
-        <Field name="rates" type="number" />
+        <Field name="description" as="textarea" rows="4" />
       </div>
 
       <button type="submit">Add Listing</button>
@@ -115,16 +121,50 @@ form {
 
 #input-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#small-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+#left-inputs,
+#right-inputs {
+  width: 50%;
   display: grid;
   grid-template-columns: auto auto;
   column-gap: 1rem;
   row-gap: 1rem;
-  align-items: center;
 }
 
-form input,
-form button {
-  padding: 0.2rem;
+select {
+  background-color: #f6f5f6;
+  padding: 0.5rem 1rem;
+  color: black;
   font-size: 1rem;
+  border-radius: 1rem;
+  border-style: none;
+}
+
+input {
+  background-color: #f6f5f6;
+  padding: 0.5rem 1rem;
+  color: black;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border-style: none;
+}
+
+button {
+  background-color: var(--tent-orange);
+  padding: 1rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border-style: none;
+  cursor: pointer;
 }
 </style>
