@@ -33,7 +33,7 @@ async function signUp(email, password, phoneNumber, telegramHandle) {
     });
   } catch (error) {
     console.error("ERROR: failed to sign up new user", error);
-    return error;
+    throw error;
   }
 }
 /**
@@ -46,7 +46,7 @@ async function signIn(email, password) {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     console.error("ERROR: failed to sign in existing user", error);
-    return error;
+    throw error;
   }
 }
 
@@ -58,7 +58,7 @@ async function logOut() {
     return await signOut(auth);
   } catch (error) {
     console.error("ERROR: failed to sign out user", error);
-    return error;
+    throw error;
   }
 }
 

@@ -24,14 +24,15 @@ const redirect = () => {
 };
 
 const signInOnSubmit = async (inputs, { resetForm }) => {
-  buttonDisabled.value = true;
-  const error = await signIn(inputs.email, inputs.password);
-  resetForm();
-  buttonDisabled.value = false;
-  if (error === undefined) {
+  try {
+    buttonDisabled.value = true;
+    await signIn(inputs.email, inputs.password);
     redirect();
-  } else {
+  } catch (error) {
     toast("Please check your credentials", { type: TYPE.ERROR });
+  } finally {
+    resetForm();
+    buttonDisabled.value = false;
   }
 };
 

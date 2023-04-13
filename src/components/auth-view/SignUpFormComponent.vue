@@ -26,19 +26,15 @@ const redirect = () => {
 };
 
 const signUpOnSubmit = async (inputs, { resetForm }) => {
-  buttonDisabled.value = true;
-  const error = await signUp(
-    inputs.email,
-    inputs.password,
-    inputs.phoneNumber,
-    inputs.telegramHandle
-  );
-  resetForm();
-  buttonDisabled.value = false;
-  if (error === undefined) {
+  try {
+    buttonDisabled.value = true;
+    await signUp(inputs.email, inputs.password, inputs.phoneNumber, inputs.telegramHandle);
     redirect();
-  } else {
+  } catch (error) {
     toast("Invalid submission", { type: TYPE.ERROR });
+  } finally {
+    resetForm();
+    buttonDisabled.value = false;
   }
 };
 
