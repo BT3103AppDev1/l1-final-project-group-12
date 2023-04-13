@@ -24,6 +24,7 @@ const router = createRouter({
         { name: "tutor-listings", path: "/tutor-listings", component: TutorListingsView },
         { name: "profile", path: "/profile", component: MyProfileView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
+        { name: "tutor-review", path: "/review/:id", component: ReviewView },
       ],
       meta: { requiresAuth: true },
     },

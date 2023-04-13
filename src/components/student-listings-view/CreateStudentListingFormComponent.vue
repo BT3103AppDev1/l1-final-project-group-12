@@ -56,16 +56,38 @@ const onInvalidSubmit = ({ values, errors, results }) => {
     >
       <div id="input-container">
         <label>Subject </label>
-        <Field name="subject" type="text" />
+        <Field name="subject" as="select">
+          <option>Biology</option>
+          <option>Chinese Language</option>
+          <option>Chemistry</option>
+          <option>English</option>
+          <option>Math</option>
+          <option>Malay Language</option>
+          <option>Physics</option>
+          <option>Tamil Language</option>
+          <option>Others</option>
+        </Field>
 
         <label>Level</label>
-        <Field name="level" type="text" />
+        <Field name="level" as="select">
+          <option>Primary</option>
+          <option>Secondary</option>
+          <option>Junior College</option>
+          <option>Others</option>
+        </Field>
 
         <label>Region</label>
-        <Field name="region" type="text" />
+        <Field name="region" as="select">
+          <option>North</option>
+          <option>South</option>
+          <option>East</option>
+          <option>West</option>
+          <option>Central</option>
+          <option>Others</option>
+        </Field>
 
         <label>Description</label>
-        <Field name="description" type="text" />
+        <Field name="description" as="textarea" />
 
         <label>Rates</label>
         <Field name="rates" type="number" />

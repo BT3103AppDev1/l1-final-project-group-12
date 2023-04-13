@@ -43,13 +43,35 @@ updateStudentListings();
         <h3>Filter Listings</h3>
 
         <label>Level</label>
-        <input name="level" type="text" v-model="filters.level" />
+        <select name="level" v-model="filters.level">
+          <option>Primary</option>
+          <option>Secondary</option>
+          <option>Junior College</option>
+          <option>Others</option>
+        </select>
 
         <label>Subject</label>
-        <input name="subject" type="text" v-model="filters.subject" />
+        <select name="subject" v-model="filters.subject">
+          <option>Biology</option>
+          <option>Chinese Language</option>
+          <option>Chemistry</option>
+          <option>English</option>
+          <option>Math</option>
+          <option>Malay Language</option>
+          <option>Physics</option>
+          <option>Tamil Language</option>
+          <option>Others</option>
+        </select>
 
         <label>Region</label>
-        <input name="region" type="text" v-model="filters.region" />
+        <select name="region" v-model="filters.region">
+          <option>North</option>
+          <option>South</option>
+          <option>East</option>
+          <option>West</option>
+          <option>Central</option>
+          <option>Others</option>
+        </select>
       </div>
     </section>
 

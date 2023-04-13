@@ -55,6 +55,7 @@ const changeModeOnClick = (newMode) => {
   padding: 5rem;
   padding-top: 2rem;
   box-sizing: border-box;
+  min-width: 350px;
 }
 
 @media screen and (min-width: 1440px) {

@@ -15,7 +15,7 @@
     "@vee-validate/zod": "^4.8.4",
     "dayjs": "^1.11.7",
     "firebase": "^9.17.2",
-    "pinia": "^2.0.32",
+    "pinia": "^2.0.33",
     "vee-validate": "^4.8.4",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
