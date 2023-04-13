@@ -518,11 +518,11 @@ function saveTutorProfile() {
   });
   showModal3.value = false;
   
-  toast.success('Successfully updated tutor profile.', { timeout: 2000 });
+  toast.success('Successfully updated tutor profile.', { timeout: 3000 });
   setTimeout(() => {
       // Reload the page to display the updated data
       window.location.reload();
-    }, 2000);
+    }, 3000);
 }
 
 </script>
