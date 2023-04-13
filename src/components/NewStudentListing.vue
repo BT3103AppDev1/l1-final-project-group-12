@@ -108,9 +108,10 @@ export default {
         rates: rates1,
         description: desc,
         dateCreated: new Date(),
-        UserID: Userid,
+        userId: Userid,
       
       };
+
       if (level == "" || subject == "" || location == "" || rates1 == "" || desc == "") {
         toast("Missing details", {
           type: TYPE.ERROR
@@ -122,6 +123,7 @@ export default {
           toast("Listing Posted!", {
             type: TYPE.SUCCESS
           })
+          this.$emit("updatedata", data)
         } catch (e) {
           console.error("Error adding document: ", e);
           toast("Oops! Something went wrong...", {

@@ -170,6 +170,24 @@
                                 <input type="number" id="quantity1" name="quantity" min="0" max="99"
                                     v-model="inputs.experience">
                                 <!-- input box for contact number -->
+                                <!-- <div id="contact"-->
+                                <!-- dropdown for location of tutor -->
+                                <div id="location">
+                                    <label for="location">Region</label><br />
+                                    <select id="location1" name="location" v-model="inputs.location">
+                                        <option value="">Select region</option>
+                                        <option value="North">North</option>
+                                        <option value="East">East</option>
+                                        <option value="West">West</option>
+                                        <option value="South">South</option>
+                                        <option value="Central">Central</option>
+                                    </select><br />
+                                </div>
+                                <br />
+                                <label for="experience">Years of Experience:</label>
+                                <input type="number" id="quantity1" name="quantity" min="0" max="99"
+                                    v-model="inputs.experience">
+                                <!-- input box for contact number -->
                                 <!-- <div id="contact">
                         <label for="contact">Contact Number</label><br />
                         <input type="text" id="contact1" name="contact" placeholder="Contact" v-model="inputs.contact"/><br />
@@ -241,50 +259,49 @@
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
                 <!-- <div class="perlisting"> -->
-                    <h3>Listing Details</h3>
+                <h3>Listing Details</h3>
 
-                    <br>
-                    Level: <select v-model="newstulevel" required>
-                        <option>Primary</option>
-                        <option>Secondary</option>
-                        <option>Junior College</option>
-                        <option>Others</option>
-                    </select>
-                    <br>
+                <br>
+                Level: <select v-model="newstulevel" required>
+                    <option>Primary</option>
+                    <option>Secondary</option>
+                    <option>Junior College</option>
+                    <option>Others</option>
+                </select>
+                <br>
 
-                    Subject:
-                    <select v-model="newstusubject" required>
-                        <option>Biology</option>
-                        <option>Chinese Language</option>
-                        <option>Chemistry</option>
-                        <option>English</option>
-                        <option>Math</option>
-                        <option>Malay Language</option>
-                        <option>Physics</option>
-                        <option>Tamil Language</option>
-                        <option>Others</option>
-                    </select>
-                    <br>
+                Subject:
+                <select v-model="newstusubject" required>
+                    <option>Biology</option>
+                    <option>Chinese Language</option>
+                    <option>Chemistry</option>
+                    <option>English</option>
+                    <option>Math</option>
+                    <option>Malay Language</option>
+                    <option>Physics</option>
+                    <option>Tamil Language</option>
+                    <option>Others</option>
+                </select>
+                <br>
 
-                    Location:
-                    <select v-model="newstulocation" required>
-                        <option>North</option>
-                        <option>South</option>
-                        <option>East</option>
-                        <option>West</option>
-                        <option>Central</option>
-                        <option>Others</option>
-                    </select>
-                    <br>
-                    Rates:
-                    <input type="number" min="0" v-model="newsturates" placeholder="Enter your rates" required />
-                    <br>
-                    Description:
-                    <br>
-                    <textarea type="text" v-model="newstudesc" placeholder="Description and contact method" rows="4"
-                        required>
-                    </textarea>
-                    <br>
+                Location:
+                <select v-model="newstulocation" required>
+                    <option>North</option>
+                    <option>South</option>
+                    <option>East</option>
+                    <option>West</option>
+                    <option>Central</option>
+                    <option>Others</option>
+                </select>
+                <br>
+                Rates:
+                <input type="number" min="0" v-model="newsturates" placeholder="Enter your rates" required />
+                <br>
+                Description:
+                <br>
+                <textarea type="text" v-model="newstudesc" placeholder="Description and contact method" rows="4" required>
+                        </textarea>
+                <br>
 
                 <!-- </div> -->
                 <button class='updatebn' @click=editStudentListing(listingDetailStudent[5],listingtype)> Save </button>
@@ -372,7 +389,7 @@ const inputs = ref({
     //   secondary: "",
     //   jc: "",
     location: "",
-    experience: 0
+    experience: 0,
     //   contact: "",
     //   tele: ""
 });
@@ -688,18 +705,6 @@ function saveTutorProfile() {
     //     subjects.push("Science");
     //   }
 
-    // checkbox options for levels taught, returns a boolean for if the option was checked
-    //   const levels = [];
-    //   if (inputs.value.primary) {
-    //     levels.push("Primary");
-    //   }
-    //   if (inputs.value.secondary) {
-    //     levels.push("Secondary");
-    //   }
-    //   if (inputs.value.jc) {
-    //     levels.push("Junior College");
-    //   }
-
     let location = inputs.value.location;
     if (location == "") {
         toast("Please select a region.", {
@@ -708,6 +713,21 @@ function saveTutorProfile() {
         return; // break out of function
     }
 
+    updateTutorProfileById(String(id.value), {
+        name: name,
+        isTutor: true,
+        gender: gender,
+        education: qualification,
+        region: location,
+        experience: experience
+    });
+    showModal3.value = false;
+
+    toast.success('Successfully updated tutor profile.', { timeout: 3000 });
+    setTimeout(() => {
+        // Reload the page to display the updated data
+        window.location.reload();
+    }, 3000);
     updateTutorProfileById(String(id.value), {
         name: name,
         isTutor: true,
@@ -957,4 +977,5 @@ textarea {
     resize: none;
     margin-left: 2rem;
     margin-right: 2rem;
-}</style>
+}
+</style>

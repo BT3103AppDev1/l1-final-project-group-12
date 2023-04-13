@@ -5,7 +5,7 @@
 
         <NewStudentListing v-show="showStudentListingModal" @close-modal="showStudentListingModal = false" />
 
-        <NewTutorListing v-show="showTutorListingModal" @close-modal="showTutorListingModal = false" />
+        <NewTutorListing v-show="showTutorListingModal" @close-modal="showTutorListingModal = false"  @updatedata = "showNewData($event)"/>
 
         <IndividualTutorListing :data=data v-show="showIndividualListingModel"
             @close-modal="showIndividualListingModel = false" />
@@ -103,9 +103,106 @@ export default {
             showSelectListingModal: false,
             showStudentListingModal: false,
             showTutorListingModal: false,
+            numbering :1
         }
     },
     methods: {
+        async showNewData(x) {
+                let $vm = this
+                let level = x.level
+                let subject = x.subject
+                let location = x.location
+                let desc = x.description
+                let rates = x.rates
+                let UserID = x.UserID
+                let user = await getUserById(UserID)
+                console.log(user)
+                
+                /*
+                            let ul = document.getElementById("listings")
+                            var li = document.createElement("li")
+                            li.appendChild(document.createTextNode("Level: " + level))
+                            
+                            li.appendChild(document.createTextNode("subject : " + subject))
+                            ul.appendChild(li)
+                              */
+                let table = document.getElementById("table")
+                let row1 = table.insertRow($vm.numbering)
+                $vm.numbering +=1
+                let numbering = $vm.numbering
+                row1.id = "roll" + numbering
+                let cell1 = row1.insertCell(0)
+                let str = "cell" + numbering
+                //let bnID = "bn" + index
+                let imgID = "img" + numbering
+                let innerID = "inner" + numbering
+                let ratingID = "rating" + numbering
+                let outerDivID = "outer" + numbering
+                cell1.id = str
+
+                ///let aaa = $vm.datalevel == "defaulta" || $vm.datalevel == level
+
+                //if(aaa) {
+
+                cell1.innerHTML = ` <div id = ${outerDivID}>
+
+        <div id = ${numbering}>  
+        <br> <img src = "/src/assets/empty_photo_user.png" id =${imgID}> &nbsp; Name: <br><br> &nbsp; Edcation:${user.education} <br><br> &nbsp;  Experience:${user.experience} <div id = ${innerID}> <b> RATING  </b> </div>  <br><br> &nbsp; Location:${location} <div id = ${ratingID}> <b> 5.0 </b> </div> <br><br> &nbsp; Level:${level} <br> <br> 
+        &nbsp; Subject:${subject} <br> <br> &nbsp;  Rates: ${rates}/hr <br> <br> &nbsp; Contact:${user.phoneNumber} / @${user.telegramHandle} <br> <br> &nbsp;
+        </div>
+        <br>
+        <br>     
+        </div>
+        
+        `
+
+                //<button id = ${bnID}> Apply </button>     
+                document.getElementById(outerDivID).style.backgroundColor = "#f6f5f6"
+                document.getElementById(numbering).style.backgroundColor = "white"
+                document.getElementById(imgID).style.float = "left"
+                document.getElementById(imgID).style.height = "5em"
+                document.getElementById(imgID).style.height = "16em"
+                document.getElementById(imgID).style.marginTop = "0.5em"
+                //document.getElementById(index).style.border = "solid 1px"
+                //document.getElementById(index).style.borderRadius = "2em"
+                //document.getElementById(str).style.borderRadius = "2em"
+                /*
+                document.getElementById(bnID).style.width = "15em"
+                document.getElementById(bnID).style.height = "5em"
+                document.getElementById(bnID).style.float = "right";
+                document.getElementById(bnID).style.marginRight = "1.5em";
+                */
+                document.getElementById(innerID).style.float = "right"
+                document.getElementById(innerID).style.marginRight = "7em";
+                document.getElementById(innerID).style.fontSize = "1.2em";
+
+                document.getElementById(ratingID).style.float = "right"
+                document.getElementById(ratingID).style.marginRight = "2.8em";
+                document.getElementById(ratingID).style.fontSize = "3em";
+                document.getElementById(ratingID).style.color = "Orange  ";
+                /*
+                if (aaa) {
+                    document.getElementById(outerDivID).style.display = "none"
+                }
+                */
+
+                cell1.bgColor = "white"
+                cell1.width = '1000em';
+
+                document.getElementById(str).addEventListener('click', function () {
+                    $vm.data[0] = level
+                    $vm.data[1] = location
+                    $vm.data[2] = subject
+                    $vm.data[3] = desc
+                    $vm.data[4] = rates
+                    $vm.data[5] = user
+                    $vm.showIndividualListingModel = true;
+                })
+                // }
+                $vm.totallistings.push(numbering)
+                console.log($vm.totallistings)
+
+        },
         resetFilter() {
             this.datalevel = "default"
             this.datasubject = "default"
@@ -205,6 +302,7 @@ export default {
                 let table = document.getElementById("table")
                 let row1 = table.insertRow(index)
                 index += 1
+                $vm.numbering +=1
                 row1.id = "roll" + index
                 let cell1 = row1.insertCell(0)
                 let str = "cell" + index
