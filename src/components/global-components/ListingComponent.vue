@@ -6,6 +6,7 @@
 
 <style scoped>
 #listing-container {
+  background-color: white;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 0 2px #000;
