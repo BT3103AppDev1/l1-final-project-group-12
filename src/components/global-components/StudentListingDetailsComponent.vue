@@ -51,7 +51,7 @@ h3 {
   max-height: 70vw;
   overflow: hidden;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 50% 50%;
   row-gap: 1rem;
   column-gap: 2rem;
 }
