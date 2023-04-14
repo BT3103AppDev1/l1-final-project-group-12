@@ -200,14 +200,14 @@
             <div class = "perlisting" v-for = "item in listings"> 
 
                 Type: Student Listing    
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/> <!-- NEED A EDIT ICON-->
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
                 Subject: {{item.subject}}
                 <br>
-                Location: {{item.location}}
+                Location: {{item.region}}
                 <br>
                 Rates: {{item.rates}}
                 <br>
@@ -287,14 +287,14 @@
 
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
                 <br>
                 Level: {{item.level}}
                 <br>
                 Subject: {{item.subject}}
                 <br>
-                Location: {{item.location}}
+                Location: {{item.region}}
                 <br>
                 Rates: {{item.rates}}
                 <br>
@@ -388,6 +388,7 @@ onMounted(async () => {
     allDocuments.forEach((docs) => {
         if (docs.userId == id.value) {
             array.push(docs)
+            console.log(docs)
             //console.log(docs.dateCreated.seconds)
         }
     })
@@ -603,7 +604,7 @@ const editStudentListing = async (timeCreated ) => {
                     if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
                         tutorlistings.value[i].description = newstudesc.value
                         tutorlistings.value[i].level = newstulevel.value
-                        tutorlistings.value[i].location = newstulocation.value
+                        tutorlistings.value[i].region = newstulocation.value
                         tutorlistings.value[i].subject = newstusubject.value
                         tutorlistings.value[i].rates = newsturates.value
                         break
@@ -615,7 +616,7 @@ const editStudentListing = async (timeCreated ) => {
                     if(listings.value[i].dateCreated.seconds == timeCreated) {
                         listings.value[i].description = newstudesc.value
                         listings.value[i].level = newstulevel.value
-                        listings.value[i].location = newstulocation.value
+                        listings.value[i].region = newstulocation.value
                         listings.value[i].subject = newstusubject.value
                         listings.value[i].rates = newsturates.value
                         break
