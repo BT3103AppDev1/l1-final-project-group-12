@@ -316,7 +316,7 @@ import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue"
 import { useToast, TYPE } from "vue-toastification";
 import {db} from "../lib/firebase-config.js"
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
+import { collection, getDocs} from "firebase/firestore"
 
 
 const toast = useToast()
@@ -417,7 +417,7 @@ onMounted(async () => {
 const updateProfileDetails = async () => {
 
 
-    if (newphoneno.value.toString().length == 8) {
+    if (newphoneno.value.toString().length == 8 && (newphoneno.value.toString().charAt(0) == 8 || newphoneno.value.toString().charAt(0) == 9)) {
         if (newtelehandle.value.toString().length >= 5) {
             updatePhoneNumber();
             updateTelegramHandle();
@@ -434,7 +434,7 @@ const updateProfileDetails = async () => {
                     }   
                     */
     } else {
-        toast("Invalid phone length, should be of length 8", {
+        toast("Invalid phone number, should start with 8/9 and be of length 8", {
             type: TYPE.ERROR
         })
     }
