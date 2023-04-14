@@ -200,8 +200,8 @@
             <div class = "perlisting" v-for = "item in listings"> 
 
                 Type: Student Listing    
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/> <!-- NEED A EDIT ICON-->
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -287,8 +287,8 @@
 
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <br>
                 Level: {{item.level}}
                 <br>
@@ -389,7 +389,7 @@ onMounted(async () => {
         if (docs.userId == id.value) {
             array.push(docs)
             console.log(docs)
-            //console.log(docs.dateCreated.seconds)
+            console.log(docs.dateCreated)
         }
     })
     let array2 = []
@@ -565,10 +565,10 @@ const  deleteListing = async (timeCreated) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.userId == id.value){     
+        if (a.dateCreated == timeCreated && a.userId == id.value){     
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
-                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                    if(tutorlistings.value[i].dateCreated == timeCreated) {
                         tutorlistings.value.splice(i,1)
                         break
                     } 
@@ -576,7 +576,7 @@ const  deleteListing = async (timeCreated) => {
 
             } else { 
                 for (let i = 0, len = listings.value.length; i < len;i++){
-                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    if(listings.value[i].dateCreated == timeCreated) {
                         listings.value.splice(i,1)
                         break
                     } 
@@ -598,10 +598,10 @@ const editStudentListing = async (timeCreated ) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.userId == id.value){
+        if (a.dateCreated == timeCreated && a.userId == id.value){
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
-                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                    if(tutorlistings.value[i].dateCreated == timeCreated) {
                         tutorlistings.value[i].description = newstudesc.value
                         tutorlistings.value[i].level = newstulevel.value
                         tutorlistings.value[i].region = newstulocation.value
@@ -613,7 +613,7 @@ const editStudentListing = async (timeCreated ) => {
 
             } else {
                 for (let i = 0, len = listings.value.length; i < len;i++){
-                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    if(listings.value[i].dateCreated == timeCreated) {
                         listings.value[i].description = newstudesc.value
                         listings.value[i].level = newstulevel.value
                         listings.value[i].region = newstulocation.value
