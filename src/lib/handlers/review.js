@@ -19,6 +19,7 @@ async function createReview(reviewFields) {
     await updateDoc(reviewDoc, { id: reviewDoc.id });
   } catch (error) {
     console.error("ERROR: failed to create review", error);
+    throw error;
   }
 }
 
@@ -42,6 +43,7 @@ async function getReviewsByUserId(tutorId) {
     return reviews;
   } catch (error) {
     console.error("ERROR: failed to get reviews by user", error);
+    throw error;
   }
 }
 
@@ -62,6 +64,7 @@ async function updateReviewById(tutorId, updateFields) {
     await updateDoc(reviewCol, updateFields);
   } catch (error) {
     console.error("ERROR: failed to update Review by id", error);
+    throw error;
   }
 }
 
