@@ -12,6 +12,8 @@ How to use:
 
   ...
 </template>
+
+3. Listen to the 'close-modal' event and change v-show accordingly
 -->
 
 <template>
@@ -46,8 +48,6 @@ How to use:
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  min-width: 25%;
-  min-height: 25%;
   background-color: white;
   border-radius: 1rem;
 }

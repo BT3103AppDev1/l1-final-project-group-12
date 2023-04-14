@@ -18,12 +18,14 @@ const logOutOnClick = async () => {
     <div id="navbar-buttons">
       <router-link to="/student-listings">Look for students</router-link>
       <router-link to="/tutor-listings">Look for tutors</router-link>
-      <router-link to="/me">Settings</router-link>
+      <router-link to="/profile">My profile</router-link>
       <p @click="logOutOnClick">Log out</p>
     </div>
   </nav>
 
-  <router-view />
+  <div id="container">
+    <router-view />
+  </div>
 </template>
 
 <style scoped>
@@ -59,5 +61,12 @@ nav h1 {
 #navbar-buttons p:hover {
   text-decoration: underline white 2px;
   font-style: italic;
+}
+
+#container {
+  height: 100%;
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 </style>

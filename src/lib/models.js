@@ -2,17 +2,25 @@
  * @typedef {"PSLE"|"O level"|"A level"} Level
  */
 
+const LEVELS = ["PSLE", "O level", "A level"];
+
 /**
  * @typedef {"Science"|"Math"|"English"|"Arts"} Subject
  */
+
+const SUBJECTS = ["Science", "Math", "English", "Arts"];
 
 /**
  * @typedef {"North"|"South"|"East"|"West"|"Central"} Region
  */
 
+const REGIONS = ["North", "South", "East", "West", "Central"];
+
 /**
  * @typedef {"Male"|"Female"} Gender
  */
+
+const GENDERS = ["Male", "Female"];
 
 /**
  * @typedef {object} User
@@ -51,4 +59,4 @@
  * @property {string} reviewerId
  */
 
-export {};
+export { LEVELS, SUBJECTS, REGIONS, GENDERS };

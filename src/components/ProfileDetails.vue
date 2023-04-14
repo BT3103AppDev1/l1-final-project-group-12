@@ -310,7 +310,7 @@
 import { getCurrentUser } from "../lib/handlers/auth.js"
 import { getAllListings, updateListingById, getListingById } from "../lib/handlers/listing.js"
 import { getUserById, updateUserById, updateTutorProfileById } from "../lib/handlers/user.js"
-import ModalComponent from "@/components/ModalComponent.vue";
+import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { useAuthStore } from "@/stores/authStore";
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue"
