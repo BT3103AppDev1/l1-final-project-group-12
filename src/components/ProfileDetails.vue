@@ -386,7 +386,7 @@ onMounted(async () => {
     let array = []
     let allDocuments = await getAllListings("student-listing")
     allDocuments.forEach((docs) => {
-        if (docs.UserID == id.value) {
+        if (docs.userId == id.value) {
             array.push(docs)
             //console.log(docs.dateCreated.seconds)
         }
@@ -395,7 +395,7 @@ onMounted(async () => {
     if (isTutor.value) {
         let allDocuments2 = await getAllListings("tutor-listing")
         allDocuments2.forEach((docs) => {
-            if (docs.UserID == id.value) {
+            if (docs.userId == id.value) {
                 array2.push(docs)
             }
         })
@@ -564,7 +564,7 @@ const  deleteListing = async (timeCreated) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){     
+        if (a.dateCreated.seconds == timeCreated && a.userId == id.value){     
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
                     if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
@@ -597,7 +597,7 @@ const editStudentListing = async (timeCreated ) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){
+        if (a.dateCreated.seconds == timeCreated && a.userId == id.value){
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
                     if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
