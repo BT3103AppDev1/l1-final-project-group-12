@@ -308,7 +308,7 @@
 
 <script setup>
 import { getCurrentUser } from "../lib/handlers/auth.js"
-import { getAllListings, updateListingById, getListingById } from "../lib/handlers/listing.js"
+import { getAllListings, updateListingById, getListingById, deleteListingById } from "../lib/handlers/listing.js"
 import { getUserById, updateUserById, updateTutorProfileById } from "../lib/handlers/user.js"
 import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { useAuthStore } from "@/stores/authStore";
@@ -573,7 +573,11 @@ const  deleteListing = async (timeCreated) => {
                         break
                     } 
                 }
-
+                await deleteListingById("tutor-listing", a.id )
+                showConfirmDelete.value = false
+            toast("Listing deleted!", {
+                    type: TYPE.SUCCESS
+                })
             } else { 
                 for (let i = 0, len = listings.value.length; i < len;i++){
                     if(listings.value[i].dateCreated == timeCreated) {
@@ -581,12 +585,13 @@ const  deleteListing = async (timeCreated) => {
                         break
                     } 
                 }
-            }
-            await deleteDoc(doc(db, listingtype.value,x.id))
-            showConfirmDelete.value = false
+                await deleteListingById("student-listing", a.id )
+                showConfirmDelete.value = false
             toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
+            }
+            
         }
     //console.log(doc.id)
     //console.log(doc)
