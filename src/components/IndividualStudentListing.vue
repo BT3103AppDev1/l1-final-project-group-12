@@ -44,13 +44,14 @@ export default {
 .modal-overlay {
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: 1;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   background-color: #000000da;
   opacity: 100%;
+  padding-bottom: 30px;
 }
 
 .modal {
@@ -100,7 +101,7 @@ p {
 
 button {
   background-color: #ff9040;
-  width: 40%;
+  width: 80%;
   height: 80%;
   color: white;
   font-size: 14px;
@@ -113,15 +114,15 @@ button {
 }
 #picture {
   float:left;
-  margin-left : 5em;
+  margin-left : 2em;
 }
 #content{
   text-align: left;
-  margin-left:15em;
+  margin-left:5em;
 }
 #rates{
   float:right;
-  margin-right: 5em;
+  margin-right: 1em;
   color:#ff9040;
   font-size: 200%
 }
