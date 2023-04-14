@@ -4,18 +4,18 @@ import ModalComponent from "./ModalComponent.vue";
 import StudentListingDetailsComponent from "./StudentListingDetailsComponent.vue";
 import { ref } from "vue";
 
-const props = defineProps(["listing"]);
+const { listing } = defineProps(["listing"]);
 const showModal = ref(false);
 </script>
 
 <template>
   <ListingComponent @click="showModal = true">
     <div>
-      <h3>{{ props.listing.subject }} ({{ props.listing.level }})</h3>
-      <p>{{ props.listing.region }}</p>
+      <h3>{{ listing.subject }} ({{ listing.level }})</h3>
+      <p>{{ listing.region }}</p>
     </div>
 
-    <h1>${{ props.listing.rates }}<span>/hr</span></h1>
+    <h1>${{ listing.rates }}<span>/hr</span></h1>
   </ListingComponent>
 
   <ModalComponent v-show="showModal" @close-modal="showModal = false">
