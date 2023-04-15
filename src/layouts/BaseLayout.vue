@@ -13,13 +13,25 @@ const logOutOnClick = async () => {
 <template>
   <nav>
     <router-link to="/home" custom v-slot="{ navigate }">
-      <h1 @click="navigate" @keypress.enter="navigate" role="link">Tent</h1>
+      <h1
+        class="hover-underline-animation"
+        @click="navigate"
+        @keypress.enter="navigate"
+        role="link"
+      >
+        Tent
+      </h1>
     </router-link>
+
     <div id="navbar-buttons">
-      <router-link to="/student-listings">Look for students</router-link>
-      <router-link to="/tutor-listings">Look for tutors</router-link>
-      <router-link to="/profile">My profile</router-link>
-      <p @click="logOutOnClick">Log out</p>
+      <router-link class="hover-underline-animation" to="/student-listings">
+        Look for students
+      </router-link>
+      <router-link class="hover-underline-animation" to="/tutor-listings">
+        Look for tutors
+      </router-link>
+      <router-link class="hover-underline-animation" to="/profile"> My profile </router-link>
+      <p class="hover-underline-animation" @click="logOutOnClick">Log out</p>
     </div>
   </nav>
 
@@ -42,6 +54,29 @@ nav h1 {
   cursor: pointer;
 }
 
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 150ms ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
 #navbar-buttons {
   justify-self: end;
   display: flex;
@@ -55,12 +90,6 @@ nav h1 {
   border: none;
   background-color: inherit;
   cursor: pointer;
-}
-
-#navbar-buttons a:hover,
-#navbar-buttons p:hover {
-  text-decoration: underline white 2px;
-  font-style: italic;
 }
 
 #container {

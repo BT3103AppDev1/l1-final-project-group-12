@@ -50,6 +50,8 @@ How to use:
   padding: 1rem;
   background-color: white;
   border-radius: 1rem;
+  word-wrap: break-word;
+  max-width: 70vw;
 }
 
 .close {
