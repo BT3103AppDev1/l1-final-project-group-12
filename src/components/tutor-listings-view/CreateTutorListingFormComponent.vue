@@ -20,7 +20,7 @@ const createListingSchema = toFormValidator(
     level: z.string().nonempty(),
     region: z.string().nonempty(),
     description: z.string().nonempty(),
-    rates: z.preprocess((n) => parseInt(n), z.number().nonnegative()),
+    rates: z.preprocess((n) => parseInt(n), z.number().gt(0)),
   })
 );
 
