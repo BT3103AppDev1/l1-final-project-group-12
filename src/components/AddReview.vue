@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useToast, TYPE } from "vue-toastification";
 import { getCurrentUser } from "../lib/handlers/auth.js";
 import { createReview } from "@/lib/handlers/review";
