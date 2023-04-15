@@ -24,10 +24,10 @@
                     <br> <br>
                     -->
                     New Phone Number:
-                    <input type="number" v-model="newphoneno" placeholder="Enter new phone number">
+                    <input style = "width: 50%; margin-left: 5vw;" type="number" v-model="newphoneno" placeholder="Enter new phone number">
                     <br> <br>
                     New Telegram Handle:
-                    <input v-model="newtelehandle" placeholder="Enter new telegram handle">
+                    <input style = "width: 50%; margin-left: 5vw;" v-model="newtelehandle" placeholder="Enter new telegram handle">
                     <br> <br>
                     <!--
                     New Password:
@@ -56,21 +56,21 @@
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id="content">
                     <h3> Update Tutor Details </h3>
-                    <br>
+                
                     <br>
                     <div>
                     <label for="qualification">Highest education</label><br />
-                    <select v-model = "newedu" id="edulevel" name="qualification">
+                    <select style = "text-align: center; width: 80%" v-model = "newedu" id="edulevel" name="qualification">
                         <option value="Secondary">Secondary</option>
                         <option value="Post-Secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
                         <option value="University">University</option>
                     </select>
                     </div>
-                    <br> <br>
-                    New Experience:
-                    <input type = "number" min="0" max="99" v-model="newexp" placeholder="Enter years of experience">
-                    <br> <br>
+                    <br> 
+                    Updated years of experience:
+                    <input style ="width: 25%; margin-left:8vw; text-align: center;"  type = "number" min="0" max="99" v-model="newexp" placeholder="Enter years of experience">
+                    <br>
                     <!--
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
@@ -203,86 +203,88 @@
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/>
                 <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
-                Level: {{item.level}}
+                Level: {{ item.level }}
                 <br>
-                Subject: {{item.subject}}
+                Subject: {{ item.subject }}
                 <br>
-                Location: {{item.region}}
+                Location: {{ item.region }}
                 <br>
-                Rates: {{item.rates}}
+                Description: {{ item.description }}
                 <br>
-                Description: {{item.description}}
+                Rates: ${{ item.rates }}/hr
                 <br>
             </div>
 
             <ModalComponent v-show = "showConfirmDelete" @close-modal = "showConfirmDelete = false">
-                Are you sure you want to delete the listing?
-                <br> <br>
-                Level: {{deleteDetails[0]}}
+                <div class = "perlisting">
+                <h4> Are you sure you want to delete the listing?</h4> 
+                <br> 
+                Type : {{ listingtype.charAt(0).toUpperCase() + listingtype.replace("-", " ").slice(1) }}
                 <br>
-                Subject: {{deleteDetails[1]}}
+                Level: {{ deleteDetails[0] }}
                 <br>
-                Location: {{deleteDetails[2]}}
+                Subject: {{ deleteDetails[1] }}
                 <br>
-                Description: {{deleteDetails[3]}}
+                Location: {{ deleteDetails[2] }}
                 <br>
-                Rates: {{deleteDetails[4]}}
-                <br><br>
-
-                <button @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
-           
+                Description: {{ deleteDetails[3] }}
+                <br>
+                Rates: ${{ deleteDetails[4] }}/hr
+                <br>
+                </div>
+                <button class="updatebn" @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
             </ModalComponent>
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
-            <div class = "perlisting">     
-                Listing details
+            <div class = "perlisting" style = "width: 20vw">     
+                <h4>Listing details </h4>
 
                 <br>
-                Level: <select v-model="newstulevel"  required>
-                        <option>Primary</option>
-                        <option>Secondary</option>
-                        <option>Junior College</option>
-                        <option>Others</option>
-                        </select>
+                Level: 
+                <select v-model="newstulevel"  required>
+                    <option>Primary</option>
+                    <option>Secondary</option>
+                    <option>Junior College</option>
+                    <option>Others</option>
+                </select>
                 <br>
 
                 Subject: 
                 <select v-model="newstusubject" required>
-              <option>Biology</option>
-              <option>Chinese Language</option>
-              <option>Chemistry</option>
-              <option>English</option>
-              <option>Math</option>
-              <option>Malay Language</option>
-              <option>Physics</option>
-              <option>Tamil Language</option>
-              <option>Others</option>
-            </select>
+                    <option>Biology</option>
+                    <option>Chinese Language</option>
+                    <option>Chemistry</option>
+                    <option>English</option>
+                    <option>Math</option>
+                    <option>Malay Language</option>
+                    <option>Physics</option>
+                    <option>Tamil Language</option>
+                    <option>Others</option>
+                </select>
                 <br>
 
                 Location: 
                 <select v-model="newstulocation"  required>
-                <option>North</option>
-                <option>South</option>
-                <option>East</option>
-                <option>West</option>
-                <option>Central</option>
-                <option>Others</option>
+                    <option>North</option>
+                    <option>South</option>
+                    <option>East</option>
+                    <option>West</option>
+                    <option>Central</option>
+                    <option>Others</option>
                 </select>
                 <br>
+
                 Description: 
                 <br>
-                <textarea type="text"  v-model="newstudesc"
-            placeholder="Description and contact method" rows="4" required>
-                </textarea>
+                <textarea type="text" style = "width : 100%" v-model="newstudesc" placeholder="Description and contact method" rows="4" required></textarea>
                 <br>
 
-                Rates: 
-                <input type="number"  min="0" v-model="newsturates" placeholder="Enter your rates" required />
+                Rates: $
+                <input type="number" style = "width : 20%" min="0" v-model="newsturates" placeholder="Enter your rates" required /> /hr
                 <br>
                 
             </div>
-            <button @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
+            <button class="updatebn" @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
             </ModalComponent>
 
             <div class = "perlistings" v-for = "item in tutorlistings">
@@ -290,15 +292,16 @@
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <br>
-                Level: {{item.level}}
+                Level: {{ item.level }}
                 <br>
-                Subject: {{item.subject}}
+                Subject: {{ item.subject }}
                 <br>
-                Location: {{item.region}}
+                Location: {{ item.region }}
                 <br>
-                Rates: {{item.rates}}
+                Description: {{ item.description }}
                 <br>
-                Description: {{item.description}}
+                Rates: ${{ item.rates }}/hr
+                <br>
             </div>
 
 
@@ -416,29 +419,38 @@ onMounted(async () => {
 
 const updateProfileDetails = async () => {
 
-
-    if (newphoneno.value.toString().length == 8 && (newphoneno.value.toString().charAt(0) == 8 || newphoneno.value.toString().charAt(0) == 9)) {
-        if (newtelehandle.value.toString().length >= 5) {
-            updatePhoneNumber();
-            updateTelegramHandle();
-            showModal.value = false
-            toast("Profile Details saved!", {
-                type: TYPE.SUCCESS
-            })
-        } else {
-            toast("Invalid telegram handle length, should be at least 5", { type: TYPE.ERROR })
-        }
-        /*
-                    if (newemail.value != "") {
-                        updateEmail();
-                    }   
-                    */
-    } else {
-        toast("Invalid phone number, should start with 8/9 and be of length 8", {
+    if (newphoneno.value.toString().length != 8) {
+        toast("Invalid phone number, should be of length 8", {
             type: TYPE.ERROR
         })
+        return;
     }
-}
+
+    if (newphoneno.value.toString().charAt(0) != 8 && newphoneno.value.toString().charAt(0) != 9) {
+        toast("Invalid phone number, should start with 8/9", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+    
+    if (newtelehandle.value.toString().charAt(0) != "@") {
+        toast("Invalid telegram handle, should start with @", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+
+
+    updatePhoneNumber();
+    updateTelegramHandle();
+    showModal.value = false
+    toast("Profile Details saved!", {
+        type: TYPE.SUCCESS
+    })
+
+
+} 
+
 
 const updateTutorDetails = async () => {
     console.log(newexp.value)
@@ -447,29 +459,30 @@ const updateTutorDetails = async () => {
         toast("Experience field empty", {
             type: TYPE.ERROR
         })
-
-    } else {
-        if (newexp.value > 99) {
-            toast("Invalid experience, greater than 99 ", {
-            type: TYPE.ERROR
-        })
-        } 
-
-        else if (newexp.value < 0){
-            toast("Invalid experience, less than 0 ", {
-            type: TYPE.ERROR
-        })
-        }
-
-        else if (newedu.value != "") {
-            updateEducation();
-            updateExperience();
-            showModal2.value = false
-            toast("Tutor details saved!", {
-                type: TYPE.SUCCESS
-            })
+        return;
     }
-}
+
+    if (newexp.value > 99) {
+            toast("Invalid experience, should be less than 99 ", {
+            type: TYPE.ERROR
+        })
+        return;
+    } 
+
+    if (newexp.value < 0){
+            toast("Invalid experience, should not be negative ", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+
+    updateEducation();
+    updateExperience();
+    showModal2.value = false
+    toast("Tutor details saved!", {
+        type: TYPE.SUCCESS
+    })
+
 }
 
 const updatePhoneNumber = async () => {
@@ -575,7 +588,7 @@ const  deleteListing = async (timeCreated) => {
                 }
                 await deleteListingById("tutor-listing", a.id )
                 showConfirmDelete.value = false
-            toast("Listing deleted!", {
+                toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
             } else { 
@@ -587,7 +600,7 @@ const  deleteListing = async (timeCreated) => {
                 }
                 await deleteListingById("student-listing", a.id )
                 showConfirmDelete.value = false
-            toast("Listing deleted!", {
+                toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
             }
@@ -599,6 +612,26 @@ const  deleteListing = async (timeCreated) => {
 
 }
 const editStudentListing = async (timeCreated ) => {
+    if (newstudesc.value.toString() == "") {
+        toast("Description is empty", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
+
+    if (newsturates.value.toString() == "") {
+        toast("Rates is empty or invalid", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
+
+    if (newsturates.value.toString().charAt(0) == "-") {
+        toast("Rates is negative", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
 
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
@@ -627,8 +660,7 @@ const editStudentListing = async (timeCreated ) => {
                         break
                     } 
                 }
-        }
-
+            }
 
             const newInfo = {
                 subject : newstusubject.value,
@@ -641,13 +673,11 @@ const editStudentListing = async (timeCreated ) => {
             showIndividualListingModal.value = false
             toast("Listing Updated!", {
                     type: TYPE.SUCCESS
-                })
-        
-    }
+            })
+        }
     });
-    
-
 }
+
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
@@ -724,6 +754,7 @@ function saveTutorProfile() {
     experience: experience
   });
   showModal3.value = false;
+  isTutor.value = true;
   
   toast.success('Successfully updated tutor profile.', { timeout: 3000 });
   setTimeout(() => {
@@ -802,6 +833,7 @@ function saveTutorProfile() {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 20vw;
 }
 
 .modal-header {
