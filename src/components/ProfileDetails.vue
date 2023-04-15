@@ -203,39 +203,42 @@
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/>
                 <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
-                Level: {{item.level}}
+                Level: {{ item.level }}
                 <br>
-                Subject: {{item.subject}}
+                Subject: {{ item.subject }}
                 <br>
-                Location: {{item.region}}
+                Location: {{ item.region }}
                 <br>
-                Rates: {{item.rates}}
+                Rates: {{ item.rates }}
                 <br>
-                Description: {{item.description}}
+                Description: {{ item.description }}
                 <br>
             </div>
 
             <ModalComponent v-show = "showConfirmDelete" @close-modal = "showConfirmDelete = false">
-                Are you sure you want to delete the listing?
-                <br> <br>
-                Level: {{deleteDetails[0]}}
+                <div class = "perlisting">
+                <h4> Are you sure you want to delete the listing?</h4> 
+                <br> 
+                Type : {{ listingtype.charAt(0).toUpperCase() + listingtype.replace("-", " ").slice(1) }}
                 <br>
-                Subject: {{deleteDetails[1]}}
+                Level: {{ deleteDetails[0] }}
                 <br>
-                Location: {{deleteDetails[2]}}
+                Subject: {{ deleteDetails[1] }}
                 <br>
-                Description: {{deleteDetails[3]}}
+                Location: {{ deleteDetails[2] }}
                 <br>
-                Rates: {{deleteDetails[4]}}
-                <br><br>
-
-                <button @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
+                Description: {{ deleteDetails[3] }}
+                <br>
+                Rates: {{ deleteDetails[4] }}
+                <br>
+                </div>
+                <button class="updatebn" @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
            
             </ModalComponent>
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
             <div class = "perlisting">     
-                Listing details
+                <h4>Listing details </h4>
 
                 <br>
                 Level: <select v-model="newstulevel"  required>
@@ -282,7 +285,7 @@
                 <br>
                 
             </div>
-            <button @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
+            <button class="updatebn" @click = editStudentListing(listingDetailStudent[5],listingtype) > Save </button>
             </ModalComponent>
 
             <div class = "perlistings" v-for = "item in tutorlistings">
@@ -290,15 +293,15 @@
                 <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <br>
-                Level: {{item.level}}
+                Level: {{ item.level }}
                 <br>
-                Subject: {{item.subject}}
+                Subject: {{ item.subject }}
                 <br>
-                Location: {{item.region}}
+                Location: {{ item.region }}
                 <br>
-                Rates: {{item.rates}}
+                Rates: {{ item.rates }}
                 <br>
-                Description: {{item.description}}
+                Description: {{ item.description }}
             </div>
 
 
@@ -651,7 +654,6 @@ const editStudentListing = async (timeCreated ) => {
             toast("Listing Updated!", {
                     type: TYPE.SUCCESS
             })
-            
         }
     });
 }
