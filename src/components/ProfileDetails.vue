@@ -416,29 +416,38 @@ onMounted(async () => {
 
 const updateProfileDetails = async () => {
 
-
-    if (newphoneno.value.toString().length == 8 && (newphoneno.value.toString().charAt(0) == 8 || newphoneno.value.toString().charAt(0) == 9)) {
-        if (newtelehandle.value.toString().length >= 5) {
-            updatePhoneNumber();
-            updateTelegramHandle();
-            showModal.value = false
-            toast("Profile Details saved!", {
-                type: TYPE.SUCCESS
-            })
-        } else {
-            toast("Invalid telegram handle length, should be at least 5", { type: TYPE.ERROR })
-        }
-        /*
-                    if (newemail.value != "") {
-                        updateEmail();
-                    }   
-                    */
-    } else {
-        toast("Invalid phone number, should start with 8/9 and be of length 8", {
+    if (newphoneno.value.toString().length != 8) {
+        toast("Invalid phone number, should be of length 8", {
             type: TYPE.ERROR
         })
+        return;
     }
-}
+
+    if (newphoneno.value.toString().charAt(0) != 8 && newphoneno.value.toString().charAt(0) != 9) {
+        toast("Invalid phone number, should start with 8/9", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+    
+    if (newtelehandle.value.toString().charAt(0) != "@") {
+        toast("Invalid telegram handle, should start with @", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+
+
+    updatePhoneNumber();
+    updateTelegramHandle();
+    showModal.value = false
+    toast("Profile Details saved!", {
+        type: TYPE.SUCCESS
+    })
+
+
+} 
+
 
 const updateTutorDetails = async () => {
     console.log(newexp.value)
@@ -447,29 +456,30 @@ const updateTutorDetails = async () => {
         toast("Experience field empty", {
             type: TYPE.ERROR
         })
-
-    } else {
-        if (newexp.value > 99) {
-            toast("Invalid experience, greater than 99 ", {
-            type: TYPE.ERROR
-        })
-        } 
-
-        else if (newexp.value < 0){
-            toast("Invalid experience, less than 0 ", {
-            type: TYPE.ERROR
-        })
-        }
-
-        else if (newedu.value != "") {
-            updateEducation();
-            updateExperience();
-            showModal2.value = false
-            toast("Tutor details saved!", {
-                type: TYPE.SUCCESS
-            })
+        return;
     }
-}
+
+    if (newexp.value > 99) {
+            toast("Invalid experience, should be less than 99 ", {
+            type: TYPE.ERROR
+        })
+        return;
+    } 
+
+    if (newexp.value < 0){
+            toast("Invalid experience, should not be negative ", {
+            type: TYPE.ERROR
+        })
+        return;
+    }
+
+    updateEducation();
+    updateExperience();
+    showModal2.value = false
+    toast("Tutor details saved!", {
+        type: TYPE.SUCCESS
+    })
+
 }
 
 const updatePhoneNumber = async () => {
@@ -575,7 +585,7 @@ const  deleteListing = async (timeCreated) => {
                 }
                 await deleteListingById("tutor-listing", a.id )
                 showConfirmDelete.value = false
-            toast("Listing deleted!", {
+                toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
             } else { 
@@ -587,7 +597,7 @@ const  deleteListing = async (timeCreated) => {
                 }
                 await deleteListingById("student-listing", a.id )
                 showConfirmDelete.value = false
-            toast("Listing deleted!", {
+                toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
             }
@@ -627,8 +637,7 @@ const editStudentListing = async (timeCreated ) => {
                         break
                     } 
                 }
-        }
-
+            }
 
             const newInfo = {
                 subject : newstusubject.value,
@@ -641,13 +650,12 @@ const editStudentListing = async (timeCreated ) => {
             showIndividualListingModal.value = false
             toast("Listing Updated!", {
                     type: TYPE.SUCCESS
-                })
-        
-    }
+            })
+            
+        }
     });
-    
-
 }
+
 function saveTutorProfile() {
   // fetches all the inputs and stores them as variables to be pushed to firebase
   // *backend not yet functional, imported updateTutorProfileById with fields filled out, missing user id*
@@ -724,6 +732,7 @@ function saveTutorProfile() {
     experience: experience
   });
   showModal3.value = false;
+  isTutor.value = true;
   
   toast.success('Successfully updated tutor profile.', { timeout: 3000 });
   setTimeout(() => {
