@@ -236,7 +236,7 @@
             </ModalComponent>
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
-            <div class = "perlisting">     
+            <div class = "perlisting" style = "width: 20vw">     
                 <h4>Listing details </h4>
 
                 <br>
@@ -276,11 +276,11 @@
 
                 Description: 
                 <br>
-                <textarea type="text" style = "width : 110%" v-model="newstudesc" placeholder="Description and contact method" rows="4" required></textarea>
+                <textarea type="text" style = "width : 100%" v-model="newstudesc" placeholder="Description and contact method" rows="4" required></textarea>
                 <br>
 
                 Rates: $
-                <input type="number" style = "width : 30%" min="0" v-model="newsturates" placeholder="Enter your rates" required /> /hr
+                <input type="number" style = "width : 20%" min="0" v-model="newsturates" placeholder="Enter your rates" required /> /hr
                 <br>
                 
             </div>
@@ -612,6 +612,26 @@ const  deleteListing = async (timeCreated) => {
 
 }
 const editStudentListing = async (timeCreated ) => {
+    if (newstudesc.value.toString() == "") {
+        toast("Description is empty", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
+
+    if (newsturates.value.toString() == "") {
+        toast("Rates is empty or invalid", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
+
+    if (newsturates.value.toString().charAt(0) == "-") {
+        toast("Rates is negative", {
+                type: TYPE.ERROR
+            })
+        return;
+    }
 
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
