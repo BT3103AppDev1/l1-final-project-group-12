@@ -12,7 +12,7 @@
   - `/student-listings` = student listings page
   - `/tutor-listings` = tutor listings page
   - `/tutor/[id]` = public profile page
-  - `/me` = personal profile page
+  - `/profile` = profile page of currently signed in user
 
 ### Backend
 

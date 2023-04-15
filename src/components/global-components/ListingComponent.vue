@@ -1,20 +1,12 @@
-<script setup>
-const props = defineProps(["listing"]);
-</script>
-
 <template>
   <div id="listing-container">
-    <div>
-      <p>{{ props.listing.subject }}</p>
-      <p>{{ props.listing.level }}</p>
-      <p>{{ props.listing.region }}</p>
-    </div>
-    <h1>${{ props.listing.rates }}<span>/hr</span></h1>
+    <slot />
   </div>
 </template>
 
 <style scoped>
 #listing-container {
+  background-color: white;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 0 2px #000;
@@ -27,14 +19,5 @@ const props = defineProps(["listing"]);
 
 #listing-container:hover {
   scale: 102%;
-}
-
-#listing-container h1 {
-  color: var(--tent-orange);
-  font-size: 2rem;
-}
-
-#listing-container h1 span {
-  font-size: 1.3rem;
 }
 </style>

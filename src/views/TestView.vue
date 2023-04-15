@@ -1,5 +1,5 @@
 <script setup>
-import ModalComponent from "@/components/ModalComponent.vue";
+import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { ref } from "vue";
 
 const showModal = ref(false);
