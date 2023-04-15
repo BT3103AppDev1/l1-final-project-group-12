@@ -1,7 +1,6 @@
 <script setup>
-import ListingComponent from "./ListingComponent.vue";
-import ModalComponent from "./ModalComponent.vue";
-import StudentListingDetailsComponent from "./StudentListingDetailsComponent.vue";
+import ListingComponent from "@/components/global-components/ListingComponent.vue";
+import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { ref } from "vue";
 
 const { listing } = defineProps(["listing"]);
@@ -19,7 +18,7 @@ const showModal = ref(false);
   </ListingComponent>
 
   <ModalComponent v-show="showModal" @close-modal="showModal = false">
-    <StudentListingDetailsComponent :listing="listing" />
+    Edit listing here
   </ModalComponent>
 </template>
 
