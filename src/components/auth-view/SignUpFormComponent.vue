@@ -15,7 +15,10 @@ const signUpSchema = toFormValidator(
   z.object({
     email: z.string().email().nonempty(),
     password: z.string().nonempty(),
-    phoneNumber: z.preprocess((n) => parseInt(n), z.number().nonnegative()),
+    phoneNumber: z
+      .string()
+      .length(8)
+      .regex(new RegExp(/^[8,9]/), "Phone number must start with 8 or 9"),
     telegramHandle: z.string().startsWith("@"),
   })
 );
