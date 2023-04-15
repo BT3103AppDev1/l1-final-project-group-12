@@ -39,19 +39,17 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useToast, TYPE } from "vue-toastification";
 import { getCurrentUser } from "../lib/handlers/auth.js";
 import { createReview } from "@/lib/handlers/review";
-import { getAllTutors } from "@/lib/handlers/user";
+import { getUserById } from "@/lib/handlers/user";
 
 
 const toast = useToast()
 const url = window.location.href;
 const parts = url.split('/');
 const tutorid = parts[parts.length - 1];
-
-
 
 const reviewFields = ref({
     dateCreated: new Date(),
@@ -61,34 +59,28 @@ const reviewFields = ref({
     reviewerId: "",
 });
 
-const tutordetails = ref({
-    name: "",
-    education:"",
-    experience:""
-})
-
-const tutors = await getAllTutors()
-let reviewed_tutor = ""
-for (let tutor in tutors){
-    if (tutors[tutor]['id'] == tutorid) {
-        reviewed_tutor = tutors[tutor]
-        break
-    }
-}
-tutordetails.value.name = reviewed_tutor['telegramHandle']
-tutordetails.value.education = reviewed_tutor['education']
-tutordetails.value.experience = reviewed_tutor['experience']
-tutordetails.value.region = reviewed_tutor['region']
 
 export default {
     data() {
         return{
-            name: tutordetails.value.name,
-            education: tutordetails.value.education,
-            experience: tutordetails.value.experience,
-            region: tutordetails.value.region
+            name: "",
+            education: "",
+            experience: "",
+            region: ""
         }
     },
+    async mounted() {
+            console.log(this.currentTutorId)
+            let tutor = await getUserById(this.currentTutorId)
+            console.log(tutor)
+            this.name = tutor.telegramHandle
+            this.education = tutor.education,
+            this.experience = tutor.experience
+            this.region = tutor.region
+        },
+    props: {
+        currentTutorId : String
+        },
     methods: {
         async submitReview() {
             const bodyValue = document.querySelector("#review-input").value;
