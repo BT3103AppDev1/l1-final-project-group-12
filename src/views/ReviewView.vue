@@ -17,6 +17,10 @@ const getReviews = async () => {
 };
 
 getReviews();
+
+const change = async() => {
+  getReviews();
+}
 </script>
 
 <template>
@@ -38,9 +42,6 @@ export default {
     }
   },
   methods: {
-    change() {
-      this.refreshComp += 1
-    },
     generateId() {
       let url = window.location.href;
       let parts = url.split('/');
