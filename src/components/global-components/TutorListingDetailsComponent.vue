@@ -46,6 +46,9 @@ getTutor();
 
       <section class="details">
         <h3>Tutor Details</h3>
+
+        <button @click="$router.push(`/tutor/${listing.userId}`)">Go to tutor's profile</button>
+
         <div id="fields" v-if="tutor !== undefined">
           <label>Email</label>
           <p>{{ tutor.email }}</p>
@@ -65,8 +68,6 @@ getTutor();
           <label>Experience</label>
           <p>{{ tutor.experience }}</p>
         </div>
-
-        <router-link as="a" :to="`/tutor/${listing.userId}`">Go to tutor's profile</router-link>
       </section>
     </div>
   </div>
@@ -107,5 +108,22 @@ h3 {
   width: 100%;
   display: block;
   overflow-wrap: break-word;
+}
+
+.details button {
+  text-decoration: none;
+  background-color: var(--tent-orange);
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  transition: scale 150ms ease-in-out;
+}
+
+.details button:hover {
+  scale: 102%;
 }
 </style>

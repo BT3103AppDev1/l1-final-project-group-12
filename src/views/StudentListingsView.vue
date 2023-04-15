@@ -50,7 +50,7 @@ updateStudentListings();
       <div id="filter-form">
         <h3>Filter Listings</h3>
 
-        <button @click="resetFilters">Reset Filters</button>
+        <button id="reset-filter-button" @click="resetFilters">Reset Filters</button>
 
         <label>Level</label>
         <select name="level" v-model="filters.level">
@@ -123,7 +123,8 @@ updateStudentListings();
   gap: 1rem;
 }
 
-#add-listing-button {
+#add-listing-button,
+#reset-filter-button {
   background-color: var(--tent-orange);
   color: white;
   border: none;
@@ -135,7 +136,13 @@ updateStudentListings();
   transition: scale 150ms ease-in-out;
 }
 
-#add-listing-button:hover {
+#reset-filter-button {
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
+#add-listing-button:hover,
+#reset-filter-button:hover {
   scale: 102%;
 }
 
@@ -154,5 +161,14 @@ updateStudentListings();
 
 #filter-form input {
   font-size: 1rem;
+}
+
+select {
+  background-color: #f6f5f6;
+  padding: 0.5rem 1rem;
+  color: black;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border-style: none;
 }
 </style>

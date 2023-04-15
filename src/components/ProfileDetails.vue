@@ -200,14 +200,14 @@
             <div class = "perlisting" v-for = "item in listings"> 
 
                 Type: Student Listing    
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],studentlisting)"/> <!-- NEED A EDIT ICON-->
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],studentlisting)"/> <!-- NEED A EDIT ICON-->
                 <br>
                 Level: {{item.level}}
                 <br>
                 Subject: {{item.subject}}
                 <br>
-                Location: {{item.location}}
+                Location: {{item.region}}
                 <br>
                 Rates: {{item.rates}}
                 <br>
@@ -287,14 +287,14 @@
 
             <div class = "perlistings" v-for = "item in tutorlistings">
                 Type: Tutor Listing
-                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
-                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.location, item.description, item.rates,item.dateCreated.seconds],tutorlisting)"/>
+                <img class="close-img" style = "float:right" src="src\assets\close-icon.png" alt="" @click = "showCancelDetails([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
+                <img src="src\assets\edit-icon.jpg" style = "float:right; width : 1em; margin-top: 0.4em;" @click = "showListingDetailStudent([item.level, item.subject, item.region, item.description, item.rates,item.dateCreated],tutorlisting)"/>
                 <br>
                 Level: {{item.level}}
                 <br>
                 Subject: {{item.subject}}
                 <br>
-                Location: {{item.location}}
+                Location: {{item.region}}
                 <br>
                 Rates: {{item.rates}}
                 <br>
@@ -308,7 +308,7 @@
 
 <script setup>
 import { getCurrentUser } from "../lib/handlers/auth.js"
-import { getAllListings, updateListingById, getListingById } from "../lib/handlers/listing.js"
+import { getAllListings, updateListingById, getListingById, deleteListingById } from "../lib/handlers/listing.js"
 import { getUserById, updateUserById, updateTutorProfileById } from "../lib/handlers/user.js"
 import ModalComponent from "@/components/global-components/ModalComponent.vue";
 import { useAuthStore } from "@/stores/authStore";
@@ -316,7 +316,7 @@ import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue"
 import { useToast, TYPE } from "vue-toastification";
 import {db} from "../lib/firebase-config.js"
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"
+import { collection, getDocs} from "firebase/firestore"
 
 
 const toast = useToast()
@@ -386,16 +386,17 @@ onMounted(async () => {
     let array = []
     let allDocuments = await getAllListings("student-listing")
     allDocuments.forEach((docs) => {
-        if (docs.UserID == id.value) {
+        if (docs.userId == id.value) {
             array.push(docs)
-            //console.log(docs.dateCreated.seconds)
+            console.log(docs)
+            console.log(docs.dateCreated)
         }
     })
     let array2 = []
     if (isTutor.value) {
         let allDocuments2 = await getAllListings("tutor-listing")
         allDocuments2.forEach((docs) => {
-            if (docs.UserID == id.value) {
+            if (docs.userId == id.value) {
                 array2.push(docs)
             }
         })
@@ -416,7 +417,7 @@ onMounted(async () => {
 const updateProfileDetails = async () => {
 
 
-    if (newphoneno.value.toString().length == 8) {
+    if (newphoneno.value.toString().length == 8 && (newphoneno.value.toString().charAt(0) == 8 || newphoneno.value.toString().charAt(0) == 9)) {
         if (newtelehandle.value.toString().length >= 5) {
             updatePhoneNumber();
             updateTelegramHandle();
@@ -433,7 +434,7 @@ const updateProfileDetails = async () => {
                     }   
                     */
     } else {
-        toast("Invalid phone length, should be of length 8", {
+        toast("Invalid phone number, should start with 8/9 and be of length 8", {
             type: TYPE.ERROR
         })
     }
@@ -564,28 +565,33 @@ const  deleteListing = async (timeCreated) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){     
+        if (a.dateCreated == timeCreated && a.userId == id.value){     
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
-                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                    if(tutorlistings.value[i].dateCreated == timeCreated) {
                         tutorlistings.value.splice(i,1)
                         break
                     } 
                 }
-
+                await deleteListingById("tutor-listing", a.id )
+                showConfirmDelete.value = false
+            toast("Listing deleted!", {
+                    type: TYPE.SUCCESS
+                })
             } else { 
                 for (let i = 0, len = listings.value.length; i < len;i++){
-                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    if(listings.value[i].dateCreated == timeCreated) {
                         listings.value.splice(i,1)
                         break
                     } 
                 }
-            }
-            await deleteDoc(doc(db, listingtype.value,x.id))
-            showConfirmDelete.value = false
+                await deleteListingById("student-listing", a.id )
+                showConfirmDelete.value = false
             toast("Listing deleted!", {
                     type: TYPE.SUCCESS
                 })
+            }
+            
         }
     //console.log(doc.id)
     //console.log(doc)
@@ -597,13 +603,13 @@ const editStudentListing = async (timeCreated ) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated.seconds == timeCreated && a.UserID == id.value){
+        if (a.dateCreated == timeCreated && a.userId == id.value){
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
-                    if(tutorlistings.value[i].dateCreated.seconds == timeCreated) {
+                    if(tutorlistings.value[i].dateCreated == timeCreated) {
                         tutorlistings.value[i].description = newstudesc.value
                         tutorlistings.value[i].level = newstulevel.value
-                        tutorlistings.value[i].location = newstulocation.value
+                        tutorlistings.value[i].region = newstulocation.value
                         tutorlistings.value[i].subject = newstusubject.value
                         tutorlistings.value[i].rates = newsturates.value
                         break
@@ -612,10 +618,10 @@ const editStudentListing = async (timeCreated ) => {
 
             } else {
                 for (let i = 0, len = listings.value.length; i < len;i++){
-                    if(listings.value[i].dateCreated.seconds == timeCreated) {
+                    if(listings.value[i].dateCreated == timeCreated) {
                         listings.value[i].description = newstudesc.value
                         listings.value[i].level = newstulevel.value
-                        listings.value[i].location = newstulocation.value
+                        listings.value[i].region = newstulocation.value
                         listings.value[i].subject = newstusubject.value
                         listings.value[i].rates = newsturates.value
                         break
