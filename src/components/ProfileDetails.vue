@@ -209,9 +209,9 @@
                 <br>
                 Location: {{ item.region }}
                 <br>
-                Rates: {{ item.rates }}
-                <br>
                 Description: {{ item.description }}
+                <br>
+                Rates: ${{ item.rates }}/hr
                 <br>
             </div>
 
@@ -229,11 +229,10 @@
                 <br>
                 Description: {{ deleteDetails[3] }}
                 <br>
-                Rates: {{ deleteDetails[4] }}
+                Rates: ${{ deleteDetails[4] }}/hr
                 <br>
                 </div>
                 <button class="updatebn" @click = "deleteListing(deleteDetails[5], listingtype)"> Delete </button>
-           
             </ModalComponent>
 
             <ModalComponent v-show="showIndividualListingModal" @close-modal="showIndividualListingModal = false">
@@ -241,47 +240,47 @@
                 <h4>Listing details </h4>
 
                 <br>
-                Level: <select v-model="newstulevel"  required>
-                        <option>Primary</option>
-                        <option>Secondary</option>
-                        <option>Junior College</option>
-                        <option>Others</option>
-                        </select>
+                Level: 
+                <select v-model="newstulevel"  required>
+                    <option>Primary</option>
+                    <option>Secondary</option>
+                    <option>Junior College</option>
+                    <option>Others</option>
+                </select>
                 <br>
 
                 Subject: 
                 <select v-model="newstusubject" required>
-              <option>Biology</option>
-              <option>Chinese Language</option>
-              <option>Chemistry</option>
-              <option>English</option>
-              <option>Math</option>
-              <option>Malay Language</option>
-              <option>Physics</option>
-              <option>Tamil Language</option>
-              <option>Others</option>
-            </select>
+                    <option>Biology</option>
+                    <option>Chinese Language</option>
+                    <option>Chemistry</option>
+                    <option>English</option>
+                    <option>Math</option>
+                    <option>Malay Language</option>
+                    <option>Physics</option>
+                    <option>Tamil Language</option>
+                    <option>Others</option>
+                </select>
                 <br>
 
                 Location: 
                 <select v-model="newstulocation"  required>
-                <option>North</option>
-                <option>South</option>
-                <option>East</option>
-                <option>West</option>
-                <option>Central</option>
-                <option>Others</option>
+                    <option>North</option>
+                    <option>South</option>
+                    <option>East</option>
+                    <option>West</option>
+                    <option>Central</option>
+                    <option>Others</option>
                 </select>
                 <br>
+
                 Description: 
                 <br>
-                <textarea type="text"  v-model="newstudesc"
-            placeholder="Description and contact method" rows="4" required>
-                </textarea>
+                <textarea type="text" style = "width : 110%" v-model="newstudesc" placeholder="Description and contact method" rows="4" required></textarea>
                 <br>
 
-                Rates: 
-                <input type="number"  min="0" v-model="newsturates" placeholder="Enter your rates" required />
+                Rates: $
+                <input type="number" style = "width : 30%" min="0" v-model="newsturates" placeholder="Enter your rates" required /> /hr
                 <br>
                 
             </div>
@@ -299,9 +298,10 @@
                 <br>
                 Location: {{ item.region }}
                 <br>
-                Rates: {{ item.rates }}
-                <br>
                 Description: {{ item.description }}
+                <br>
+                Rates: ${{ item.rates }}/hr
+                <br>
             </div>
 
 

@@ -22,11 +22,11 @@ const { listing } = defineProps(["listing"]);
         <label>Region</label>
         <p>{{ listing.region }}</p>
 
-        <label>Rates</label>
-        <p>${{ listing.rates }}/hr</p>
-
         <label>Description</label>
         <p>{{ listing.description }}</p>
+
+        <label>Rates</label>
+        <p>${{ listing.rates }}/hr</p>
       </div>
     </section>
   </div>
