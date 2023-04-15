@@ -6,6 +6,10 @@
                 <div id="tutor-details-container">
                     <h2 id="tutor-name">{{ name }}</h2>
                     <br>
+                    <p id="tutor-email">Email: {{ email }}</p>
+                    <p id="tutor-phone">Phone Number: {{ phone }}</p>
+                    <p id="tutor-tele">Telegram: {{ tele }}</p>
+                    <p id="tutor-gender">Gender: {{ gender }}</p>
                     <p id="tutor-education">Education: {{ education }}</p>
                     <p id ="tutor-experience">Experience: {{ experience }} years</p>
                     <p id ="tutor-region">Region: {{ region }}</p>
@@ -73,8 +77,12 @@ export default {
             console.log(this.currentTutorId)
             let tutor = await getUserById(this.currentTutorId)
             console.log(tutor)
-            this.name = tutor.telegramHandle
-            this.education = tutor.education,
+            this.name = tutor.name
+            this.email = tutor.email
+            this.phone = tutor.phoneNumber
+            this.tele = tutor.telegramHandle
+            this.gender = tutor.gender
+            this.education = tutor.education
             this.experience = tutor.experience
             this.region = tutor.region
         },
