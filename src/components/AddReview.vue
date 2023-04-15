@@ -80,7 +80,7 @@ export default {
         },
     props: {
         currentTutorId : String
-        },
+    },
     methods: {
         async submitReview() {
             const bodyValue = document.querySelector("#review-input").value;
