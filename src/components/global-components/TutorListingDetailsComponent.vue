@@ -47,7 +47,7 @@ getTutor();
       <section class="details">
         <h3>Tutor Details</h3>
 
-        <button @click="$router.push(`/tutor/${listing.userId}`)">Go to tutor's profile</button>
+        <button @click="$router.push({path: `/review/${tutor.id}`})">Go to tutor's profile</button>
 
         <div id="fields" v-if="tutor !== undefined">
           <label>Email</label>
