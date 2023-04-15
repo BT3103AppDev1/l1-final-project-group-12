@@ -24,10 +24,10 @@
                     <br> <br>
                     -->
                     New Phone Number:
-                    <input type="number" v-model="newphoneno" placeholder="Enter new phone number">
+                    <input style = "width: 50%; margin-left: 5vw;" type="number" v-model="newphoneno" placeholder="Enter new phone number">
                     <br> <br>
                     New Telegram Handle:
-                    <input v-model="newtelehandle" placeholder="Enter new telegram handle">
+                    <input style = "width: 50%; margin-left: 5vw;" v-model="newtelehandle" placeholder="Enter new telegram handle">
                     <br> <br>
                     <!--
                     New Password:
@@ -56,21 +56,21 @@
             <ModalComponent v-show="showModal2" @close-modal="showModal2 = false">
                 <div id="content">
                     <h3> Update Tutor Details </h3>
-                    <br>
+                
                     <br>
                     <div>
                     <label for="qualification">Highest education</label><br />
-                    <select v-model = "newedu" id="edulevel" name="qualification">
+                    <select style = "text-align: center; width: 80%" v-model = "newedu" id="edulevel" name="qualification">
                         <option value="Secondary">Secondary</option>
                         <option value="Post-Secondary">Post-Secondary</option>
                         <option value="Diploma/Professional Qualification">Diploma/Professional Qualification</option>
                         <option value="University">University</option>
                     </select>
                     </div>
-                    <br> <br>
-                    New Experience:
-                    <input type = "number" min="0" max="99" v-model="newexp" placeholder="Enter years of experience">
-                    <br> <br>
+                    <br> 
+                    Updated years of experience:
+                    <input style ="width: 25%; margin-left:8vw; text-align: center;"  type = "number" min="0" max="99" v-model="newexp" placeholder="Enter years of experience">
+                    <br>
                     <!--
                     New Password:
                     <input v-model = "newpassword" placeholder="Enter new password">
@@ -813,6 +813,7 @@ function saveTutorProfile() {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 20vw;
 }
 
 .modal-header {
