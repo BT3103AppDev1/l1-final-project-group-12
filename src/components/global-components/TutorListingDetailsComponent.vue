@@ -62,8 +62,9 @@ getTutor();
         <label>Experience</label>
         <p>{{ tutor.experience }}</p>
 
-        <router-link as="a" :to="`/tutor/${tutor.id}`">Go to tutor's profile</router-link>
+        <!-- <router-link as="a" :to="`/review/${tutor.id}`">Go to tutor's profile</router-link> -->
       </div>
+      <button id="tutor-profile-btn" @click="$router.push({path: `/review/${tutor.id}`})">View Tutor Reviews</button>
     </section>
   </div>
 </template>
@@ -95,5 +96,17 @@ h3 {
   grid-template-columns: 50% 50%;
   row-gap: 1rem;
   column-gap: 2rem;
+}
+
+#tutor-profile-btn {
+  background-color: var(--tent-orange);
+  width: 80%;
+  padding: 1rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border-style: none;
+  cursor: pointer;
+  margin: 1rem;
 }
 </style>
