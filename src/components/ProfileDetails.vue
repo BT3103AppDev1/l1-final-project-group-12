@@ -1,11 +1,11 @@
 <template>
     <br>
     <div class="outer-details">
-
+        <!-- User details to allow users to change phone number and telegram handle-->
         <div class="details">
             <h1> Profile Details </h1>
             <br>
-            <!--Email: {{email}}
+            <!--Email: {{email}} shouldn't be able to change email so easily like phone number/ telegram handle
             <br><br>
             -->
             Phone Number: {{ phonenum }}
@@ -20,7 +20,7 @@
                     <br>
                     <!--
                     New Email:
-                    <input v-model = "newemail" placeholder="Enter new email">
+                    <input v-model = "newemail" placeholder="Enter new email"> shouldn't be able to change email so easily like phone number/ telegram handle
                     <br> <br>
                     -->
                     New Phone Number:
@@ -43,7 +43,9 @@
     </div>
     <br>
     <div class="outer-details">
-
+        <!-- Tutor details to allow tutors to change education and years of experience
+        Non tutors will be given the option to create a tutor profile -->
+        <!-- Tutors-->
         <div class="details" v-if="isTutor">
             <h1> Tutor Details </h1>
             <br>
@@ -80,6 +82,7 @@
                 </div>
             </ModalComponent>
         </div>
+        <!-- Non tutors-->
         <div class="detail" v-else>
             <div class="details">
                 <h1> Tutor Profile </h1>
@@ -192,7 +195,7 @@
         </div>
     </div>
     <br>
-
+    <!-- User to view, edit and delete their current listings. Student listings followed by tutor listings-->
     <div class="outer-details">
         <div class="details">
             <h1> Your Listings </h1>
@@ -373,7 +376,8 @@ const inputs = ref({
 //   tele: ""
 });
 
-onMounted(async () => {
+//retrieve current user details
+onMounted(async () => { 
     let user5 = await getCurrentUser()
     console.log(user5)
     id.value = user5.uid
@@ -391,8 +395,8 @@ onMounted(async () => {
     allDocuments.forEach((docs) => {
         if (docs.userId == id.value) {
             array.push(docs)
-            console.log(docs)
-            console.log(docs.dateCreated)
+            //console.log(docs)
+            //console.log(docs.dateCreated)
         }
     })
     let array2 = []
@@ -417,7 +421,12 @@ onMounted(async () => {
 }
 )
 
-const updateProfileDetails = async () => {
+/*update user details, check for
+1. phone length = 8
+2. first digit is 8 or 9
+3. telegram handles tart with @
+*/
+const updateProfileDetails = async () => { 
 
     if (newphoneno.value.toString().length != 8) {
         toast("Invalid phone number, should be of length 8", {
@@ -451,7 +460,11 @@ const updateProfileDetails = async () => {
 
 } 
 
-
+/*update tutor details, check for
+1. experience is non-empty
+2. experience not greater than 99
+3. experience not less than 0
+*/
 const updateTutorDetails = async () => {
     console.log(newexp.value)
 
@@ -555,9 +568,13 @@ const updateExperience = async () => {
     experience.value = newexp.value
     //newexp.value = ""
 }
+
+/* when a user wants to edit a listing, 
+allow them to continue from the current listing instead of filling in from scratch
+*/
 const showListingDetailStudent = async (details, typeoflisting) =>{
     listingDetailStudent.value = details
-    console.log(details)
+    //console.log(details)
     newstulevel.value = details[0]
     newstusubject.value = details[1]
     newstulocation.value = details[2]
@@ -568,6 +585,9 @@ const showListingDetailStudent = async (details, typeoflisting) =>{
 
 }
 
+/* when a user wants to edit a listing, 
+allow them to see the details once more before they delete
+*/
 const showCancelDetails = async(details, typeoflisting) => {
     deleteDetails.value = details
     showConfirmDelete.value= true
@@ -578,7 +598,7 @@ const  deleteListing = async (timeCreated) => {
     const querySnap = await getDocs(collection(db, listingtype.value));
     querySnap.forEach(async (x) => {
         let a = await getListingById(listingtype.value, x.id)
-        if (a.dateCreated == timeCreated && a.userId == id.value){     
+        if (a.dateCreated == timeCreated && a.userId == id.value){  //find the correct listing to delete
             if (listingtype.value == "tutor-listing") {
                 for (let i = 0, len = tutorlistings.value.length; i < len;i++){
                     if(tutorlistings.value[i].dateCreated == timeCreated) {
@@ -609,8 +629,12 @@ const  deleteListing = async (timeCreated) => {
     //console.log(doc.id)
     //console.log(doc)
     });
-
 }
+
+/*edit listing, check for
+1. description is not empty
+2. rates >= 0 and not empty
+*/
 const editStudentListing = async (timeCreated ) => {
     if (newstudesc.value.toString() == "") {
         toast("Description is empty", {
