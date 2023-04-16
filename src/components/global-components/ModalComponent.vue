@@ -21,7 +21,7 @@ How to use:
     <div class="modal-overlay">
       <div class="modal">
         <div class="close" @click="$emit('close-modal')">
-          <img class="close-img" src="src\assets\close-icon.png" alt="" />
+          <img class="close-img" src="/close-icon.png" alt="" />
         </div>
 
         <slot>Hello from modal!</slot>

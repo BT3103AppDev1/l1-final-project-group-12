@@ -39,8 +39,7 @@ const changeModeOnClick = (newMode) => {
 #background-image {
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
-    url("../assets/tuitionimage.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url("/tuitionimage.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
