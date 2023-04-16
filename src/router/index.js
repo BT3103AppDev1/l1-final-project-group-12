@@ -7,9 +7,7 @@ import HomeView from "../views/HomeView.vue";
 
 const StudentListingsView = () => import("../views/StudentListingsView.vue");
 const TutorListingsView = () => import("../views/TutorListingsView.vue");
-const MyProfileView = () => import("../views/MyProfileView.vue");
 const UserProfileView = () => import("../views/UserProfileView.vue");
-const TestView = () => import("../views/TestView.vue");
 const ReviewView = () => import("../views/ReviewView.vue");
 const NotFoundView = () => import("../views/NotFoundView.vue");
 
@@ -26,7 +24,6 @@ const router = createRouter({
         { name: "student-listings", path: "/student-listings", component: StudentListingsView },
         { name: "tutor-listings", path: "/tutor-listings", component: TutorListingsView },
         { name: "profile", path: "/profile", component: UserProfileView },
-        { name: "tutor-id", path: "/tutor/:id", component: TestView },
         { name: "tutor-review", path: "/review/:id", component: ReviewView },
         { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
       ],
@@ -35,6 +32,8 @@ const router = createRouter({
   ],
 });
 
+
+// navigation guard for authentication
 router.beforeEach(async (to) => {
   const authStore = useAuthStore();
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
