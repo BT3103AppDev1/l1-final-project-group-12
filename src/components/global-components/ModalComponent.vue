@@ -52,6 +52,7 @@ How to use:
   border-radius: 1rem;
   word-wrap: break-word;
   max-width: 70vw;
+  max-height: 70vh;
 }
 
 .close {

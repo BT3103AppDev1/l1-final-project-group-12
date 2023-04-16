@@ -158,6 +158,14 @@ input {
   border-style: none;
 }
 
+textarea {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  resize: none;
+}
+
 button {
   background-color: var(--tent-orange);
   padding: 1rem;
