@@ -11,6 +11,7 @@ const MyProfileView = () => import("../views/MyProfileView.vue");
 const UserProfileView = () => import("../views/UserProfileView.vue");
 const TestView = () => import("../views/TestView.vue");
 const ReviewView = () => import("../views/ReviewView.vue");
+const NotFoundView = () => import("../views/NotFoundView.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,7 @@ const router = createRouter({
         { name: "profile", path: "/profile", component: UserProfileView },
         { name: "tutor-id", path: "/tutor/:id", component: TestView },
         { name: "tutor-review", path: "/review/:id", component: ReviewView },
+        { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFoundView },
       ],
       meta: { requiresAuth: true },
     },
