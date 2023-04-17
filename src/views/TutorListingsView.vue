@@ -121,6 +121,7 @@ updateTutorListings();
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-width: 160px;
 }
 
 #add-listing-button,
