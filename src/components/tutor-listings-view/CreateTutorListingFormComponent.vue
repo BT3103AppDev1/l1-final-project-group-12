@@ -24,6 +24,7 @@ const createListingSchema = toFormValidator(
   })
 );
 
+// creates listing on database
 const createListingOnClick = async (inputs, { resetForm }) => {
   try {
     await createListing("tutor-listing", {
@@ -39,6 +40,7 @@ const createListingOnClick = async (inputs, { resetForm }) => {
   }
 };
 
+// alert user on invalid submissions
 const onInvalidSubmit = ({ values, errors, results }) => {
   console.log(values, errors, results);
   toast("Invalid submission", { type: TYPE.ERROR });

@@ -90,6 +90,7 @@ export default {
         currentTutorId : String
     },
     methods: {
+        // submits review into database
         async submitReview() {
             const bodyValue = document.querySelector("#review-input").value;
             const ratingValue = document.querySelector("#rating-input").value;

@@ -11,6 +11,7 @@ const parts = url.split('/');
 const tutorid = parts[parts.length - 1];
 console.log(tutorid)
 
+// gets reviews from database
 const getReviews = async () => {
   reviewlist.value = await getReviewsByUserId(tutorid);
   console.log(reviewlist.value)

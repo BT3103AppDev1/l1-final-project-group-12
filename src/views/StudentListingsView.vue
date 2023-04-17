@@ -134,6 +134,7 @@ updateStudentListings();
   border-radius: 1rem;
   cursor: pointer;
   transition: scale 150ms ease-in-out;
+  min-width: 130px;
 }
 
 #reset-filter-button {
