@@ -2,9 +2,11 @@ import { db } from "../firebase-config";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   updateDoc,
   where,
@@ -37,6 +39,7 @@ async function createListing(collectionName, listingFields) {
     await updateDoc(listingDoc, { id: listingDoc.id });
   } catch (error) {
     console.error("ERROR: failed to create listing", collectionName, error);
+    throw error;
   }
 }
 
@@ -59,6 +62,7 @@ async function getListingById(collectionName, id) {
     }
   } catch (error) {
     console.error("ERROR: failed to get listing by id", collectionName, error);
+    throw error;
   }
 }
 
@@ -68,7 +72,9 @@ async function getListingById(collectionName, id) {
  */
 async function getAllListings(collectionName) {
   try {
-    const querySnap = await getDocs(collection(db, collectionName));
+    const querySnap = await getDocs(
+      query(collection(db, collectionName), orderBy("dateCreated", "desc"))
+    );
 
     /** @type {Models.Listing[]} */
     let listings = [];
@@ -80,6 +86,7 @@ async function getAllListings(collectionName) {
     return listings;
   } catch (error) {
     console.error("ERROR: failed to get all listings", collectionName, error);
+    throw error;
   }
 }
 
@@ -87,6 +94,7 @@ async function getAllListings(collectionName) {
  * Try to get all listings that match query
  * @param {("student-listing"|"tutor-listing")} collectionName
  * @param {object} queryFields
+ * @param {string} [queryFields.userId]
  * @param {Models.Subject} [queryFields.subject]
  * @param {Models.Level} [queryFields.level]
  * @param {Models.Region} [queryFields.region]
@@ -124,6 +132,7 @@ async function getListingsByQuery(collectionName, queryFields) {
     return listings;
   } catch (error) {
     console.error("ERROR: failed to get all queried listings", collectionName, error);
+    throw error;
   }
 }
 
@@ -143,7 +152,29 @@ async function updateListingById(collectionName, id, updateFields) {
     await updateDoc(doc(db, collectionName, id), updateFields);
   } catch (error) {
     console.error("ERROR: failed to update listing by id", collectionName, error);
+    throw error;
   }
 }
 
-export { createListing, getListingById, getListingsByQuery, getAllListings, updateListingById };
+/**
+ * Try delete listing by id
+ * @param {("student-listing"|"tutor-listing")} collectionName
+ * @param {string} id id of the user to update
+ */
+async function deleteListingById(collectionName, id) {
+  try {
+    await deleteDoc(doc(db, collectionName, id));
+  } catch (error) {
+    console.error("ERROR: failed to update listing by id", collectionName, error);
+    throw error;
+  }
+}
+
+export {
+  createListing,
+  getListingById,
+  getListingsByQuery,
+  getAllListings,
+  updateListingById,
+  deleteListingById,
+};

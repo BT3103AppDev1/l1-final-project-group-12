@@ -20,6 +20,7 @@ async function getUserById(id) {
     }
   } catch (error) {
     console.error("ERROR: failed to get user by id", error);
+    throw error;
   }
 }
 
@@ -40,6 +41,7 @@ async function getAllUsers() {
     return users;
   } catch (error) {
     console.error("ERROR: failed to get all users", error);
+    throw error;
   }
 }
 
@@ -60,6 +62,7 @@ async function getAllTutors() {
     return tutors;
   } catch (error) {
     console.error("ERROR: failed to get all users", error);
+    throw error;
   }
 }
 
@@ -79,6 +82,7 @@ async function updateUserById(id, updateFields) {
     await updateDoc(doc(db, "users", id), updateFields);
   } catch (error) {
     console.error("ERROR: failed to update user by id", error);
+    throw error;
   }
 }
 
@@ -98,6 +102,7 @@ async function updateTutorProfileById(id, tutorProfileFields) {
     await updateDoc(doc(db, "users", id), tutorProfileFields);
   } catch (error) {
     console.error("ERROR: failed to update tutor profile by id", error);
+    throw error;
   }
 }
 

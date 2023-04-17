@@ -17,11 +17,15 @@ const getReviews = async () => {
 };
 
 getReviews();
+
+const change = async() => {
+  getReviews();
+}
 </script>
 
 <template>
   <div class="body">
-    <AddReview @reviewAdded="change" /><br>
+    <AddReview @reviewAdded="change" :currentTutorId = "currentTutorId"/><br>
     <div v-for="review in reviewlist">
       <ReviewList :listing="review" />
     </div>
@@ -33,14 +37,21 @@ getReviews();
 export default {
   data() {
     return {
-      refreshComp: 0
+      refreshComp: 0,
+      currentTutorId : this.generateId()
     }
   },
   methods: {
-    change() {
-      this.refreshComp += 1
-    }
-  }
+    generateId() {
+      let url = window.location.href;
+      let parts = url.split('/');
+      let tutorid = parts[parts.length - 1];
+      console.log(tutorid)
+      return tutorid
+
+    }  
+  },
+
 }
 </script>
 

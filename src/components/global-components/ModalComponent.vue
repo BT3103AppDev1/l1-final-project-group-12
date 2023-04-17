@@ -12,6 +12,8 @@ How to use:
 
   ...
 </template>
+
+3. Listen to the 'close-modal' event and change v-show accordingly
 -->
 
 <template>
@@ -19,7 +21,7 @@ How to use:
     <div class="modal-overlay">
       <div class="modal">
         <div class="close" @click="$emit('close-modal')">
-          <img class="close-img" src="src\assets\close-icon.png" alt="" />
+          <img class="close-img" src="/close-icon.png" alt="" />
         </div>
 
         <slot>Hello from modal!</slot>
@@ -46,10 +48,10 @@ How to use:
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  min-width: 25%;
-  min-height: 25%;
   background-color: white;
   border-radius: 1rem;
+  word-wrap: break-word;
+  max-width: 70vw;
 }
 
 .close {

@@ -2,7 +2,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { auth } from "../lib/firebase-config";
-import { getUserById } from "../lib/handlers/user";
 
 /**
  * How to use auth system:
@@ -11,9 +10,9 @@ import { getUserById } from "../lib/handlers/user";
  *   - `import { useAuthStore } from "@/stores/authStore.js";`
  * 2. Use store in your components
  *   - `{ user, loading } = storeToRefs(useAuthStore());`
- *   - The `user` variable is a ref object, with properties as defined in the User object in "src/lib/models.js"
+ *   - The `user` variable is a ref object, with properties as defined in the User object in firebase
  * 3. Accessing wrapped values in ref objects
- *   - `user.value` will return the User object
+ *   - `user.value` will return the firebase User object
  *   - `loading.value` will return a boolean
  *   - Refer to vue documentation on refs to find out more (https://vuejs.org/api/reactivity-core.html#ref)
  */
@@ -23,13 +22,17 @@ const useAuthStore = defineStore("auth-store", () => {
 
   onAuthStateChanged(auth, async (currUser) => {
     if (currUser) {
-      const userFromFS = await getUserById(currUser.uid);
-      user.value = userFromFS;
+      user.value = currUser;
     }
     loading.value = false;
   });
 
-  return { user, loading };
+  const setUser = (currUser) => {
+    user.value = currUser;
+    loading.value = false;
+  };
+
+  return { user, loading, setUser };
 });
 
 export { useAuthStore };
